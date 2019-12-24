@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/datasheets">
+        <file>2N4957.pdf</file>
+    </qresource>
+</RCC>

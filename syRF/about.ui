@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>About syRF</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -77,10 +77,16 @@
      <item>
       <widget class="QLabel" name="label_description">
        <property name="text">
-        <string>syRF description</string>
+        <string>&lt;b&gt;syRF&lt;/b&gt; is a CAD tool&lt;br&gt; 
+to help you design RF and microwave&lt;br&gt;
+circuits.&lt;br&gt;&lt;br&gt;
+(C) 2019 &lt;a href='https://urbanij.github.io/'&gt;Francesco Urbani&lt;/a&gt;</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+       </property>
+       <property name="openExternalLinks">
+        <bool>true</bool>
        </property>
       </widget>
      </item>

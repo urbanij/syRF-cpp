@@ -1,3 +1,15 @@
+##------------------------------------------------------------------------##
+##                                                                        ##
+##  syRF                                                                  ##
+##  Copyright (C) 2019 Francesco Urbani                                   ##
+##                                                                        ##
+##------------------------------------------------------------------------##
+##  Author:         Francesco Urbani <https://urbanij.github.io/>         ##
+##  Date:           Sat Dec  7 11:36:08 CET 2019                          ##
+##  File:                                   
+##  Description:    
+##------------------------------------------------------------------------##
+
 #-------------------------------------------------
 #
 # Project created by QtCreator 2019-11-23T10:55:49
@@ -8,8 +20,13 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+
+
 TARGET = syRF
 TEMPLATE = app
+
+#QMAKE_INFO_PLIST = info.plist
+#ICON = icons/icns/icon3.icns
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -26,12 +43,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    about.cpp
+    about.cpp \
+    ccomplex.cpp \
+    y_parameters.cpp
 
 HEADERS += \
         mainwindow.h \
-    about.h
+    about.h \
+    ccomplex.h \
+    y_parameters.h
 
 FORMS += \
         mainwindow.ui \
     about.ui
+
+RESOURCES += \
+    resources.qrc
+
