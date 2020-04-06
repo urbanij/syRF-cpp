@@ -29,16 +29,17 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_actionAbout_syRF_triggered();
 
     void on_open_datasheet_Y_button_clicked();
 
     void on_Calculate_button_4_clicked();
-    /*void closeEvent (QCloseEvent *event);*/
+    void closeEvent (QCloseEvent *event);
 
 
 
     void on_y_i_box_2_returnPressed();
+
+    void on_action_About_2_triggered();
 
 private:
     Ui::MainWindow *ui;

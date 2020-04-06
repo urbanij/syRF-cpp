@@ -13,6 +13,7 @@
 #ifndef Y_PARAMETERS_H
 #define Y_PARAMETERS_H
 
+#include <complex>
 
 /**
  * @brief compute_C
@@ -22,7 +23,7 @@
  * @param yre
  * @return
  */
-float compute_C(float yie, float yfe, float yoe, float yre);
+float compute_C(std::complex<float> yie, std::complex<float> yfe, std::complex<float> yoe, std::complex<float> yre);
 
 
 

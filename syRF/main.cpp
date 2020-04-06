@@ -13,9 +13,22 @@
 #include "mainwindow.h"
 #include <QApplication>
 
+#include <QTextStream>
+#include <QFile>// required for the dark theme
+
 int main(int argc, char *argv[])
 {
+
     QApplication a(argc, argv);
+
+    // applying dark theme
+    QFile file(":/dark.qss");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QTextStream stream(&file);
+    // a.setStyleSheet(stream.readAll());    // by just commenting this line out you go back to default theme
+
+
+
     MainWindow w;
     w.show();
 

@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->f0_box->setFocus();
+    ui->f0_box_2->setFocus();
 //    ui->radioButton_CE->toggle();
 //    ui->checkBox->toggle();
 
@@ -41,11 +41,6 @@ MainWindow::~MainWindow(){
     delete ui;
 }
 
-void MainWindow::on_actionAbout_syRF_triggered(){
-    About about;
-    about.setModal(true);
-    about.exec();
-}
 
 void MainWindow::on_open_datasheet_Y_button_clicked(){
 //    QDesktopServices::openUrl(QUrl(":/new/docs/docs/datasheets/2N4957.pdf"));
@@ -57,31 +52,50 @@ void MainWindow::on_open_datasheet_Y_button_clicked(){
 }
 
 void MainWindow::on_Calculate_button_4_clicked(){
-//    float yie = ui->y_i_box_2->text().toFloat();
 
-    ccomplex yie = ccomplex( ui->y_i_box_2->text().toStdString());
-    std::complex<double> c_yie = std::complex<double> (yie.Re(), yie.Im());
+    std::complex<float> yie = std::complex<float> (
+                ccomplex( ui->y_i_box_2->text().toStdString()).Re(),
+                ccomplex( ui->y_i_box_2->text().toStdString()).Im()
+                );
 
-    std::cout << c_yie << std::endl;
+    std::complex<float> yfe = std::complex<float> (
+                ccomplex( ui->y_f_box_2->text().toStdString()).Re(),
+                ccomplex( ui->y_f_box_2->text().toStdString()).Im()
+                );
 
-    float yfe = ui->y_f_box_2->text().toFloat();
-    float yoe = ui->y_o_box_2->text().toFloat();
-    float yre = ui->y_r_box_2->text().toFloat();
+    std::complex<float> yre = std::complex<float> (
+                ccomplex( ui->y_r_box_2->text().toStdString()).Re(),
+                ccomplex( ui->y_r_box_2->text().toStdString()).Im()
+                );
 
-//    ui->C_box_2->setText(QString::number( compute_C(yie,yfe,yoe,yre)) );
+    std::complex<float> yoe = std::complex<float> (
+                ccomplex( ui->y_o_box_2->text().toStdString()).Re(),
+                ccomplex( ui->y_o_box_2->text().toStdString()).Im()
+                );
+
+
+    ui->C_box_2->setText(QString::number( compute_C(yie,yfe,yoe,yre)) );
 }
 
 
-/*
+
+void MainWindow::on_y_i_box_2_returnPressed(){
+    on_Calculate_button_4_clicked();
+}
+
+void MainWindow::on_action_About_2_triggered(){
+    About about;
+    about.setModal(true);
+    about.exec();
+}
+
+
+
 void MainWindow::closeEvent (QCloseEvent *event){
     QMessageBox::StandardButton resBtn = QMessageBox::question( this, "syRF",
                                                                 tr("Are you sure?\n"),
                                                                 QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
                                                                 QMessageBox::Yes);
     resBtn != QMessageBox::Yes ? event->ignore() : event->accept();
-}*/
-
-void MainWindow::on_y_i_box_2_returnPressed()
-{
-    on_Calculate_button_4_clicked();
 }
+

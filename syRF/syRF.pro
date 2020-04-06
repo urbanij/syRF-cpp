@@ -25,8 +25,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = syRF
 TEMPLATE = app
 
-#QMAKE_INFO_PLIST = info.plist
-#ICON = icons/icns/icon3.icns
+#### QMAKE_INFO_PLIST = info.plist
+#### ICON = icons/icns/icon3.icns
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -55,8 +55,8 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui \
-    about.ui
+        about.ui
 
 RESOURCES += \
-    resources.qrc
-
+    resources.qrc \
+    breeze.qrc

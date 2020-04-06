@@ -4,3 +4,4 @@ build*
 png/
 *.out
 aux-code/
+_add*
