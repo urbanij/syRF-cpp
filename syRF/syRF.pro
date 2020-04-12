@@ -45,7 +45,6 @@ SOURCES += \
         mainwindow.cpp \
     about.cpp \
     ccomplex.cpp \
-    test.cpp \
     y_parameters.cpp
 
 HEADERS += \
