@@ -13,6 +13,7 @@
 #include "about.h"
 #include "ui_about.h"
 
+#include "config.h"
 
 About::About(QWidget *parent) :
     QDialog(parent),
@@ -20,7 +21,7 @@ About::About(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->label_version->setText("2.0.0");    // read version from external file later !
+    ui->label_version->setText(VERSION);    // read version from external file later !
 
     QString urls = "<a href=\"https://urbanij.github.io/syRF/\">Home Page</a>";
     ui->label_links->setText(urls);

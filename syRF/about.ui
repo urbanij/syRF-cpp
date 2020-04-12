@@ -77,10 +77,7 @@
      <item>
       <widget class="QLabel" name="label_description">
        <property name="text">
-        <string>&lt;b&gt;syRF&lt;/b&gt; is a CAD tool&lt;br&gt; 
-to help you design RF and microwave&lt;br&gt;
-circuits.&lt;br&gt;&lt;br&gt;
-(C) 2019 &lt;a href='https://urbanij.github.io/'&gt;Francesco Urbani&lt;/a&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;syRF&lt;/span&gt; is a CAD tool&lt;br/&gt;to help you design RF and microwave&lt;br/&gt;circuits.&lt;br/&gt;&lt;br/&gt;© &lt;a href=&quot;https://urbanij.github.io/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;Francesco Urbani&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignJustify|Qt::AlignVCenter</set>
