@@ -52,6 +52,7 @@ HEADERS += \
         mainwindow.h \
     about.h \
     ccomplex.h \
+    utils.h \
     y_parameters.h
 
 FORMS += \

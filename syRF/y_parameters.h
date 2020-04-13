@@ -16,6 +16,9 @@
 #include <complex>
 #include "y_parameters.cpp"
 
+float
+linear_2_dB(float x);
+
 
 float
 compute_C(
@@ -45,7 +48,6 @@ calculate_yin(
      std::complex<float> y_o,
      std::complex<float> y_r,
 
-//     std::complex<float> y_s,
      std::complex<float> y_l
 );
 
@@ -64,13 +66,9 @@ calculate_yout(
 
 std::complex<float>
 calculate_A_V(
-     std::complex<float> y_i,
      std::complex<float> y_f,
      std::complex<float> y_o,
-     std::complex<float> y_r,
-
-     std::complex<float> y_s
-//     std::complex<float> y_l
+     std::complex<float> y_l
 );
 
 std::complex<float>
@@ -91,8 +89,7 @@ calculate_G_A(
      std::complex<float> y_o,
      std::complex<float> y_r,
 
-     std::complex<float> y_s,
-     std::complex<float> y_l
+     std::complex<float> y_s
 );
 
 float
@@ -102,7 +99,6 @@ calculate_G_P(
      std::complex<float> y_o,
      std::complex<float> y_r,
 
-//     std::complex<float> y_s,
      std::complex<float> y_l
 );
 

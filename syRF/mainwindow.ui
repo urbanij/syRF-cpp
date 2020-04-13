@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1319</width>
-    <height>795</height>
+    <width>1191</width>
+    <height>861</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1708,7 +1708,11 @@
           </property>
           <layout class="QGridLayout" name="gridLayout">
            <item row="4" column="1">
-            <widget class="QLineEdit" name="y_s_box_2"/>
+            <widget class="QLineEdit" name="y_s_box_2">
+             <property name="placeholderText">
+              <string>0</string>
+             </property>
+            </widget>
            </item>
            <item row="5" column="2">
             <widget class="QLabel" name="label_10">
@@ -1779,7 +1783,11 @@
             </widget>
            </item>
            <item row="3" column="1">
-            <widget class="QLineEdit" name="y_r_box_2"/>
+            <widget class="QLineEdit" name="y_r_box_2">
+             <property name="placeholderText">
+              <string>0</string>
+             </property>
+            </widget>
            </item>
            <item row="5" column="0">
             <widget class="QLabel" name="label_119">
@@ -1805,10 +1813,18 @@
             </widget>
            </item>
            <item row="5" column="1">
-            <widget class="QLineEdit" name="y_L_box_2"/>
+            <widget class="QLineEdit" name="y_L_box_2">
+             <property name="placeholderText">
+              <string>0</string>
+             </property>
+            </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QLineEdit" name="y_f_box_2"/>
+            <widget class="QLineEdit" name="y_f_box_2">
+             <property name="placeholderText">
+              <string>0</string>
+             </property>
+            </widget>
            </item>
            <item row="0" column="2">
             <widget class="QLabel" name="label_127">
@@ -1856,10 +1872,18 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QLineEdit" name="y_o_box_2"/>
+            <widget class="QLineEdit" name="y_o_box_2">
+             <property name="placeholderText">
+              <string>0</string>
+             </property>
+            </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QLineEdit" name="y_i_box_2"/>
+            <widget class="QLineEdit" name="y_i_box_2">
+             <property name="placeholderText">
+              <string>0</string>
+             </property>
+            </widget>
            </item>
            <item row="0" column="0">
             <widget class="QLabel" name="label_20">
@@ -2468,7 +2492,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1319</width>
+     <width>1191</width>
      <height>22</height>
     </rect>
    </property>

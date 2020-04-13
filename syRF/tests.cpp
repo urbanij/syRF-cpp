@@ -8,7 +8,7 @@
 **  Date:           Sun Apr 12 09:47:14 CEST 2020                         **
 **  File:           tests.cpp                                             **
 **  Description:                                                          **
-**                  g++ test.cpp -std=c++14 -o test && ./test
+**                  g++ -Wall tests.cpp -std=c++14 -o tests && ./tests
 ****************************************************************************/
 
 #include <complex>
@@ -16,18 +16,10 @@
 #include <assert.h>
 #include <math.h>
 
+#include "utils.h"
 #include "y_parameters.h"
 
 
-#define MAG(x)                  std::abs((x))
-#define ARG_DEG(x)              std::arg((x))/3.14159265 * 180
-#define ARG_RAD(x)              std::arg((x))
-
-// #define NUM_DIGITS              pow(10, 4) // i.e. 4 decimal digits
-//#define CHECK_EQUALS(x,y)       ( (trunc(NUM_DIGITS * (x))) == (trunc(NUM_DIGITS * (y))) )
-#define CHECK_EQUALS(x,y)       ( std::abs( (x)-(y) ) < 0.01)
-
-#define PRINT(x)                std::cout << x << "\n"
 
 /*
 double trunc(double d){
@@ -480,8 +472,18 @@ int main(){
     }
 
 
-    
+    /*      S PARAMETERS TESTS    */
+    {
 
+        // test 1 S PARAM
+        {
+            // 
+        }
+    }
+
+    PRINT(ANSI_COLOR_GREEN ANSI_BOLD "tests passed" ANSI_COLOR_RESET " 👌");
     return 0;
 
 }
+
+
