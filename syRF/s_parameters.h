@@ -5,30 +5,41 @@
 **                                                                        **
 ****************************************************************************
 **  Author:         Francesco Urbani <https://urbanij.github.io/>         **
-**  Date:           Sat Dec  7 11:36:08 CET 2019                          **
-**  File:           about.h                                               **
+**  Date:           Mon Apr 13 12:20:20 CEST 2020                         **
+**  File:           s_parameters.h                                        **
 **  Description:                                                          **
 ****************************************************************************/
 
-#ifndef ABOUT_H
-#define ABOUT_H
+#ifndef S_PARAMETERS_H
+#define S_PARAMETERS_H
 
-#include <QDialog>
 
-namespace Ui {
-class About;
-}
+#include <complex>
+#include "s_parameters.cpp"
 
-class About : public QDialog
-{
-    Q_OBJECT
 
-public:
-    explicit About(QWidget *parent = 0);
-    ~About();
+std::complex<float>
+compute_D(
+    std::complex<float> s11,
+    std::complex<float> s12,
+    std::complex<float> s21,
+    std::complex<float> s22
+);
 
-private:
-    Ui::About *ui;
-};
+float 
+calculate_K(std::complex<float> s11,
+            std::complex<float> s12,
+            std::complex<float> s21,
+            std::complex<float> s22
+            );
 
-#endif // ABOUT_H
+
+std::complex<float>
+calculate_gamma(
+    std::complex<float> zl, 
+    std::complex<float> z0
+);
+
+
+
+#endif // S_PARAMETERS_H

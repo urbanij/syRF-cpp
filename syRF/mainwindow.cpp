@@ -1,7 +1,7 @@
 /***************************************************************************
 **                                                                        **
 **  syRF                                                                  **
-**  Copyright (C) 2019 Francesco Urbani                                   **
+**  Copyright (C) 2019-2020 Francesco Urbani                              **
 **                                                                        **
 ****************************************************************************
 **  Author:         Francesco Urbani <https://urbanij.github.io/>         **
@@ -57,6 +57,14 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->f0_box_2->setFocus();
+    ui->radiobutton_2n4957->setChecked(true);
+        ui->y_i_box_2->setEnabled(false);
+        ui->y_f_box_2->setEnabled(false);
+        ui->y_o_box_2->setEnabled(false);
+        ui->y_r_box_2->setEnabled(false);
+        
+    ui->radioButton_CE->setChecked(true);
+
 //    ui->radioButton_CE->toggle();
 //    ui->checkBox->toggle();
 
@@ -77,6 +85,16 @@ void MainWindow::on_open_datasheet_Y_button_clicked(){
 }
 
 void MainWindow::on_Calculate_button_4_clicked(){
+
+    if (ui->radiobutton_2n4957->isChecked()){
+        PRINT("A");
+    }
+    else {
+        PRINT("B");
+    }
+
+
+
 
     // reads inputs
     std::complex<float> y_i,
@@ -143,48 +161,31 @@ void MainWindow::on_Calculate_button_4_clicked(){
 
 
 
-    // displays output
-
+    /* displays output */
     ui->C_box_2->setText(QString::number( compute_C(y_i,y_f,y_o,y_r)) );
-
-//    ui->beta_A_box_2->setText( COMPLEX_REPR_MAG_ARG( calculate_betaA(y_i,y_f,y_o,y_r, y_s, y_l) ));
     ui->beta_A_box_2->setText(
                     QString::number(MAG(calculate_betaA(y_i,y_f,y_o,y_r, y_s, y_l))) + "∠" +
                     QString::number(ARG_DEG(calculate_betaA(y_i,y_f,y_o,y_r, y_s, y_l))) + " deg"
                     );
-
     ui->y_in_box_2->setText( COMPLEX_REPR_RE_IM(calculate_yin( y_i, y_f, y_o, y_r, y_l )) );
 
-
-    WATCH(calculate_yin( y_i, y_f, y_o, y_r, y_l ));
-    WATCH(calculate_betaA( y_i, y_f, y_o, y_r, y_s, y_l ));
-    WATCH(y_l);
-
-
-
-
+//    WATCH(calculate_yin( y_i, y_f, y_o, y_r, y_l ));
+//    WATCH(calculate_betaA( y_i, y_f, y_o, y_r, y_s, y_l ));
+//    WATCH(y_l);
 
     ui->y_out_box_2->setText( COMPLEX_REPR_RE_IM(calculate_yout( y_i, y_f, y_o, y_r, y_s) ));
-
     ui->A_V_box->setText(QString::number( MAG(calculate_A_V(y_f, y_o, y_l)) ));
-
     ui->vout_over_vs_box->setText(QString::number( MAG(calculate_vout_over_vs(y_i, y_f, y_o, y_r, y_s, y_l)) ));
-
     ui->GA_box_2->setText(QString::number( calculate_G_A(y_i, y_f, y_o, y_r, y_s)) );
     ui->GA_box_dB_2->setText(QString::number( linear_2_dB(calculate_G_A(y_i, y_f, y_o, y_r, y_s))) );
-
-
     ui->GP_box_2->setText(QString::number( calculate_G_P(y_i, y_f, y_o, y_r, y_l) ));
     ui->GP_box_dB_2->setText(QString::number( linear_2_dB(calculate_G_P(y_i, y_f, y_o, y_r, y_l) )));
-
     ui->GT_box_2->setText(QString::number( calculate_G_T(y_i, y_f, y_o, y_r, y_s, y_l) ));
-
     ui->GT_box_dB_2->setText(QString::number( linear_2_dB(calculate_G_T(y_i, y_f, y_o, y_r, y_s, y_l) )));
-
     ui->k_box_3->setText(QString::number( calculate_k(y_i, y_f, y_o, y_r, y_s, y_l) ));
-
     ui->y_s_opt_box_2->setText( COMPLEX_REPR_RE_IM(calculate_y_s_opt(y_i, y_f, y_o, y_r )) );
     ui->y_L_opt_box_2->setText( COMPLEX_REPR_RE_IM(calculate_y_l_opt( y_i, y_f, y_o, y_r )) );
+
 
 }
 
@@ -196,6 +197,71 @@ void MainWindow::on_y_r_box_2_returnPressed(){on_Calculate_button_4_clicked();}
 void MainWindow::on_y_o_box_2_returnPressed(){on_Calculate_button_4_clicked();}
 void MainWindow::on_y_s_box_2_returnPressed(){on_Calculate_button_4_clicked();}
 void MainWindow::on_y_L_box_2_returnPressed(){on_Calculate_button_4_clicked();}
+
+void MainWindow::on_radioButton_CE_clicked(){
+    ui->radiobutton_2n4957->setText("2N4957 (Common Emitter config.)");
+    ui->show_plots_button->setText("Show C.E. Y parameters plots");
+    ui->label_20->setText("Y<sub>ie</sub>");
+    ui->label_81->setText("Y<sub>fe</sub>");
+    ui->label_79->setText("Y<sub>oe</sub>");
+    ui->label_78->setText("Y<sub>re</sub>");
+    ui->label_165->setText("V<sub>CE</sub>");
+    on_Calculate_button_4_clicked();
+}
+void MainWindow::on_radioButton_CB_clicked(){
+    ui->radiobutton_2n4957->setText("2N4957 (Common Base config.)");
+    ui->show_plots_button->setText("Show C.B. Y parameters plots");
+    ui->label_20->setText("Y<sub>ib</sub>");
+    ui->label_81->setText("Y<sub>fb</sub>");
+    ui->label_79->setText("Y<sub>ob</sub>");
+    ui->label_78->setText("Y<sub>rb</sub>");
+    ui->label_165->setText("V<sub>CB</sub>");
+    on_Calculate_button_4_clicked();
+}
+void MainWindow::on_radiobutton_2n4957_clicked(){
+    ui->label_165->setEnabled(true);
+    ui->label_166->setEnabled(true);
+    ui->label_118->setEnabled(true);
+    ui->label_37->setEnabled(true);
+    ui->label_38->setEnabled(true);
+    ui->label_8->setEnabled(true);
+    ui->radioButton_CE->setEnabled(true);
+    ui->radioButton_CB->setEnabled(true);
+    ui->f0_box_2->setEnabled(true);
+    ui->y_i_box_2->setEnabled(false);
+    ui->y_f_box_2->setEnabled(false);
+    ui->y_o_box_2->setEnabled(false);
+    ui->y_r_box_2->setEnabled(false);
+
+    ui->f0_box_2->setFocus();
+    on_Calculate_button_4_clicked();
+}
+void MainWindow::on_manual_input_y_radioButton_clicked(){
+    
+    ui->label_165->setEnabled(false);
+    ui->label_166->setEnabled(false);
+    ui->label_118->setEnabled(false);
+    ui->label_37->setEnabled(false);
+    ui->label_38->setEnabled(false);
+    ui->label_8->setEnabled(false);
+    ui->radioButton_CE->setEnabled(false);
+    ui->radioButton_CB->setEnabled(false);
+    ui->f0_box_2->setEnabled(false);
+    ui->y_i_box_2->setEnabled(true);
+    ui->y_f_box_2->setEnabled(true);
+    ui->y_o_box_2->setEnabled(true);
+    ui->y_r_box_2->setEnabled(true);
+
+    ui->label_20->setText("Y<sub>i</sub>");
+    ui->label_81->setText("Y<sub>f</sub>");
+    ui->label_79->setText("Y<sub>o</sub>");
+    ui->label_78->setText("Y<sub>r</sub>");
+    ui->label_165->setText("V<sub>CE</sub>");
+
+    ui->y_i_box_2->setFocus();
+    on_Calculate_button_4_clicked();
+}
+
 
 
 void MainWindow::on_action_About_2_triggered(){
@@ -216,4 +282,5 @@ void MainWindow::closeEvent (QCloseEvent *event){
 
 #endif
 }
+
 

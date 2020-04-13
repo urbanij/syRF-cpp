@@ -1,7 +1,7 @@
 /***************************************************************************
 **                                                                        **
 **  syRF                                                                  **
-**  Copyright (C) 2019 Francesco Urbani                                   **
+**  Copyright (C) 2019-2020 Francesco Urbani                              **
 **                                                                        **
 ****************************************************************************
 **  Author:         Francesco Urbani <https://urbanij.github.io/>         **

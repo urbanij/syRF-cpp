@@ -45,6 +45,7 @@ SOURCES += \
         mainwindow.cpp \
     about.cpp \
     ccomplex.cpp \
+    s_parameters.cpp \
     y_parameters.cpp
 
 HEADERS += \
@@ -52,6 +53,7 @@ HEADERS += \
         mainwindow.h \
     about.h \
     ccomplex.h \
+    s_parameters.h \
     utils.h \
     y_parameters.h
 
