@@ -1,14 +1,14 @@
-/***************************************************************************
-**                                                                        **
-**  syRF                                                                  **
-**  Copyright (C) 2019-2020 Francesco Urbani                              **
-**                                                                        **
-****************************************************************************
-**  Author:         Francesco Urbani <https://urbanij.github.io/>         **
-**  Date:           Sat Dec  7 11:36:08 CET 2019                          **
-**  File:           mainwindow.h                                          **                     
-**  Description:                                                          **
-****************************************************************************/
+/*****************************************************************
+**                                                              **
+**  syRF                                                        **
+**  Copyright (C) 2019-2020 Francesco Urbani                    **
+**                                                              **
+******************************************************************
+**  Author:    Francesco Urbani <https://urbanij.github.io/>    **
+**  Date:      Sat Dec  7 11:36:08 CET 2019                     **
+**  File:           mainwindow.h                                **
+**  Description:                                                **
+******************************************************************/
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
@@ -36,7 +36,7 @@ private slots:
     void closeEvent (QCloseEvent *event);
 
 
-
+    void on_f0_box_2_returnPressed();
     void on_y_i_box_2_returnPressed();
     void on_y_f_box_2_returnPressed();
     void on_y_r_box_2_returnPressed();
@@ -46,12 +46,11 @@ private slots:
     void on_action_About_2_triggered();
 
     void on_radioButton_CE_clicked();
-
     void on_radioButton_CB_clicked();
-
     void on_radiobutton_2n4957_clicked();
-
     void on_manual_input_y_radioButton_clicked();
+
+
 
 private:
     Ui::MainWindow *ui;

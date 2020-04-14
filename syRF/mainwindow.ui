@@ -1657,13 +1657,6 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="Clean_button_3">
-            <property name="text">
-             <string>Clean source and load</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QPushButton" name="plot_C_f0_button">
             <property name="text">
              <string>Plot C(f)</string>
@@ -1676,13 +1669,6 @@
             </property>
             <property name="flat">
              <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="Fill_ys_yl_opt_button">
-            <property name="text">
-             <string>Fill Y_S = Y_S,opt; Y_L = Y_L,opt</string>
             </property>
            </widget>
           </item>
@@ -2739,8 +2725,6 @@
   <tabstop>radioButton_MRF572</tabstop>
   <tabstop>Clean_all_button_4</tabstop>
   <tabstop>Z0_box</tabstop>
-  <tabstop>Clean_button_3</tabstop>
-  <tabstop>Fill_ys_yl_opt_button</tabstop>
   <tabstop>Calculate_button_4</tabstop>
  </tabstops>
  <resources/>

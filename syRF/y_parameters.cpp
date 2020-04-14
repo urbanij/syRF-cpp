@@ -1,14 +1,14 @@
-/***************************************************************************
-**                                                                        **
-**  syRF                                                                  **
-**  Copyright (C) 2019-2020 Francesco Urbani                              **
-**                                                                        **
-****************************************************************************
-**  Author:         Francesco Urbani <https://urbanij.github.io/>         **
-**  Date:           Wed Dec 11 19:48:18 CET 2019                          **
-**  File:           y_parameters.cpp                                      **
-**  Description:                                                          **
-****************************************************************************/
+/*****************************************************************
+**                                                              **
+**  syRF                                                        **
+**  Copyright (C) 2019-2020 Francesco Urbani                    **
+**                                                              **
+******************************************************************
+**  Author:    Francesco Urbani <https://urbanij.github.io/>    **
+**  Date:      Wed Dec 11 19:48:18 CET 2019                     **
+**  File:           y_parameters.cpp                            **
+**  Description:                                                **
+******************************************************************/
 
 #include "y_parameters.h"
 
@@ -64,8 +64,7 @@ calculate_yout(
      std::complex<float> y_r,
 
      std::complex<float> y_s
-//     std::complex<float> y_l
-        ){
+){
     return ( y_o - (y_f*y_r)/(y_i+y_s) );
 }
 
