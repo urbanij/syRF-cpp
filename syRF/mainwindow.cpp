@@ -87,6 +87,10 @@ void MainWindow::on_open_datasheet_Y_button_clicked(){
 }
 
 void MainWindow::on_Calculate_button_4_clicked(){
+    #if DEBUG
+        PRINT("===================================");
+        system("clear");
+    #endif
 
     // reads Y parameter inputs
     std::complex<float> y_i,
@@ -101,6 +105,10 @@ void MainWindow::on_Calculate_button_4_clicked(){
         // fetch data from y_parameters_data.h and auto-fill the y parameters input values
         
         float f0 = ui->f0_box_2->text().toFloat();
+        #if DEBUG 
+            WATCH(f0); 
+        #endif
+
 
         if (f0 > 1500 || f0 < 45){
             // frequency out of range
@@ -109,9 +117,6 @@ void MainWindow::on_Calculate_button_4_clicked(){
         } else {
             ui->statusBar->showMessage("");
             ui->statusBar->setStyleSheet("background-color: auto;");
-
-            WATCH(get_value_from_dictionary(&g_ie, f0));
-            WATCH(get_value_from_dictionary(&b_ie, f0));
 
             if (ui->radioButton_CE->isChecked()){
                 ui->y_i_box_2->setText(
@@ -246,56 +251,74 @@ void MainWindow::on_Calculate_button_4_clicked(){
         }
     }
 
+    #if DEBUG
+        WATCH(y_i);
+        WATCH(y_f);
+        WATCH(y_r);
+        WATCH(y_o);
+        WATCH(y_s);
+        WATCH(y_l);
+    #endif
 
 
+    float                   C       = compute_C(y_i,y_f,y_o,y_r);
+    std::complex<float>     betaA   = calculate_betaA(y_i,y_f,y_o,y_r, y_s, y_l);
+    std::complex<float>     y_in    = calculate_yin( y_i, y_f, y_o, y_r, y_l );
+    std::complex<float>     y_out   = calculate_yout( y_i, y_f, y_o, y_r, y_s);
+    std::complex<float>     A_V     = calculate_A_V(y_f, y_o, y_l);
+    std::complex<float>     vout_over_vs = calculate_vout_over_vs(y_i, y_f, y_o, y_r, y_s, y_l);
+    float                   G_A     = calculate_G_A(y_i, y_f, y_o, y_r, y_s);
+    float                   G_P     = calculate_G_P(y_i, y_f, y_o, y_r, y_l);
+    float                   G_T     = calculate_G_T(y_i, y_f, y_o, y_r, y_s, y_l);
+    float                   k       = calculate_k(y_i, y_f, y_o, y_r, y_s, y_l);
+    std::complex<float>     y_s_opt = calculate_y_s_opt(y_i, y_f, y_o, y_r );
+    std::complex<float>     y_l_opt = calculate_y_l_opt(y_i, y_f, y_o, y_r);
 
 
-
+    #if DEBUG
+        WATCH(C);
+        WATCH(betaA);
+        WATCH(y_in);
+        WATCH(y_out);
+        WATCH(A_V);
+        WATCH(vout_over_vs);
+        WATCH(G_A);
+        WATCH(G_P);
+        WATCH(G_T);
+        WATCH(k);
+        WATCH(y_s_opt);
+        WATCH(y_l_opt);
+    #endif
 
     /* displays output */
-    ui->C_box_2->setText(
-                        QString::number( compute_C(y_i,y_f,y_o,y_r)) );
+    ui->C_box_2->setText( QString::number(C));
     ui->beta_A_box_2->setText(
-                        QString::number(MAG(calculate_betaA(y_i,y_f,y_o,y_r, y_s, y_l))) + "∠" +
-                        QString::number(ARG_DEG(calculate_betaA(y_i,y_f,y_o,y_r, y_s, y_l))) + " deg" );
-    ui->y_in_box_2->setText( 
-                        COMPLEX_REPR_RE_IM(calculate_yin( y_i, y_f, y_o, y_r, y_l )) );
-
-   // WATCH(calculate_yin( y_i, y_f, y_o, y_r, y_l ));
-   // WATCH(calculate_betaA( y_i, y_f, y_o, y_r, y_s, y_l ));
-   // WATCH(y_l);
-
-    ui->y_out_box_2->setText( 
-                        COMPLEX_REPR_RE_IM(calculate_yout( y_i, y_f, y_o, y_r, y_s) ));
-    ui->A_V_box->setText(
-                        QString::number( MAG(calculate_A_V(y_f, y_o, y_l)) ));
-    ui->vout_over_vs_box->setText(
-                        QString::number( MAG(calculate_vout_over_vs(y_i, y_f, y_o, y_r, y_s, y_l)) ));
-    ui->GA_box_2->setText(
-                        QString::number( calculate_G_A(y_i, y_f, y_o, y_r, y_s)) );
-    ui->GA_box_dB_2->setText(
-                        QString::number( linear_2_dB(calculate_G_A(y_i, y_f, y_o, y_r, y_s))) );
-    ui->GP_box_2->setText(
-                        QString::number( calculate_G_P(y_i, y_f, y_o, y_r, y_l) ));
-    ui->GP_box_dB_2->setText(
-                        QString::number( linear_2_dB(calculate_G_P(y_i, y_f, y_o, y_r, y_l) )));
-    ui->GT_box_2->setText(
-                        QString::number( calculate_G_T(y_i, y_f, y_o, y_r, y_s, y_l) ));
-    ui->GT_box_dB_2->setText(
-                        QString::number( linear_2_dB(calculate_G_T(y_i, y_f, y_o, y_r, y_s, y_l) )));
-    ui->k_box_3->setText(
-                        QString::number( calculate_k(y_i, y_f, y_o, y_r, y_s, y_l) ));
-    ui->y_s_opt_box_2->setText(
-                        COMPLEX_REPR_RE_IM(calculate_y_s_opt(y_i, y_f, y_o, y_r )) );
-    ui->y_L_opt_box_2->setText(
-                        COMPLEX_REPR_RE_IM(calculate_y_l_opt( y_i, y_f, y_o, y_r )) );
-
-
+                            QString::number(MAG(betaA)) + "∠" +
+                            QString::number(ARG_DEG(betaA)) + " deg" 
+                            );
+    ui->y_in_box_2->setText(COMPLEX_REPR_RE_IM(y_in));
+    ui->y_out_box_2->setText(COMPLEX_REPR_RE_IM(y_out));
+    ui->A_V_box->setText(QString::number(MAG(A_V)));
+    ui->vout_over_vs_box->setText(QString::number(MAG(vout_over_vs) ));
+    ui->GA_box_2->setText(QString::number(G_A));
+    ui->GA_box_dB_2->setText(QString::number( linear_2_dB(G_A)) );
+    ui->GP_box_2->setText(QString::number(G_P ));
+    ui->GP_box_dB_2->setText(QString::number( linear_2_dB(G_P)));
+    ui->GT_box_2->setText(QString::number( G_T ));
+    ui->GT_box_dB_2->setText(QString::number( linear_2_dB(G_T)));
+    ui->k_box_3->setText(QString::number( k ));
+    ui->y_s_opt_box_2->setText(COMPLEX_REPR_RE_IM(y_s_opt) );
+    ui->y_L_opt_box_2->setText(COMPLEX_REPR_RE_IM(y_l_opt) );
 }
 
 
 
-void MainWindow::on_f0_box_2_returnPressed(){on_Calculate_button_4_clicked();}
+
+void MainWindow::on_f0_box_2_returnPressed(){
+    on_Calculate_button_4_clicked();
+    // go on manual after inserting the frequency
+    ui->manual_input_y_radioButton->click();
+}
 
 void MainWindow::on_y_i_box_2_returnPressed(){on_Calculate_button_4_clicked();}
 void MainWindow::on_y_f_box_2_returnPressed(){on_Calculate_button_4_clicked();}
@@ -303,6 +326,7 @@ void MainWindow::on_y_r_box_2_returnPressed(){on_Calculate_button_4_clicked();}
 void MainWindow::on_y_o_box_2_returnPressed(){on_Calculate_button_4_clicked();}
 void MainWindow::on_y_s_box_2_returnPressed(){on_Calculate_button_4_clicked();}
 void MainWindow::on_y_L_box_2_returnPressed(){on_Calculate_button_4_clicked();}
+
 
 void MainWindow::on_radioButton_CE_clicked(){
     ui->radiobutton_2n4957->setText("2N4957 (Common Emitter config.)");
@@ -372,13 +396,12 @@ void MainWindow::on_manual_input_y_radioButton_clicked(){
 
 
 
+
 void MainWindow::on_action_About_2_triggered(){
     About about;
     about.setModal(true);
     about.exec();
 }
-
-
 
 
 

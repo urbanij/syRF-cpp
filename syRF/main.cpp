@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     QFile file(":/light.qss");
     file.open(QFile::ReadOnly | QFile::Text);
     QTextStream stream(&file);
-    //a.setStyleSheet(stream.readAll());    // by just commenting this line out you go back to default theme
+    a.setStyleSheet(stream.readAll());    // by just commenting this line out you go back to default theme
 
 
 
