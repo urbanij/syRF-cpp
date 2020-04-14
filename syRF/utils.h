@@ -14,6 +14,10 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <map>
+#include <complex>
+
+
 
 /* ANSI colors and stuff */
 #define ANSI_COLOR_RED          "\x1b[31m"
@@ -26,19 +30,25 @@
 /* end colors */
 
 
+/* type definitions */
+// #define complex_t               std::complex<float> 
+typedef std::complex<float>     complex_t;
+#define ONE_COMPLEX             complex_t(1.0, 0.0)
+
+
+
+
 #define MAG(x)                  std::abs((x))
 #define ARG_DEG(x)              std::arg((x))/3.14159265 * 180
 #define ARG_RAD(x)              std::arg((x))
 
+
 #define CHECK_EQUALS(x,y)       ( std::abs( (x)-(y) ) < 0.01)
 
-#define PRINT(x)                std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ANSI_COLOR_RESET << ": " << x << "\n"
-#define WATCH(x)                std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ANSI_COLOR_RESET << ": " << (#x) << "= " << x << "\n"
+#define PRINT(x)                std::cout << x << "\n"
+#define WATCH(x)                std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << (#x) << " = " << x << "\n"
 
 
-
-#include <map>
-#include <complex>
 
 
 float linear_2_dB(float x){

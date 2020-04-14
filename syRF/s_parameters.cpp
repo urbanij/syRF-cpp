@@ -12,74 +12,74 @@
 
 #include "s_parameters.h"
 
-#define ONE_COMPLEX      std::complex<float>(1.0,0.0)
 
-std::complex<float>
-compute_D(std::complex<float> s11,
-        std::complex<float> s12,
-        std::complex<float> s21,
-        std::complex<float> s22
+
+complex_t
+compute_D(complex_t s11,
+        complex_t s12,
+        complex_t s21,
+        complex_t s22
 ){
     return (s11*s22 - s12*s21);
 }
 
 
 float 
-calculate_K(std::complex<float> s11,
-            std::complex<float> s12,
-            std::complex<float> s21,
-            std::complex<float> s22
+calculate_K(complex_t s11,
+            complex_t s12,
+            complex_t s21,
+            complex_t s22
             )
 {
-    std::complex<float> D = compute_D(s11, s12, s21, s22);
+    complex_t D = compute_D(s11, s12, s21, s22);
     return (1-pow(abs(s11),2) - pow(abs(s22),2) + pow(abs(D),2)) / (2*abs(s12*s21));
 }
 
-std::complex<float>
-calculate_gamma(std::complex<float> zl, 
-                std::complex<float> z0
+complex_t
+calculate_gamma(complex_t zl, 
+                complex_t z0
 ){
     return (zl-z0)/(zl+z0);
 }
 
 
-std::complex<float> 
-calculate_gamma_in(std::complex<float> s11, 
-                std::complex<float> s12, 
-                std::complex<float> s21, 
-                std::complex<float> s22, 
-                std::complex<float> zl, 
-                std::complex<float> z0
+complex_t 
+calculate_gamma_in(complex_t s11, 
+                complex_t s12, 
+                complex_t s21, 
+                complex_t s22, 
+                complex_t zl, 
+                complex_t z0
                 )
 {
-    std::complex<float> gamma_L = calculate_gamma(zl, z0);
+    complex_t gamma_L = calculate_gamma(zl, z0);
     return ( s11 + (s12*s21*gamma_L)/(ONE_COMPLEX - s22*gamma_L) );
 }
 
-std::complex<float> 
-calculate_gamma_out(std::complex<float> s11, 
-                std::complex<float> s12, 
-                std::complex<float> s21, 
-                std::complex<float> s22, 
-                std::complex<float> zs, 
-                std::complex<float> z0
+complex_t 
+calculate_gamma_out(complex_t s11, 
+                complex_t s12, 
+                complex_t s21, 
+                complex_t s22, 
+                complex_t zs, 
+                complex_t z0
                 )
 {
-    std::complex<float> gamma_S = calculate_gamma(zs, z0);
+    complex_t gamma_S = calculate_gamma(zs, z0);
     return ( s22 + (s21*s12*gamma_S)/(ONE_COMPLEX - s11*gamma_S) );
 }
 
-std::pair<std::complex<float>, float>
-calculate_ISC(std::complex<float> s11, 
-                std::complex<float> s12, 
-                std::complex<float> s21, 
-                std::complex<float> s22)
+std::pair<complex_t, float>
+calculate_ISC(complex_t s11, 
+                complex_t s12, 
+                complex_t s21, 
+                complex_t s22)
 {
-    std::complex<float> D = compute_D(s11, s12, s21, s22);
+    complex_t D = compute_D(s11, s12, s21, s22);
 
-    std::complex<float> numerator_cs = std::conj(s11 - D*std::conj(s22));
-    std::complex<float> denumerator_cs = pow(abs(s11),2) - pow(abs(D),2);
-    std::complex<float> Cs = numerator_cs / denumerator_cs;
+    complex_t numerator_cs = std::conj(s11 - D*std::conj(s22));
+    complex_t denumerator_cs = pow(abs(s11),2) - pow(abs(D),2);
+    complex_t Cs = numerator_cs / denumerator_cs;
 
     float numerator_rs = abs(s12 * s21);
     float denumerator_rs = abs( pow(abs(D),2) - pow(abs(s11),2) );
@@ -88,18 +88,18 @@ calculate_ISC(std::complex<float> s11,
     return std::make_pair(Cs, rs);
 }
 
-std::pair<std::complex<float>, float>
-calculate_OSC(std::complex<float> s11, 
-                std::complex<float> s12, 
-                std::complex<float> s21, 
-                std::complex<float> s22)
+std::pair<complex_t, float>
+calculate_OSC(complex_t s11, 
+                complex_t s12, 
+                complex_t s21, 
+                complex_t s22)
 {
 
-    std::complex<float> D = compute_D(s11, s12, s21, s22);
+    complex_t D = compute_D(s11, s12, s21, s22);
 
-    std::complex<float> numerator_cl = std::conj(s22 - D*std::conj(s11));
-    std::complex<float> denumerator_cl = pow(abs(s22),2) - pow(abs(D),2);
-    std::complex<float> Cl = numerator_cl / denumerator_cl;
+    complex_t numerator_cl = std::conj(s22 - D*std::conj(s11));
+    complex_t denumerator_cl = pow(abs(s22),2) - pow(abs(D),2);
+    complex_t Cl = numerator_cl / denumerator_cl;
 
     float numerator_rl = abs(s12 * s21);
     float denumerator_rl = abs( pow(abs(D),2) - pow(abs(s22),2) );
@@ -109,34 +109,34 @@ calculate_OSC(std::complex<float> s11,
 }
 
 float
-calculate_GP(std::complex<float> s11, 
-                std::complex<float> s12, 
-                std::complex<float> s21, 
-                std::complex<float> s22, 
-                std::complex<float> zl, 
-                std::complex<float> z0
+calculate_GP(complex_t s11, 
+                complex_t s12, 
+                complex_t s21, 
+                complex_t s22, 
+                complex_t zl, 
+                complex_t z0
                 )
 {
-    std::complex<float> gamma_L = calculate_gamma(zl, z0);
-    std::complex<float> gamma_in = calculate_gamma_in(s11, s12, s21, s22, zl, z0);
+    complex_t gamma_L = calculate_gamma(zl, z0);
+    complex_t gamma_in = calculate_gamma_in(s11, s12, s21, s22, zl, z0);
     // page 51 ETLC disp
     return pow(abs( (s21)/(ONE_COMPLEX - s22*gamma_L) ),2) * ( (1.0 - pow(abs(gamma_L),2))/(1.0 - pow(abs(gamma_in),2)) );
 }
 
 
 float
-calculate_GT(std::complex<float> s11, 
-                std::complex<float> s12, 
-                std::complex<float> s21, 
-                std::complex<float> s22, 
-                std::complex<float> zs, 
-                std::complex<float> zl, 
-                std::complex<float> z0
+calculate_GT(complex_t s11, 
+                complex_t s12, 
+                complex_t s21, 
+                complex_t s22, 
+                complex_t zs, 
+                complex_t zl, 
+                complex_t z0
                 )
 {
-    std::complex<float> gamma_S = calculate_gamma(zs, z0);
-    std::complex<float> gamma_L = calculate_gamma(zl, z0);
-    std::complex<float> gamma_out = calculate_gamma_out(s11, s12, s21, s22, zs, z0);
+    complex_t gamma_S = calculate_gamma(zs, z0);
+    complex_t gamma_L = calculate_gamma(zl, z0);
+    complex_t gamma_out = calculate_gamma_out(s11, s12, s21, s22, zs, z0);
 
     float num = ( pow(abs(s21),2) ) * (1.0 - pow(abs(gamma_S),2)) * (1.0 - pow(abs(gamma_L),2));
     float denum = ( pow(abs( ONE_COMPLEX - gamma_out*gamma_L ) ,2) ) * ( pow(abs( ONE_COMPLEX - s11*gamma_S ),2) );
@@ -145,16 +145,16 @@ calculate_GT(std::complex<float> s11,
 }
 
 float
-calculate_GA(std::complex<float> s11, 
-                std::complex<float> s12, 
-                std::complex<float> s21, 
-                std::complex<float> s22, 
-                std::complex<float> zs, 
-                std::complex<float> z0
+calculate_GA(complex_t s11, 
+                complex_t s12, 
+                complex_t s21, 
+                complex_t s22, 
+                complex_t zs, 
+                complex_t z0
                 )
 {
-    std::complex<float> gamma_S = calculate_gamma(zs, z0);
-    std::complex<float> gamma_out = calculate_gamma_out(s11, s12, s21, s22, zs, z0);
+    complex_t gamma_S = calculate_gamma(zs, z0);
+    complex_t gamma_out = calculate_gamma_out(s11, s12, s21, s22, zs, z0);
     
     float num = (pow(abs(s21),2)) * ( 1.0 - pow(abs(gamma_S),2) );
     float denum = ( 1.0 - pow(abs(gamma_out),2) ) * ( pow( abs(ONE_COMPLEX - s11*gamma_S),2) );
@@ -167,13 +167,13 @@ calculate_GA(std::complex<float> s11,
 float
 calculate_NF(float              NFmin_db, 
             float               Rn, 
-            std::complex<float> gamma_s_on, 
-            std::complex<float> zs, 
+            complex_t gamma_s_on, 
+            complex_t zs, 
             float               z0)
 {
     float NFmin = dB_2_linear(NFmin_db);
     float rn = Rn/z0;
-    std::complex<float> gamma_S = calculate_gamma(zs, z0);
+    complex_t gamma_S = calculate_gamma(zs, z0);
     
     if (abs(gamma_S) != 1){
         // from page 60 ETLC disp

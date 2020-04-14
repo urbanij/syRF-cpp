@@ -40,12 +40,12 @@ void test_y_param()
 
     // test 1 Y PARAM
     {
-        std::complex<float> y_i = 2,
+        complex_t y_i = 2,
                             y_f = 5,
                             y_o = 13,
                             y_r = 2;
 
-        std::complex<float> y_s = 12,
+        complex_t y_s = 12,
                             y_l = 20;
 
         // C
@@ -149,12 +149,12 @@ void test_y_param()
 
     // test 2 Y PARAM
     {
-        std::complex<float> y_i = 0.32,
+        complex_t y_i = 0.32,
                             y_f = 10,
                             y_o = 54,
                             y_r = 10.43;
 
-        std::complex<float> y_s = 124,
+        complex_t y_s = 124,
                             y_l = 201;
 
         // C
@@ -256,13 +256,13 @@ void test_y_param()
 
     // test 3 Y PARAM
     {
-        std::complex<float> y_i = std::complex<float>(2.67904088,      6.52135987),
-                            y_f = std::complex<float>(53.74139389,    -21.87243834),
-                            y_o = std::complex<float>(0.20842061,      1.48452191),
-                            y_r = std::complex<float>(-0.00829180973, -0.47646611);
+        complex_t y_i = complex_t(2.67904088,      6.52135987),
+                            y_f = complex_t(53.74139389,    -21.87243834),
+                            y_o = complex_t(0.20842061,      1.48452191),
+                            y_r = complex_t(-0.00829180973, -0.47646611);
 
-        std::complex<float> y_s = std::complex<float>(10, 0),
-                            y_l = std::complex<float>(20, -28);
+        complex_t y_s = complex_t(10, 0),
+                            y_l = complex_t(20, -28);
 
         // C
         assert (CHECK_EQUALS(
@@ -364,12 +364,12 @@ void test_y_param()
 
     // test 4 Y PARAM
     {
-        std::complex<float> y_i = std::complex<float>(21.47901761,      -3.57313491),
-                            y_f = std::complex<float>(56.58412233,      -118),
-                            y_o = std::complex<float>(0.16518299,       -711),
-                            y_r = std::complex<float>(-0.00199532767,   -0.24835084);
+        complex_t y_i = complex_t(21.47901761,      -3.57313491),
+                            y_f = complex_t(56.58412233,      -118),
+                            y_o = complex_t(0.16518299,       -711),
+                            y_r = complex_t(-0.00199532767,   -0.24835084);
 
-        std::complex<float> y_s = std::complex<float>(20, -43),
+        complex_t y_s = complex_t(20, -43),
                             y_l = 100;
 
         // C
@@ -477,16 +477,16 @@ void test_s_param(){
 
     // test 1 S PARAM (MRF571 -- Vce = 6V, Ic = 5 mA, f = 200 MHz)
     {
-        std::complex<float> s11 = std::complex<float>(0.05161979057065267, -0.7381973971922698),
-                            s12 = std::complex<float>(0.04014783638153149,  0.04458868952864365),
-                            s21 = std::complex<float>(-6.607864106023292 ,  8.160032595298198),
-                            s22 = std::complex<float>(0.512769929579402  , -0.46170011838761216);
-        std::complex<float> zs = std::complex<float>(20, 5.34),
-                            zl = std::complex<float>(43, -5);
+        complex_t s11 = complex_t(0.05161979057065267, -0.7381973971922698),
+                            s12 = complex_t(0.04014783638153149,  0.04458868952864365),
+                            s21 = complex_t(-6.607864106023292 ,  8.160032595298198),
+                            s22 = complex_t(0.512769929579402  , -0.46170011838761216);
+        complex_t zs = complex_t(20, 5.34),
+                            zl = complex_t(43, -5);
         float               z0 = 50.0;
         float               NFmin_db = 0;
         float               Rn = 0;
-        std::complex<float> gamma_s_on = std::complex<float>(0.0, 0.0);
+        complex_t gamma_s_on = complex_t(0.0, 0.0);
 
 
 

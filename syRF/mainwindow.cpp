@@ -34,7 +34,7 @@
 #include <iostream>
 
 
-QString COMPLEX_REPR_RE_IM(std::complex<float> c){
+QString COMPLEX_REPR_RE_IM(complex_t c){
     if (c.imag() >= 0){
         return (QString::number(c.real()) + "+" + QString::number(c.imag()) + "j");
     }
@@ -43,7 +43,7 @@ QString COMPLEX_REPR_RE_IM(std::complex<float> c){
     }
 }
 
-QString COMPLEX_REPR_MAG_ARG(std::complex<float> c){
+QString COMPLEX_REPR_MAG_ARG(complex_t c){
 #if USE_DEGREES
 //    return (std::to_string(MAG(c)) << "∠" << std::to_string(ARG_DEG(c)) << " deg");
     return (QString::number(MAG(c)) + "∠" + QString::number(ARG_DEG(c)) + " deg");
@@ -93,7 +93,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
     #endif
 
     // reads Y parameter inputs
-    std::complex<float> y_i,
+    complex_t y_i,
                         y_f,
                         y_r,
                         y_o,
@@ -121,7 +121,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
             if (ui->radioButton_CE->isChecked()){
                 ui->y_i_box_2->setText(
                         COMPLEX_REPR_RE_IM(
-                            std::complex<float>(
+                            complex_t(
                                 get_value_from_dictionary(&g_ie, f0),
                                 get_value_from_dictionary(&b_ie, f0)
                             )
@@ -129,7 +129,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
                 );
                 ui->y_f_box_2->setText(
                         COMPLEX_REPR_RE_IM(
-                            std::complex<float>(
+                            complex_t(
                                 get_value_from_dictionary(&g_fe, f0),
                                 get_value_from_dictionary(&b_fe, f0)
                             )
@@ -137,7 +137,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
                 );
                 ui->y_r_box_2->setText(
                         COMPLEX_REPR_RE_IM(
-                            std::complex<float>(
+                            complex_t(
                                 get_value_from_dictionary(&g_re, f0),
                                 get_value_from_dictionary(&b_re, f0)
                             )
@@ -145,7 +145,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
                 );
                 ui->y_o_box_2->setText(
                         COMPLEX_REPR_RE_IM(
-                            std::complex<float>(
+                            complex_t(
                                 get_value_from_dictionary(&g_oe, f0),
                                 get_value_from_dictionary(&b_oe, f0)
                             )
@@ -156,7 +156,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
             else if (ui->radioButton_CB->isChecked()){
                 ui->y_i_box_2->setText(
                         COMPLEX_REPR_RE_IM(
-                            std::complex<float>(
+                            complex_t(
                                 get_value_from_dictionary(&g_ib, f0),
                                 get_value_from_dictionary(&b_ib, f0)
                             )
@@ -164,7 +164,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
                 );
                 ui->y_f_box_2->setText(
                         COMPLEX_REPR_RE_IM(
-                            std::complex<float>(
+                            complex_t(
                                 get_value_from_dictionary(&g_fb, f0),
                                 get_value_from_dictionary(&b_fb, f0)
                             )
@@ -172,7 +172,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
                 );
                 ui->y_r_box_2->setText(
                         COMPLEX_REPR_RE_IM(
-                            std::complex<float>(
+                            complex_t(
                                 get_value_from_dictionary(&g_rb, f0),
                                 get_value_from_dictionary(&b_rb, f0)
                             )
@@ -180,7 +180,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
                 );
                 ui->y_o_box_2->setText(
                         COMPLEX_REPR_RE_IM(
-                            std::complex<float>(
+                            complex_t(
                                 get_value_from_dictionary(&g_ob, f0),
                                 get_value_from_dictionary(&b_ob, f0)
                             )
@@ -196,58 +196,58 @@ void MainWindow::on_Calculate_button_4_clicked(){
         // manually fill the y parameters values.
 
         if (! ui->y_i_box_2->text().isEmpty()){
-            y_i= std::complex<float> (
+            y_i= complex_t (
                         ccomplex( ui->y_i_box_2->text().toStdString()).Re(),
                         ccomplex( ui->y_i_box_2->text().toStdString()).Im()
                         );
         } else {
-            y_i = std::complex<float> (0,0);  // INFINITY is the max value a float can hold
+            y_i = complex_t (0,0);  // INFINITY is the max value a float can hold
         }
 
         if (! ui->y_f_box_2->text().isEmpty()){
-            y_f = std::complex<float> (
+            y_f = complex_t (
                         ccomplex( ui->y_f_box_2->text().toStdString()).Re(),
                         ccomplex( ui->y_f_box_2->text().toStdString()).Im()
                         );
         } else {
-            y_f = std::complex<float> (0,0);
+            y_f = complex_t (0,0);
         }
 
         if (! ui->y_r_box_2->text().isEmpty()){
-            y_r = std::complex<float> (
+            y_r = complex_t (
                         ccomplex( ui->y_r_box_2->text().toStdString()).Re(),
                         ccomplex( ui->y_r_box_2->text().toStdString()).Im()
                         );
         } else {
-            y_r = std::complex<float> (0,0);
+            y_r = complex_t (0,0);
         }
 
         if (! ui->y_o_box_2->text().isEmpty()){
-            y_o = std::complex<float> (
+            y_o = complex_t (
                         ccomplex( ui->y_o_box_2->text().toStdString()).Re(),
                         ccomplex( ui->y_o_box_2->text().toStdString()).Im()
                         );
         } else {
-            y_o = std::complex<float> (0,0);
+            y_o = complex_t (0,0);
         }
 
         /// source and load
         if (! ui->y_s_box_2->text().isEmpty()){
-            y_s = std::complex<float> (
+            y_s = complex_t (
                     ccomplex( ui->y_s_box_2->text().toStdString()).Re(),
                     ccomplex( ui->y_s_box_2->text().toStdString()).Im()
                     );
         } else {
-            y_s = std::complex<float> (0,0);
+            y_s = complex_t (0,0);
         }
 
         if (! ui->y_L_box_2->text().isEmpty()){
-             y_l = std::complex<float> (
+             y_l = complex_t (
                         ccomplex( ui->y_L_box_2->text().toStdString()).Re(),
                         ccomplex( ui->y_L_box_2->text().toStdString()).Im()
                         );
         } else {
-             y_l = std::complex<float> (0,0);
+             y_l = complex_t (0,0);
         }
     }
 
@@ -262,17 +262,17 @@ void MainWindow::on_Calculate_button_4_clicked(){
 
 
     float                   C       = compute_C(y_i,y_f,y_o,y_r);
-    std::complex<float>     betaA   = calculate_betaA(y_i,y_f,y_o,y_r, y_s, y_l);
-    std::complex<float>     y_in    = calculate_yin( y_i, y_f, y_o, y_r, y_l );
-    std::complex<float>     y_out   = calculate_yout( y_i, y_f, y_o, y_r, y_s);
-    std::complex<float>     A_V     = calculate_A_V(y_f, y_o, y_l);
-    std::complex<float>     vout_over_vs = calculate_vout_over_vs(y_i, y_f, y_o, y_r, y_s, y_l);
+    complex_t     betaA   = calculate_betaA(y_i,y_f,y_o,y_r, y_s, y_l);
+    complex_t     y_in    = calculate_yin( y_i, y_f, y_o, y_r, y_l );
+    complex_t     y_out   = calculate_yout( y_i, y_f, y_o, y_r, y_s);
+    complex_t     A_V     = calculate_A_V(y_f, y_o, y_l);
+    complex_t     vout_over_vs = calculate_vout_over_vs(y_i, y_f, y_o, y_r, y_s, y_l);
     float                   G_A     = calculate_G_A(y_i, y_f, y_o, y_r, y_s);
     float                   G_P     = calculate_G_P(y_i, y_f, y_o, y_r, y_l);
     float                   G_T     = calculate_G_T(y_i, y_f, y_o, y_r, y_s, y_l);
     float                   k       = calculate_k(y_i, y_f, y_o, y_r, y_s, y_l);
-    std::complex<float>     y_s_opt = calculate_y_s_opt(y_i, y_f, y_o, y_r );
-    std::complex<float>     y_l_opt = calculate_y_l_opt(y_i, y_f, y_o, y_r);
+    complex_t     y_s_opt = calculate_y_s_opt(y_i, y_f, y_o, y_r );
+    complex_t     y_l_opt = calculate_y_l_opt(y_i, y_f, y_o, y_r);
 
 
     #if DEBUG

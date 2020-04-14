@@ -19,92 +19,92 @@
 #include "s_parameters.cpp"
 
 
-std::complex<float>
+complex_t
 compute_D(
-    std::complex<float> s11,
-    std::complex<float> s12,
-    std::complex<float> s21,
-    std::complex<float> s22
+    complex_t s11,
+    complex_t s12,
+    complex_t s21,
+    complex_t s22
 );
 
 float 
-calculate_K(std::complex<float> s11,
-            std::complex<float> s12,
-            std::complex<float> s21,
-            std::complex<float> s22
+calculate_K(complex_t s11,
+            complex_t s12,
+            complex_t s21,
+            complex_t s22
             );
 
 
 /////// GAMMAS ///////
-std::complex<float>
-calculate_gamma(std::complex<float> zl, 
-                std::complex<float> z0
+complex_t
+calculate_gamma(complex_t zl, 
+                complex_t z0
 );
 
-std::complex<float> 
-calculate_gamma_in(std::complex<float> s11, 
-                std::complex<float> s12, 
-                std::complex<float> s21, 
-                std::complex<float> s22, 
-                std::complex<float> zl, 
-                std::complex<float> z0
+complex_t 
+calculate_gamma_in(complex_t s11, 
+                complex_t s12, 
+                complex_t s21, 
+                complex_t s22, 
+                complex_t zl, 
+                complex_t z0
                 );
 
-std::complex<float> 
-calculate_gamma_out(std::complex<float> s11, 
-                std::complex<float> s12, 
-                std::complex<float> s21, 
-                std::complex<float> s22, 
-                std::complex<float> zs, 
-                std::complex<float> z0
+complex_t 
+calculate_gamma_out(complex_t s11, 
+                complex_t s12, 
+                complex_t s21, 
+                complex_t s22, 
+                complex_t zs, 
+                complex_t z0
                 );
 
 /////// INPUT AND OUTPUT STABILITY CIRCLES  ///////
-std::pair<std::complex<float>, float>
-calculate_ISC(std::complex<float> s11, 
-                std::complex<float> s12, 
-                std::complex<float> s21, 
-                std::complex<float> s22);
+std::pair<complex_t, float>
+calculate_ISC(complex_t s11, 
+                complex_t s12, 
+                complex_t s21, 
+                complex_t s22);
 
-std::pair<std::complex<float>, float>
-calculate_OSC(std::complex<float> s11, 
-                std::complex<float> s12, 
-                std::complex<float> s21, 
-                std::complex<float> s22);
+std::pair<complex_t, float>
+calculate_OSC(complex_t s11, 
+                complex_t s12, 
+                complex_t s21, 
+                complex_t s22);
 
 
 /////// GAINS ///////
 float
-calculate_GP(std::complex<float> s11, 
-                std::complex<float> s12, 
-                std::complex<float> s21, 
-                std::complex<float> s22, 
-                std::complex<float> zl, 
-                std::complex<float> z0
+calculate_GP(complex_t s11, 
+                complex_t s12, 
+                complex_t s21, 
+                complex_t s22, 
+                complex_t zl, 
+                complex_t z0
                 );
 float
-calculate_GT(std::complex<float> s11, 
-                std::complex<float> s12, 
-                std::complex<float> s21, 
-                std::complex<float> s22, 
-                std::complex<float> zs, 
-                std::complex<float> zl, 
-                std::complex<float> z0
+calculate_GT(complex_t s11, 
+                complex_t s12, 
+                complex_t s21, 
+                complex_t s22, 
+                complex_t zs, 
+                complex_t zl, 
+                complex_t z0
                 );
 float
-calculate_GA(std::complex<float> s11, 
-                std::complex<float> s12, 
-                std::complex<float> s21, 
-                std::complex<float> s22, 
-                std::complex<float> zs, 
-                std::complex<float> z0
+calculate_GA(complex_t s11, 
+                complex_t s12, 
+                complex_t s21, 
+                complex_t s22, 
+                complex_t zs, 
+                complex_t z0
                 );
 
 
 float
 calculate_NF(float              NFmin_db, 
             float               Rn, 
-            std::complex<float> gamma_s_on, 
+            complex_t gamma_s_on, 
             float               zs, 
             float               z0);
 
