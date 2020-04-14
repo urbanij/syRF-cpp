@@ -34,11 +34,74 @@ calculate_K(std::complex<float> s11,
             );
 
 
+/////// GAMMAS ///////
 std::complex<float>
-calculate_gamma(
-    std::complex<float> zl, 
-    std::complex<float> z0
+calculate_gamma(std::complex<float> zl, 
+                std::complex<float> z0
 );
+
+std::complex<float> 
+calculate_gamma_in(std::complex<float> s11, 
+                std::complex<float> s12, 
+                std::complex<float> s21, 
+                std::complex<float> s22, 
+                std::complex<float> zl, 
+                std::complex<float> z0
+                );
+
+std::complex<float> 
+calculate_gamma_out(std::complex<float> s11, 
+                std::complex<float> s12, 
+                std::complex<float> s21, 
+                std::complex<float> s22, 
+                std::complex<float> zs, 
+                std::complex<float> z0
+                );
+
+/////// INPUT AND OUTPUT STABILITY CIRCLES  ///////
+std::pair<std::complex<float>, float>
+calculate_ISC(std::complex<float> s11, 
+                std::complex<float> s12, 
+                std::complex<float> s21, 
+                std::complex<float> s22);
+
+std::pair<std::complex<float>, float>
+calculate_OSC(std::complex<float> s11, 
+                std::complex<float> s12, 
+                std::complex<float> s21, 
+                std::complex<float> s22);
+
+
+/////// GAINS ///////
+float
+calculate_GP(std::complex<float> s11, 
+                std::complex<float> s12, 
+                std::complex<float> s21, 
+                std::complex<float> s22, 
+                std::complex<float> zl, 
+                std::complex<float> z0
+                );
+float
+calculate_GT(std::complex<float> s11, 
+                std::complex<float> s12, 
+                std::complex<float> s21, 
+                std::complex<float> s22, 
+                std::complex<float> zs, 
+                std::complex<float> zl, 
+                std::complex<float> z0
+                );
+float
+calculate_GA(std::complex<float> s11, 
+                std::complex<float> s12, 
+                std::complex<float> s21, 
+                std::complex<float> s22, 
+                std::complex<float> zs, 
+                std::complex<float> z0
+                );
+
+
+
+
 
 
 

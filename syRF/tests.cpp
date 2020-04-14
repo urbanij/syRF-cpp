@@ -498,6 +498,22 @@ void test_s_param(){
         assert (CHECK_EQUALS(
                     (calculate_K(s11, s12, s21, s22)),  0.21024
                     ));
+        
+        // Gamma S
+        assert (CHECK_EQUALS(
+                    (MAG(calculate_gamma(zs, z0))),  0.43405
+                    ));
+        assert (CHECK_EQUALS(
+                    (ARG_DEG(calculate_gamma(zs, z0))),  165.54
+                    )); 
+
+        // Gamma L
+        assert (CHECK_EQUALS(
+                    (MAG(calculate_gamma(zl, z0))),  0.092365
+                    ));
+        assert (CHECK_EQUALS(
+                    (ARG_DEG(calculate_gamma(zl, z0))),  -141.38
+                    ));        
 
         // Gamma in
         assert (CHECK_EQUALS(
@@ -514,6 +530,49 @@ void test_s_param(){
         assert (CHECK_EQUALS(
                     (ARG_DEG(calculate_gamma_out(s11, s12, s21, s22, zs, z0))),  -30.083
                     ));
+
+        // ISC (input stability circle) center fisrst and radius second
+        assert (CHECK_EQUALS(
+                    (MAG(calculate_ISC(s11, s12, s21, s22).first)) ,2.8177
+                    ));
+        assert (CHECK_EQUALS(
+                    (ARG_DEG(calculate_ISC(s11, s12, s21, s22).first)) , 115.2
+                    ));
+        assert (CHECK_EQUALS(
+                    (calculate_ISC(s11, s12, s21, s22).second),  2.43242
+                    ));
+
+        // OSC (output stability circle) center fisrst and radius second
+        assert (CHECK_EQUALS(
+                    (MAG(calculate_OSC(s11, s12, s21, s22).first)) , 3.7016
+                    ));
+        assert (CHECK_EQUALS(
+                    (ARG_DEG(calculate_OSC(s11, s12, s21, s22).first)) , 75.382
+                    ));
+        assert (CHECK_EQUALS(
+                    (calculate_OSC(s11, s12, s21, s22).second), 3.36
+                    ));
+
+        // G_P
+        assert (CHECK_EQUALS(
+                    (calculate_GP(s11, s12, s21, s22, zl, z0)),  196.349
+                    ));
+        // G_T
+        assert (CHECK_EQUALS(
+                    (calculate_GT(s11, s12, s21, s22, zs, zl, z0)),  76.6305
+                    ));
+        // G_A
+        assert (CHECK_EQUALS(
+                    (calculate_GA(s11, s12, s21, s22, zs, z0)), 531.473
+                    ));
+
+
+
+
+
+        
+        
+
 
 
 
