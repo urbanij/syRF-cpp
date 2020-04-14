@@ -12,7 +12,7 @@
 
 #include "s_parameters.h"
 
-#define ONE_COMPLEX                 std::complex<float>(1.0,0.0)
+#define ONE_COMPLEX      std::complex<float>(1.0,0.0)
 
 std::complex<float>
 compute_D(std::complex<float> s11,
@@ -164,16 +164,23 @@ calculate_GA(std::complex<float> s11,
 
 
 
-
-
-// def calculate_NF(NFmin_db, Rn, gamma_s_on, zs, z0):
-//     NFmin = un_db(NFmin_db)
-//     rn = Rn/z0
-//     gamma_S = calculate_gamma(zs, z0)
-//     if abs(gamma_S) == 1:
-//         return "inf"
-//     NF = NFmin + (4*rn*abs(gamma_S - gamma_s_on)**2)/((1-abs(gamma_S)**2)*abs(1+gamma_s_on)**2)
-//     return NF
+float
+calculate_NF(float              NFmin_db, 
+            float               Rn, 
+            std::complex<float> gamma_s_on, 
+            std::complex<float> zs, 
+            float               z0)
+{
+    float NFmin = dB_2_linear(NFmin_db);
+    float rn = Rn/z0;
+    std::complex<float> gamma_S = calculate_gamma(zs, z0);
+    
+    if (abs(gamma_S) != 1){
+        // from page 60 ETLC disp
+        return ( NFmin + (4 * rn * (pow( (abs(gamma_S - gamma_s_on)) ,2)) )/( (1.0 - pow(abs(gamma_S),2))*(pow(abs(ONE_COMPLEX+gamma_s_on),2)) ) );
+    }
+    return INFINITY;
+}
 
 
 

@@ -483,7 +483,11 @@ void test_s_param(){
                             s22 = std::complex<float>(0.512769929579402  , -0.46170011838761216);
         std::complex<float> zs = std::complex<float>(20, 5.34),
                             zl = std::complex<float>(43, -5);
-        float z0 = 50.0;
+        float               z0 = 50.0;
+        float               NFmin_db = 0;
+        float               Rn = 0;
+        std::complex<float> gamma_s_on = std::complex<float>(0.0, 0.0);
+
 
 
         // D
@@ -566,8 +570,13 @@ void test_s_param(){
                     (calculate_GA(s11, s12, s21, s22, zs, z0)), 531.473
                     ));
 
-
-
+        // NF
+        assert (CHECK_EQUALS(
+                    (calculate_NF(NFmin_db, Rn, gamma_s_on, zs, z0)), 1
+                    ));
+        assert (CHECK_EQUALS(
+                    (linear_2_dB(calculate_NF(NFmin_db, Rn, gamma_s_on, zs, z0))), 0
+                    ));
 
 
         

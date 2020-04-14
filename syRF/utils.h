@@ -41,6 +41,16 @@
 #include <complex>
 
 
+float linear_2_dB(float x){
+    return 10*log10(abs(x));
+}
+
+float dB_2_linear(float x){
+    return pow(10, (x/10));
+}
+
+
+
 float
 get_value_from_dictionary(
     std::map<float, float>* m,

@@ -10,11 +10,9 @@
 **  Description:                                                **
 ******************************************************************/
 
+
 #include "y_parameters.h"
 
-float linear_2_dB(float x){
-    return 10*log10(abs(x));
-}
 
 float 
 compute_C(

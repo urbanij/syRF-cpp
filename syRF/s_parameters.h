@@ -15,6 +15,7 @@
 
 
 #include <complex>
+#include "utils.h"
 #include "s_parameters.cpp"
 
 
@@ -98,6 +99,15 @@ calculate_GA(std::complex<float> s11,
                 std::complex<float> zs, 
                 std::complex<float> z0
                 );
+
+
+float
+calculate_NF(float              NFmin_db, 
+            float               Rn, 
+            std::complex<float> gamma_s_on, 
+            float               zs, 
+            float               z0);
+
 
 
 

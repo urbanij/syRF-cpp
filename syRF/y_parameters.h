@@ -14,6 +14,7 @@
 #define Y_PARAMETERS_H
 
 #include <complex>
+#include "utils.h"
 #include "y_parameters.cpp"
 
 float
