@@ -7,7 +7,7 @@
 **  Author:    Francesco Urbani <https://urbanij.github.io/>    **
 **  Date:      Sun Apr 12 19:02:02 CEST 2020                    **
 **  File:           utils.h                                     **
-**  Description:    various utils and functions used throghout 
+**  Description:    various utils and functions used throghout
                     the project
 ******************************************************************/
 
@@ -16,6 +16,7 @@
 
 #include <map>
 #include <complex>
+#include <cmath>
 
 
 
@@ -31,7 +32,7 @@
 
 
 /* type definitions */
-// #define complex_t               std::complex<float> 
+// #define complex_t               std::complex<float>
 typedef std::complex<float>     complex_t;
 #define ONE_COMPLEX             complex_t(1.0, 0.0)
 
@@ -59,6 +60,11 @@ float dB_2_linear(float x){
     return pow(10, (x/10));
 }
 
+complex_t polar_2_rect( float mag,
+                        float phase)
+{
+    return complex_t(mag*cos(phase), mag*sin(phase));
+}
 
 
 float

@@ -22,8 +22,15 @@
 #include "y_parameters.h"
 #include "s_parameters.h"
 
-// #define ERROR 0.01
+
 #define ERROR 0.01
+////////////////////////////////////////////////////////////////////////////
+
+
+
+#define NF_opt_dB       NFmin_db // alias
+
+////////////////////////////////////////////////////////////////////////////
 
 
 TEST(y_parameters, Test1){
@@ -348,19 +355,17 @@ TEST(s_parameters, Test1){
     EXPECT_NEAR((calculate_NF(NFmin_db, Rn, gamma_s_on, zs, z0)), 1, ERROR);
     EXPECT_NEAR((linear_2_dB(calculate_NF(NFmin_db, Rn, gamma_s_on, zs, z0))), 0, ERROR);
 
-    // Ni
-#if 0
-    float NF_dB = 1.2;
-    EXPECT_NEAR((calculate_Ni(NF_dB, NFmin_db, gamma_s_on, Rn, z0)), INFINITY, ERROR); // edit
-
-
+    #if 0
     // NF circle
-    float NF_circle_dB = 1.5;
-    float NF_opt_dB = 1.5;
-    EXPECT_NEAR((MAG(calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn).first)) , 3.7016, ERROR);
-    EXPECT_NEAR((ARG_DEG(calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn).first)) , 75.382, ERROR);
-    EXPECT_NEAR((calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn).second), 3.36, ERROR);
-#endif
+    {
+        float NF_circle_dB = 1.9;
+        EXPECT_NEAR((MAG(calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn).first)) , 3.7016, ERROR);
+        EXPECT_NEAR((ARG_DEG(calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn).first)) , 75.382, ERROR);
+        EXPECT_NEAR((calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn).second), 3.36, ERROR);
+    }
+    #endif
+
+
 
     // GA circles
     {
@@ -422,14 +427,258 @@ TEST(s_parameters, Test1){
     }
 
 
+    // Gamma S optimum
+    EXPECT_EQ(isnan(MAG(calculate_gamma_S_opt(s11, s12, s21, s22))),  1);
+    EXPECT_EQ(isnan(ARG_DEG(calculate_gamma_S_opt(s11, s12, s21, s22))), 1 );
+
+    // Gamma L optimum
+    EXPECT_EQ(isnan(MAG(calculate_gamma_L_opt(s11, s12, s21, s22))),  1);
+    EXPECT_EQ(isnan(ARG_DEG(calculate_gamma_L_opt(s11, s12, s21, s22))), 1 );
 
 }
 
 
 
-int
-main(int argc, char **argv)
-{
+
+TEST(s_parameters, Test2){
+    // MRF571 -- Vce = 6V, Ic = 5 mA, f = 1000 MHz
+
+    /// ==== INPUTS ===== ///
+    complex_t   s11 = complex_t(-0.6096284044816485, 0.021288692988525697),
+                s12 = complex_t(0.07187719590425636,  0.05416335208368434),
+                s21 = complex_t(0.6237350724532784 ,  2.9344428022014166),
+                s22 = complex_t(0.10034302587268412  , -0.2614025194192165);
+    complex_t   zs  = complex_t(43, -52),
+                zl  = complex_t(50, 0);
+    float       z0  = 50.0;
+    float       NFmin_db = 1.5;
+    float       Rn  = 7.5;
+    complex_t   gamma_s_on = complex_t(-0.33343601782031873, 0.3452831041625525); // 0.48∠134.0 deg
+
+    /// ==== END INPUTS ===== ///
+
+
+    // D
+    EXPECT_NEAR((MAG(compute_D(s11, s12, s21, s22))) , 0.10171, ERROR);
+    EXPECT_NEAR((ARG_DEG(compute_D(s11, s12, s21, s22))) , -54.891, ERROR);
+
+    // K
+    EXPECT_NEAR((calculate_K(s11, s12, s21, s22)),  1.0368, ERROR);
+
+    // Gamma S
+    EXPECT_NEAR((MAG(calculate_gamma(zs, z0))),  0.49243, ERROR);
+    EXPECT_NEAR((ARG_DEG(calculate_gamma(zs, z0))),  -68.456, ERROR);
+
+    // Gamma L
+    EXPECT_NEAR((MAG(calculate_gamma(zl, z0))), 0.0, ERROR);
+    EXPECT_NEAR((ARG_DEG(calculate_gamma(zl, z0))),  0.0, ERROR);
+
+    // Gamma in
+    EXPECT_NEAR((MAG(calculate_gamma_in(s11, s12, s21, s22, zl, z0))),  0.61, ERROR);
+    EXPECT_NEAR((ARG_DEG(calculate_gamma_in(s11, s12, s21, s22, zl, z0))),  178, ERROR);
+
+    // Gamma out
+    EXPECT_NEAR((MAG(calculate_gamma_out(s11, s12, s21, s22, zs, z0))),  0.2236, ERROR);
+    EXPECT_NEAR((ARG_DEG(calculate_gamma_out(s11, s12, s21, s22, zs, z0))),  -45.357, ERROR);
+
+    // ISC (input stability circle) center fisrst and radius second
+    EXPECT_NEAR((MAG(calculate_ISC(s11, s12, s21, s22).first)) ,1.762, ERROR);
+    EXPECT_NEAR((ARG_DEG(calculate_ISC(s11, s12, s21, s22).first)) , -178.71, ERROR);
+    EXPECT_NEAR((calculate_ISC(s11, s12, s21, s22).second),  0.74636, ERROR);
+
+    // OSC (output stability circle) center fisrst and radius second
+    EXPECT_NEAR((MAG(calculate_OSC(s11, s12, s21, s22).first)) , 4.9967, ERROR);
+    EXPECT_NEAR((ARG_DEG(calculate_OSC(s11, s12, s21, s22).first)) , 66.098, ERROR);
+    EXPECT_NEAR((calculate_OSC(s11, s12, s21, s22).second), 3.9674, ERROR);
+
+    // G_P
+    EXPECT_NEAR((calculate_GP(s11, s12, s21, s22, zl, z0)),  14.333, ERROR);
+    // G_T
+    EXPECT_NEAR((calculate_GT(s11, s12, s21, s22, zs, zl, z0)),  5.28, ERROR);
+    // G_A
+    EXPECT_NEAR((calculate_GA(s11, s12, s21, s22, zs, z0)), 5.5579, ERROR);
+
+    // NF
+    EXPECT_NEAR((calculate_NF(NFmin_db, Rn, gamma_s_on, zs, z0)), 2.6913, ERROR);
+    EXPECT_NEAR((linear_2_dB(calculate_NF(NFmin_db, Rn, gamma_s_on, zs, z0))), 4.2996, ERROR);
+
+
+    // NF circle
+    {
+        float NF_circle_dB = 3.12;
+        EXPECT_NEAR((MAG(calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn).first)) , 0.30004, ERROR);
+        EXPECT_NEAR((ARG_DEG(calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn).first)) , 134, ERROR);
+        EXPECT_NEAR((calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn).second), 0.56651, ERROR);
+    }
+    {
+        float NF_circle_dB = 1.5;
+        EXPECT_NEAR((MAG(calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn).first)) , 0.48, ERROR);
+        EXPECT_NEAR((ARG_DEG(calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn).first)) , 134, ERROR);
+        EXPECT_NEAR((calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn).second), 0.0, ERROR);
+    }
+    {
+        float NF_circle_dB = 12;
+        EXPECT_NEAR((MAG(calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn).first)) , 0.03297, ERROR);
+        EXPECT_NEAR((ARG_DEG(calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn).first)) , 134, ERROR);
+        EXPECT_NEAR((calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn).second), 0.95738, ERROR);
+    }
+
+    // GA circles
+    {
+        float Ga_circle_dB = -3.0;
+        EXPECT_NEAR((MAG(calculate_GA_circle(s11, s12, s21, s22, Ga_circle_dB).first)) , 0.034795, ERROR);
+        EXPECT_NEAR((ARG_DEG(calculate_GA_circle(s11, s12, s21, s22, Ga_circle_dB).first)) , -178.71, ERROR);
+        EXPECT_NEAR((calculate_GA_circle(s11, s12, s21, s22, Ga_circle_dB).second), 0.96496, ERROR);
+    }
+    {
+        float Ga_circle_dB = 13.53;
+        EXPECT_NEAR((MAG(calculate_GA_circle(s11, s12, s21, s22, Ga_circle_dB).first)) , 0.83759, ERROR);
+        EXPECT_NEAR((ARG_DEG(calculate_GA_circle(s11, s12, s21, s22, Ga_circle_dB).first)) , -178.71, ERROR);
+        EXPECT_NEAR((calculate_GA_circle(s11, s12, s21, s22, Ga_circle_dB).second),0.12314, ERROR);
+    }
+
+    // GP circles
+    {
+        float Gp_circle_dB = 9.4;
+        EXPECT_NEAR((MAG(calculate_GP_circle(s11, s12, s21, s22, Gp_circle_dB).first)) , 0.30874, ERROR);
+        EXPECT_NEAR((ARG_DEG(calculate_GP_circle(s11, s12, s21, s22, Gp_circle_dB).first)) , 66.098, ERROR);
+        EXPECT_NEAR((calculate_GP_circle(s11, s12, s21, s22, Gp_circle_dB).second), 0.68076, ERROR);
+    }
+
+
+    // GT circles
+    {
+        float Gt_circle_dB = 2.5;
+        EXPECT_NEAR((MAG(calculate_GT_circle(s11, s12, s21, s22, zs, zl, z0, Gt_circle_dB).first)) , 0.074062, ERROR);
+        EXPECT_NEAR((ARG_DEG(calculate_GT_circle(s11, s12, s21, s22, zs, zl, z0, Gt_circle_dB).first)) , 45.357, ERROR);
+        EXPECT_NEAR((calculate_GT_circle(s11, s12, s21, s22, zs, zl, z0, Gt_circle_dB).second), 0.81099, ERROR);
+    }
+
+    // Gamma S optimum
+    EXPECT_NEAR((MAG(calculate_gamma_S_opt(s11, s12, s21, s22))),  0.8908, ERROR);
+    EXPECT_NEAR((ARG_DEG(calculate_gamma_S_opt(s11, s12, s21, s22))),  -178.71, ERROR);
+
+    // Gamma L optimum
+    EXPECT_NEAR((MAG(calculate_gamma_L_opt(s11, s12, s21, s22))),  0.80609, ERROR);
+    EXPECT_NEAR((ARG_DEG(calculate_gamma_L_opt(s11, s12, s21, s22))),  66.098, ERROR);
+}
+
+
+TEST(s_parameters, Test3){
+    // MRF572 -- Vce = 6V, Ic = 5 mA, f = 1000 MHz
+
+    /// ==== INPUTS ===== ///
+    complex_t   s11 = complex_t(-0.6430842427582553,-0.14846769586695105),
+                s12 = complex_t(0.09271838545667875, 0.0374606593415912),
+                s21 = complex_t(0.6296696847425982, 3.2393697053772907),
+                s22 = complex_t(0.06523580575972082, -0.2825673187877182);
+    complex_t   zs  = complex_t(2.89, -4.41),
+                zl  = complex_t(10.2, -9.32);
+    float       z0  = 50.0;
+    float       NFmin_db = 1.5;
+    float       Rn  = 6.0;
+    complex_t   gamma_s_on = complex_t(-0.24548784220188344, 0.5033246659275336); // 0.56∠116.0
+
+    /// ==== END INPUTS ===== ///
+
+    // D
+    EXPECT_NEAR((MAG(compute_D(s11, s12, s21, s22))) ,0.15334, ERROR);
+    EXPECT_NEAR((ARG_DEG(compute_D(s11, s12, s21, s22))) ,-97.848, ERROR);
+
+    // K
+    EXPECT_NEAR((calculate_K(s11, s12, s21, s22)),  0.76336, ERROR);
+
+    // Gamma S
+    EXPECT_NEAR((MAG(calculate_gamma(zs, z0))),  0.89152, ERROR);
+    EXPECT_NEAR((ARG_DEG(calculate_gamma(zs, z0))),  -169.89, ERROR);
+
+    // Gamma L
+    EXPECT_NEAR((MAG(calculate_gamma(zl, z0))), 0.67102, ERROR);
+    EXPECT_NEAR((ARG_DEG(calculate_gamma(zl, z0))),  -158.02, ERROR);
+
+    // Gamma in
+    EXPECT_NEAR((MAG(calculate_gamma_in(s11, s12, s21, s22, zl, z0))),  0.59305, ERROR);
+    EXPECT_NEAR((ARG_DEG(calculate_gamma_in(s11, s12, s21, s22, zl, z0))),  -149.95, ERROR);
+
+    // Gamma out
+    EXPECT_NEAR((MAG(calculate_gamma_out(s11, s12, s21, s22, zs, z0))), 0.82749, ERROR);
+    EXPECT_NEAR((ARG_DEG(calculate_gamma_out(s11, s12, s21, s22, zs, z0))), -53.712, ERROR);
+
+    // ISC (input stability circle) center fisrst and radius second
+    EXPECT_NEAR((MAG(calculate_ISC(s11, s12, s21, s22).first)) ,1.6923, ERROR);
+    EXPECT_NEAR((ARG_DEG(calculate_ISC(s11, s12, s21, s22).first)) , 169.04, ERROR);
+    EXPECT_NEAR((calculate_ISC(s11, s12, s21, s22).second),  0.8008, ERROR);
+
+    // OSC (output stability circle) center fisrst and radius second
+    EXPECT_NEAR((MAG(calculate_OSC(s11, s12, s21, s22).first)) , 6.2437, ERROR);
+    EXPECT_NEAR((ARG_DEG(calculate_OSC(s11, s12, s21, s22).first)) , 85.57, ERROR);
+    EXPECT_NEAR((calculate_OSC(s11, s12, s21, s22).second), 5.4468, ERROR);
+
+    // G_P
+    EXPECT_NEAR((calculate_GP(s11, s12, s21, s22, zl, z0)),  7.3232, ERROR);
+    // G_T
+    EXPECT_NEAR((calculate_GT(s11, s12, s21, s22, zs, zl, z0)),  2.0664, ERROR);
+    // G_A
+    EXPECT_NEAR((calculate_GA(s11, s12, s21, s22, zs, z0)), 26.862, ERROR);
+
+    // NF
+    EXPECT_NEAR((calculate_NF(NFmin_db, Rn, gamma_s_on, zs, z0)), 3.7872, ERROR);
+    EXPECT_NEAR((linear_2_dB(calculate_NF(NFmin_db, Rn, gamma_s_on, zs, z0))), 5.7832, ERROR);
+
+
+    // NF circle
+    {
+        float NF_circle_dB = 5.0;
+        EXPECT_NEAR((MAG(calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn).first)) , 0.14005, ERROR);
+        EXPECT_NEAR((ARG_DEG(calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn).first)) , 116, ERROR);
+        EXPECT_NEAR((calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn).second), 0.83133, ERROR);
+    }
+    {
+        float NF_circle_dB = 1.55;
+        EXPECT_NEAR((MAG(calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn).first)) , 0.54473, ERROR);
+        EXPECT_NEAR((ARG_DEG(calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn).first)) , 116, ERROR);
+        EXPECT_NEAR((calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn).second), 0.13766, ERROR);
+    }
+
+    // GA circles
+    {
+        float Ga_circle_dB = 9.3;
+        EXPECT_NEAR((MAG(calculate_GA_circle(s11, s12, s21, s22, Ga_circle_dB).first)) , 0.41227, ERROR);
+        EXPECT_NEAR((ARG_DEG(calculate_GA_circle(s11, s12, s21, s22, Ga_circle_dB).first)) , 169.04, ERROR);
+        EXPECT_NEAR((calculate_GA_circle(s11, s12, s21, s22, Ga_circle_dB).second), 0.6204, ERROR);
+    }
+
+    // GP circles
+    {
+        float Gp_circle_dB = 9;
+        EXPECT_NEAR((MAG(calculate_GP_circle(s11, s12, s21, s22, Gp_circle_dB).first)) , 0.26424, ERROR);
+        EXPECT_NEAR((ARG_DEG(calculate_GP_circle(s11, s12, s21, s22, Gp_circle_dB).first)) ,85.57, ERROR);
+        EXPECT_NEAR((calculate_GP_circle(s11, s12, s21, s22, Gp_circle_dB).second), 0.79577, ERROR);
+    }
+
+    // GT circles
+    {
+        float Gt_circle_dB = 4.81;
+        EXPECT_NEAR((MAG(calculate_GT_circle(s11, s12, s21, s22, zs, zl, z0, Gt_circle_dB).first)) , 0.23762, ERROR);
+        EXPECT_NEAR((ARG_DEG(calculate_GT_circle(s11, s12, s21, s22, zs, zl, z0, Gt_circle_dB).first)) , 53.712, ERROR);
+        EXPECT_NEAR((calculate_GT_circle(s11, s12, s21, s22, zs, zl, z0, Gt_circle_dB).second), 0.75675, ERROR);
+    }
+
+    // Gamma S optimum
+    EXPECT_EQ(isnan(MAG(calculate_gamma_S_opt(s11, s12, s21, s22))),  1);
+    EXPECT_EQ(isnan(ARG_DEG(calculate_gamma_S_opt(s11, s12, s21, s22))), 1 );
+
+    // Gamma L optimum
+    EXPECT_EQ(isnan(MAG(calculate_gamma_L_opt(s11, s12, s21, s22))),  1);
+    EXPECT_EQ(isnan(ARG_DEG(calculate_gamma_L_opt(s11, s12, s21, s22))), 1 );
+
+}
+
+
+
+
+
+int main(int argc, char **argv){
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }

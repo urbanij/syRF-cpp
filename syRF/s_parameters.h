@@ -105,13 +105,6 @@ calculate_NF(float      NFmin_db,
             float       z0);
 
 
-float
-calculate_Ni(float NF_dB,
-            float NFmin_db,
-            complex_t gamma_s_on,
-            float Rn,
-            float z0);
-
 std::pair<complex_t, float>
 calculate_NF_circle(complex_t s11,
                     complex_t s12,
@@ -139,12 +132,6 @@ calculate_GP_circle(complex_t s11,
                     float     Gp_circle_dB);
 
 
-float
-calculate_GTi(float Gt_circle_dB,
-                    complex_t s11,
-                    complex_t s21,
-                    complex_t zs,
-                    float z0);
 
 std::pair<complex_t, float>
 calculate_GT_circle(complex_t s11,
@@ -156,8 +143,11 @@ calculate_GT_circle(complex_t s11,
                     float z0,
                     float Gt_circle_dB);
 
-
-
+complex_t
+calculate_gamma_S_opt(complex_t s11,
+                    complex_t s12,
+                    complex_t s21,
+                    complex_t s22);
 
 
 
