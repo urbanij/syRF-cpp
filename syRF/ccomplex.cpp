@@ -10,7 +10,8 @@
 
 
 ccomplex::ccomplex(const std::string& str) {
-    double real = 0.0, imag = 0.0;
+    double real = 0.0, 
+           imag = 0.0;
 
     std::regex realRegex("^(-)?\\s*(\\d+(\\.\\d+)?)$");
     std::regex imagRegex("^(-)?\\s*(\\d+(\\.\\d+)?)j$");

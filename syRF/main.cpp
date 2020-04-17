@@ -21,8 +21,6 @@
 #include <QColor>
 #include <QStyleFactory>
 
-#define THEME_2_DARK 1
-
 int main(int argc, char *argv[])
 {
 

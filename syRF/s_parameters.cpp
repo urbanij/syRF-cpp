@@ -12,8 +12,6 @@
 
 #include "s_parameters.h"
 
-
-
 complex_t
 compute_D(complex_t s11,
         complex_t s12,
@@ -24,7 +22,7 @@ compute_D(complex_t s11,
 }
 
 
-float 
+float
 calculate_K(complex_t s11,
             complex_t s12,
             complex_t s21,
@@ -36,19 +34,19 @@ calculate_K(complex_t s11,
 }
 
 complex_t
-calculate_gamma(complex_t zl, 
+calculate_gamma(complex_t zl,
                 complex_t z0
 ){
     return (zl-z0)/(zl+z0);
 }
 
 
-complex_t 
-calculate_gamma_in(complex_t s11, 
-                complex_t s12, 
-                complex_t s21, 
-                complex_t s22, 
-                complex_t zl, 
+complex_t
+calculate_gamma_in(complex_t s11,
+                complex_t s12,
+                complex_t s21,
+                complex_t s22,
+                complex_t zl,
                 complex_t z0
                 )
 {
@@ -56,12 +54,12 @@ calculate_gamma_in(complex_t s11,
     return ( s11 + (s12*s21*gamma_L)/(ONE_COMPLEX - s22*gamma_L) );
 }
 
-complex_t 
-calculate_gamma_out(complex_t s11, 
-                complex_t s12, 
-                complex_t s21, 
-                complex_t s22, 
-                complex_t zs, 
+complex_t
+calculate_gamma_out(complex_t s11,
+                complex_t s12,
+                complex_t s21,
+                complex_t s22,
+                complex_t zs,
                 complex_t z0
                 )
 {
@@ -70,9 +68,9 @@ calculate_gamma_out(complex_t s11,
 }
 
 std::pair<complex_t, float>
-calculate_ISC(complex_t s11, 
-                complex_t s12, 
-                complex_t s21, 
+calculate_ISC(complex_t s11,
+                complex_t s12,
+                complex_t s21,
                 complex_t s22)
 {
     complex_t D = compute_D(s11, s12, s21, s22);
@@ -89,9 +87,9 @@ calculate_ISC(complex_t s11,
 }
 
 std::pair<complex_t, float>
-calculate_OSC(complex_t s11, 
-                complex_t s12, 
-                complex_t s21, 
+calculate_OSC(complex_t s11,
+                complex_t s12,
+                complex_t s21,
                 complex_t s22)
 {
 
@@ -109,11 +107,11 @@ calculate_OSC(complex_t s11,
 }
 
 float
-calculate_GP(complex_t s11, 
-                complex_t s12, 
-                complex_t s21, 
-                complex_t s22, 
-                complex_t zl, 
+calculate_GP(complex_t s11,
+                complex_t s12,
+                complex_t s21,
+                complex_t s22,
+                complex_t zl,
                 complex_t z0
                 )
 {
@@ -125,12 +123,12 @@ calculate_GP(complex_t s11,
 
 
 float
-calculate_GT(complex_t s11, 
-                complex_t s12, 
-                complex_t s21, 
-                complex_t s22, 
-                complex_t zs, 
-                complex_t zl, 
+calculate_GT(complex_t s11,
+                complex_t s12,
+                complex_t s21,
+                complex_t s22,
+                complex_t zs,
+                complex_t zl,
                 complex_t z0
                 )
 {
@@ -145,17 +143,17 @@ calculate_GT(complex_t s11,
 }
 
 float
-calculate_GA(complex_t s11, 
-                complex_t s12, 
-                complex_t s21, 
-                complex_t s22, 
-                complex_t zs, 
-                complex_t z0
-                )
+calculate_GA(complex_t s11,
+            complex_t s12,
+            complex_t s21,
+            complex_t s22,
+            complex_t zs,
+            complex_t z0
+            )
 {
     complex_t gamma_S = calculate_gamma(zs, z0);
     complex_t gamma_out = calculate_gamma_out(s11, s12, s21, s22, zs, z0);
-    
+
     float num = (pow(abs(s21),2)) * ( 1.0 - pow(abs(gamma_S),2) );
     float denum = ( 1.0 - pow(abs(gamma_out),2) ) * ( pow( abs(ONE_COMPLEX - s11*gamma_S),2) );
 
@@ -165,16 +163,16 @@ calculate_GA(complex_t s11,
 
 
 float
-calculate_NF(float              NFmin_db, 
-            float               Rn, 
-            complex_t gamma_s_on, 
-            complex_t zs, 
-            float               z0)
+calculate_NF(float      NFmin_db,
+            float       Rn,
+            complex_t   gamma_s_on,
+            complex_t   zs,
+            float       z0)
 {
     float NFmin = dB_2_linear(NFmin_db);
     float rn = Rn/z0;
     complex_t gamma_S = calculate_gamma(zs, z0);
-    
+
     if (abs(gamma_S) != 1){
         // from page 60 ETLC disp
         return ( NFmin + (4 * rn * (pow( (abs(gamma_S - gamma_s_on)) ,2)) )/( (1.0 - pow(abs(gamma_S),2))*(pow(abs(ONE_COMPLEX+gamma_s_on),2)) ) );
@@ -183,56 +181,124 @@ calculate_NF(float              NFmin_db,
 }
 
 
+float
+calculate_Ni(float      NF_dB,
+            float       NFmin_db,
+            complex_t   gamma_s_on,
+            float       Rn,
+            float       z0)
+{
+    // Note: NF_circle_dB is in dB
+    float noise_fig = dB_2_linear(NF_dB);
+    float noise_fig_min = dB_2_linear(NFmin_db);
+    float rn = Rn/z0;
+
+    return ( ( (noise_fig-noise_fig_min)*pow(abs(ONE_COMPLEX+gamma_s_on),2) )/(4*rn) );
+}
+
+std::pair<complex_t, float>
+calculate_NF_circle(complex_t   s11,
+                    complex_t   s12,
+                    complex_t   s21,
+                    complex_t   s22,
+                    float       z0,
+                    float       NF_circle_dB,
+                    complex_t   gamma_s_on,
+                    float       NF_opt_dB,
+                    float       Rn)
+{
+    float Ni = calculate_Ni(NF_circle_dB, NF_opt_dB, gamma_s_on, Rn, z0);
+    complex_t Cnf = gamma_s_on / (1+Ni);
+
+    float rnf = sqrt(2.32);
+
+    return std::make_pair(Cnf, rnf);
+
+}
+
+std::pair<complex_t, float>
+calculate_GA_circle(complex_t s11,
+                    complex_t s12,
+                    complex_t s21,
+                    complex_t s22,
+                    float     Ga_circle_dB)
+{
+    float ga = dB_2_linear(Ga_circle_dB)/pow(abs(s21),2);
+    complex_t D = compute_D(s11, s12, s21, s22);
+    float K = calculate_K(s11, s12, s21, s22);
+
+    complex_t Ca_num = ga * std::conj(s11 - D*std::conj(s22));
+    float Ca_denom = 1.0 + ga*(pow(abs(s11),2) - pow(abs(D),2));
+    complex_t Ca = Ca_num/Ca_denom;
+
+    float ra_num = sqrt( 1.0 - 2*K*ga*abs(s12*s21) + pow((ga*abs(s12*s21)),2) );
+    float ra_denom = abs(1.0 + ga*( pow(abs(s11),2) - pow(abs(D),2) ));
+    float ra = ra_num/ra_denom;
+
+    return std::make_pair(Ca, ra);
+}
+
+std::pair<complex_t, float>
+calculate_GP_circle(complex_t s11,
+                    complex_t s12,
+                    complex_t s21,
+                    complex_t s22,
+                    float     Gp_circle_dB)
+{
+    float gp = dB_2_linear(Gp_circle_dB)/pow(abs(s21),2);
+    complex_t D = compute_D(s11, s12, s21, s22);
+    float K = calculate_K(s11, s12, s21, s22);
+
+    complex_t Cp_num = gp * std::conj(s22 - D*std::conj(s11));
+    float Cp_denom = 1.0 + gp*(pow(abs(s22),2) - pow(abs(D),2));
+    complex_t Cp = Cp_num/Cp_denom;
+
+    float rp_num = sqrt( 1.0 - 2*K*gp*abs(s12*s21) + pow((gp*abs(s12*s21)),2) );
+    float rp_denom = abs(1.0 + gp*( pow(abs(s22),2) - pow(abs(D),2) ));
+    float rp = rp_num/rp_denom;
+
+    return std::make_pair(Cp, rp);
+}
 
 
+float
+calculate_GTi(float Gt_circle_dB,
+                    complex_t s11,
+                    complex_t s21,
+                    complex_t zs,
+                    float z0)
+{
+    complex_t gamma_S = calculate_gamma(zs, z0);
+    float Gt_circle = dB_2_linear(Gt_circle_dB);
+    return ( (Gt_circle * pow(abs(ONE_COMPLEX - s11*gamma_S),2))/((1.0-pow(abs(gamma_S),2))*pow(abs(s21),2)) );
+}
 
 
-// def calculate_Ni(NF_dB, NFmin_db, gamma_s_on, Rn, z0):
-//     # Note: NF_circle_dB is in dB
-//     NF = un_db(NF_dB)
-//     NFmin = un_db(NFmin_db)
-//     rn = Rn/z0
-//     return ( ((NF-NFmin)*abs(1+gamma_s_on)**2)/(4*rn) )
+std::pair<complex_t, float>
+calculate_GT_circle(complex_t s11,
+                    complex_t s12,
+                    complex_t s21,
+                    complex_t s22,
+                    complex_t zs,
+                    complex_t zl,
+                    float z0,
+                    float Gt_circle_dB)
+{
+    float GTi = calculate_GTi(Gt_circle_dB, s11, s21, zs, z0);
+    complex_t gamma_out = calculate_gamma_out(s11, s12, s21, s22, zs, z0);
+    complex_t Ct = std::conj(gamma_out) * complex_t(((GTi)/(GTi * pow(abs(gamma_out),2) + 1.0)),0) ;
 
-// def calculate_NF_circle(s11, s12, s21, s22, z0, NF_circle_dB, gamma_s_on, NF_opt_dB, Rn):
-//     Ni = calculate_Ni(NF_circle_dB, NF_opt_dB, gamma_s_on, Rn, z0)
-//     Cnf = gamma_s_on/(1+Ni)
-//     rnf = ( (Ni*(1+Ni-abs(gamma_s_on)**2))/(1+Ni)**2 )**0.5
-//     return Cnf, rnf
+    // rt from page 58
+    float rt_first_term = ( pow( GTi*abs(gamma_out),2) )/(pow((1.0 + GTi*pow(abs(gamma_out),2)),2));
 
+    float rt_second_term = (1.0 - GTi)/(1.0 + GTi*pow(abs(gamma_out),2));
 
+    float rt = sqrt(rt_first_term + rt_second_term);
 
-// def calculate_GA_circle(s11, s12, s21, s22, Ga_circle_dB):
-//     ga = un_db(Ga_circle_dB)/abs(s21)**2
-//     D = calculate_D(s11, s12, s21, s22)
-//     K = calculate_K(s11, s12, s21, s22)
-//     Ca = (ga*(s11-s22.conjugate()*D).conjugate())/(1+ga*(abs(s11)**2-abs(D)**2))
-//     ra = ((1-2*K*abs(s12*s21)*ga + ga**2*abs(s12*s21)**2)**0.5)/(abs(1+ga*(abs(s11)**2 - abs(D)**2)))
-//     return Ca, ra
+    return std::make_pair(Ct, rt);
 
+}
 
-
-// def calculate_GP_circle(s11, s12, s21, s22, Gp_circle_dB):
-//     gp = un_db(Gp_circle_dB)/abs(s21)**2
-//     D = calculate_D(s11, s12, s21, s22)
-//     K = calculate_K(s11, s12, s21, s22)
-//     Cp = (gp*(s22-s11.conjugate()*D).conjugate())/(1+gp*(abs(s22)**2-abs(D)**2))
-//     rp = ((1-2*K*abs(s12*s21)*gp + gp**2*abs(s12*s21)**2)**0.5)/(abs(1+gp*(abs(s22)**2 - abs(D)**2)))
-//     return Cp, rp
-
-
-// def calculate_GTi(Gt_circle_dB, s11, s21, zs, z0):
-//     gamma_S = calculate_gamma(zs, z0)
-//     Gt_circle = un_db(Gt_circle_dB)
-//     return (Gt_circle*abs(1-s11*gamma_S)**2)/((1-abs(gamma_S)**2)*abs(s21)**2)
-
-
-// def calculate_GT_circle(s11, s12, s21, s22, zs, zl, z0, Gt_circle_dB):
-//     GTi = calculate_GTi(Gt_circle_dB, s11, s21, zs, z0)
-//     gamma_out = calculate_gamma_out(s11, s12, s21, s22, zs, z0)
-//     Ct = ( GTi * gamma_out.conjugate() )/(GTi*abs(gamma_out)**2 + 1)
-//     rt = ( (GTi**2 * abs(gamma_out)**2)/(GTi*abs(gamma_out)**2 + 1)**2 + (1-GTi)/(GTi*abs(gamma_out)**2 + 1) )**0.5
-//     return Ct, rt
 
 
 // def calculate_gamma_S_opt(s11, s12, s21, s22):

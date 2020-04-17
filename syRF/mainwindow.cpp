@@ -89,7 +89,7 @@ void MainWindow::on_open_datasheet_Y_button_clicked(){
 void MainWindow::on_Calculate_button_4_clicked(){
     #if DEBUG
         PRINT("===================================");
-        system("clear");
+        // system("clear");
     #endif
 
     // reads Y parameter inputs
@@ -196,10 +196,24 @@ void MainWindow::on_Calculate_button_4_clicked(){
         // manually fill the y parameters values.
 
         if (! ui->y_i_box_2->text().isEmpty()){
+            
+            #define DUMBTEST 0
+            #if DUMBTEST
+            QString a = ui->y_i_box_2->text();
+            std::string utf8_text = a.toUtf8().constData();
+            WATCH(utf8_text);
+            WATCH(ccomplex(utf8_text));
+            WATCH(ccomplex(utf8_text).Re());
+            WATCH(ccomplex(utf8_text).Im());
+#endif
+
             y_i= complex_t (
                         ccomplex( ui->y_i_box_2->text().toStdString()).Re(),
                         ccomplex( ui->y_i_box_2->text().toStdString()).Im()
                         );
+
+            
+
         } else {
             y_i = complex_t (0,0);  // INFINITY is the max value a float can hold
         }
@@ -261,18 +275,18 @@ void MainWindow::on_Calculate_button_4_clicked(){
     #endif
 
 
-    float                   C       = compute_C(y_i,y_f,y_o,y_r);
-    complex_t     betaA   = calculate_betaA(y_i,y_f,y_o,y_r, y_s, y_l);
-    complex_t     y_in    = calculate_yin( y_i, y_f, y_o, y_r, y_l );
-    complex_t     y_out   = calculate_yout( y_i, y_f, y_o, y_r, y_s);
-    complex_t     A_V     = calculate_A_V(y_f, y_o, y_l);
-    complex_t     vout_over_vs = calculate_vout_over_vs(y_i, y_f, y_o, y_r, y_s, y_l);
-    float                   G_A     = calculate_G_A(y_i, y_f, y_o, y_r, y_s);
-    float                   G_P     = calculate_G_P(y_i, y_f, y_o, y_r, y_l);
-    float                   G_T     = calculate_G_T(y_i, y_f, y_o, y_r, y_s, y_l);
-    float                   k       = calculate_k(y_i, y_f, y_o, y_r, y_s, y_l);
-    complex_t     y_s_opt = calculate_y_s_opt(y_i, y_f, y_o, y_r );
-    complex_t     y_l_opt = calculate_y_l_opt(y_i, y_f, y_o, y_r);
+    float       C       = compute_C(y_i,y_f,y_o,y_r);
+    complex_t   betaA   = calculate_betaA(y_i,y_f,y_o,y_r, y_s, y_l);
+    complex_t   y_in    = calculate_yin( y_i, y_f, y_o, y_r, y_l );
+    complex_t   y_out   = calculate_yout( y_i, y_f, y_o, y_r, y_s);
+    complex_t   A_V     = calculate_A_V(y_f, y_o, y_l);
+    complex_t   vout_over_vs = calculate_vout_over_vs(y_i, y_f, y_o, y_r, y_s, y_l);
+    float       G_A     = calculate_G_A(y_i, y_f, y_o, y_r, y_s);
+    float       G_P     = calculate_G_P(y_i, y_f, y_o, y_r, y_l);
+    float       G_T     = calculate_G_T(y_i, y_f, y_o, y_r, y_s, y_l);
+    float       k       = calculate_k(y_i, y_f, y_o, y_r, y_s, y_l);
+    complex_t   y_s_opt = calculate_y_s_opt(y_i, y_f, y_o, y_r );
+    complex_t   y_l_opt = calculate_y_l_opt(y_i, y_f, y_o, y_r);
 
 
     #if DEBUG
