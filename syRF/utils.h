@@ -44,7 +44,7 @@ typedef std::complex<float>     complex_t;
 #define ARG_RAD(x)              std::arg((x))
 
 
-#define CHECK_EQUALS(x,y)       ( std::abs( (x)-(y) ) < 0.01)
+//#define CHECK_EQUALS(x,y)       ( std::abs( (x)-(y) ) < 0.01)
 
 #define PRINT(x)                std::cout << x << "\n"
 #define WATCH(x)                std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << (#x) << " = " << x << "\n"

@@ -87,7 +87,7 @@ void MainWindow::on_open_datasheet_Y_button_clicked(){
 }
 
 void MainWindow::on_Calculate_button_4_clicked(){
-    #if DEBUG
+    #if PRINT_TO_CONSOLE
         PRINT("===================================");
         system("clear");
     #endif
@@ -105,7 +105,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
         // fetch data from y_parameters_data.h and auto-fill the y parameters input values
 
         float f0 = ui->f0_box_2->text().toFloat();
-        #if DEBUG
+        #if PRINT_TO_CONSOLE
             WATCH(f0);
         #endif
 
@@ -197,8 +197,8 @@ void MainWindow::on_Calculate_button_4_clicked(){
 
         if (! ui->y_i_box_2->text().isEmpty()){
 
-            #define DUMBTEST 0
-            #if DUMBTEST
+#define DUMBTEST 0
+#if DUMBTEST
             QString a = ui->y_i_box_2->text();
             std::string utf8_text = a.toUtf8().constData();
             WATCH(utf8_text);
@@ -265,7 +265,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
         }
     }
 
-    #if DEBUG
+    #if PRINT_TO_CONSOLE
         WATCH(y_i);
         WATCH(y_f);
         WATCH(y_r);
@@ -289,7 +289,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
     complex_t   y_l_opt = calculate_y_l_opt(y_i, y_f, y_o, y_r);
 
 
-    #if DEBUG
+    #if PRINT_TO_CONSOLE
         WATCH(C);
         WATCH(betaA);
         WATCH(y_in);
@@ -412,7 +412,7 @@ void MainWindow::on_manual_input_y_radioButton_clicked(){
 
 
 void MainWindow::on_Calculate_button_5_clicked(){
-    #if DEBUG
+    #if PRINT_TO_CONSOLE
         PRINT("===================================");
         system("clear");
     #endif
@@ -426,8 +426,23 @@ void MainWindow::on_Calculate_button_5_clicked(){
 
     /* displays output */
     ui->D_box_2->setText( QString::number(2.23));
+
+    if (ui->radioButton1_MRF571->isChecked()){
+
+        PRINT(ui->comboBox_MRF_bias->currentText().toStdString());
+
+    }
+    
 }
 
+
+
+
+void MainWindow::on_action_LumpedMatching_triggered(){
+    // LumpedMatching lumpedmatching;
+    // lumpedmatching.setModal(true);
+    // lumpedmatching.exec();
+}
 
 
 
@@ -441,7 +456,7 @@ void MainWindow::on_action_About_2_triggered(){
 
 
 void MainWindow::closeEvent (QCloseEvent *event){
-#if !DEBUG
+#if 1
     QMessageBox::StandardButton resBtn = QMessageBox::question( this, "syRF",
                                                                 tr("Are you sure?\n"),
                                                                 QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,

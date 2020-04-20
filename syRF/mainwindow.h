@@ -42,7 +42,6 @@ private slots:
     void on_y_o_box_2_returnPressed();
     void on_y_s_box_2_returnPressed();
     void on_y_L_box_2_returnPressed();
-    void on_action_About_2_triggered();
 
     void on_radioButton_CE_clicked();
     void on_radioButton_CB_clicked();
@@ -57,12 +56,11 @@ private slots:
 
 
 
-
-
     /// END S TAB ///
 
 
-
+    void on_action_About_2_triggered();
+    void on_action_LumpedMatching_triggered();
 
 
     void closeEvent (QCloseEvent *event);

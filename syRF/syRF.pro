@@ -58,8 +58,10 @@ HEADERS += \
     y_parameters.h
 
 FORMS += \
-        mainwindow.ui \
-        about.ui
+        ui/mainwindow.ui \
+        ui/about.ui \
+        ui/lumped_matching.ui
+
 
 RESOURCES += \
     resources.qrc \

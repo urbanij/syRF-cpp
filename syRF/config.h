@@ -15,6 +15,8 @@
 
 
 #define DEBUG           1
+#define PRINT_TO_CONSOLE 1
+
 #define THEME_1_DARK    1
 
 
