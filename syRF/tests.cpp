@@ -319,12 +319,12 @@ TEST(s_parameters, Test1){
     EXPECT_NEAR((calculate_K(s11, s12, s21, s22)),  0.21024, ERROR);
 
     // Gamma S
-    EXPECT_NEAR((MAG(calculate_gamma(zs, z0))),  0.43405, ERROR);
-    EXPECT_NEAR((ARG_DEG(calculate_gamma(zs, z0))),  165.54, ERROR);
+    EXPECT_NEAR((MAG(z2gamma(zs, z0))),  0.43405, ERROR);
+    EXPECT_NEAR((ARG_DEG(z2gamma(zs, z0))),  165.54, ERROR);
 
     // Gamma L
-    EXPECT_NEAR((MAG(calculate_gamma(zl, z0))),  0.092365, ERROR);
-    EXPECT_NEAR((ARG_DEG(calculate_gamma(zl, z0))),  -141.38, ERROR);
+    EXPECT_NEAR((MAG(z2gamma(zl, z0))),  0.092365, ERROR);
+    EXPECT_NEAR((ARG_DEG(z2gamma(zl, z0))),  -141.38, ERROR);
 
     // Gamma in
     EXPECT_NEAR((MAG(calculate_gamma_in(s11, s12, s21, s22, zl, z0))),  0.71267, ERROR);
@@ -466,12 +466,12 @@ TEST(s_parameters, Test2){
     EXPECT_NEAR((calculate_K(s11, s12, s21, s22)),  1.0368, ERROR);
 
     // Gamma S
-    EXPECT_NEAR((MAG(calculate_gamma(zs, z0))),  0.49243, ERROR);
-    EXPECT_NEAR((ARG_DEG(calculate_gamma(zs, z0))),  -68.456, ERROR);
+    EXPECT_NEAR((MAG(z2gamma(zs, z0))),  0.49243, ERROR);
+    EXPECT_NEAR((ARG_DEG(z2gamma(zs, z0))),  -68.456, ERROR);
 
     // Gamma L
-    EXPECT_NEAR((MAG(calculate_gamma(zl, z0))), 0.0, ERROR);
-    EXPECT_NEAR((ARG_DEG(calculate_gamma(zl, z0))),  0.0, ERROR);
+    EXPECT_NEAR((MAG(z2gamma(zl, z0))), 0.0, ERROR);
+    EXPECT_NEAR((ARG_DEG(z2gamma(zl, z0))),  0.0, ERROR);
 
     // Gamma in
     EXPECT_NEAR((MAG(calculate_gamma_in(s11, s12, s21, s22, zl, z0))),  0.61, ERROR);
@@ -554,13 +554,32 @@ TEST(s_parameters, Test2){
         EXPECT_NEAR((calculate_GT_circle(s11, s12, s21, s22, zs, zl, z0, Gt_circle_dB).second), 0.81099, ERROR);
     }
 
-    // Gamma S optimum
-    EXPECT_NEAR((MAG(calculate_gamma_S_opt(s11, s12, s21, s22))),  0.8908, ERROR);
-    EXPECT_NEAR((ARG_DEG(calculate_gamma_S_opt(s11, s12, s21, s22))),  -178.71, ERROR);
 
-    // Gamma L optimum
-    EXPECT_NEAR((MAG(calculate_gamma_L_opt(s11, s12, s21, s22))),  0.80609, ERROR);
-    EXPECT_NEAR((ARG_DEG(calculate_gamma_L_opt(s11, s12, s21, s22))),  66.098, ERROR);
+    {
+        // Gamma S optimum
+        complex_t gamma_S_opt = calculate_gamma_S_opt(s11, s12, s21, s22);
+
+        EXPECT_NEAR(MAG(gamma_S_opt),  0.8908, ERROR);
+        EXPECT_NEAR(ARG_DEG(gamma_S_opt),  -178.71, ERROR);
+
+        // Zs optimum
+        EXPECT_NEAR(gamma2z(gamma_S_opt, z0).real(),  2.888, ERROR);
+        EXPECT_NEAR(gamma2z(gamma_S_opt, z0).imag(),  -0.56086, ERROR);
+    }
+
+    {
+        // Gamma L optimum
+        complex_t gamma_L_opt = calculate_gamma_L_opt(s11, s12, s21, s22);
+
+        EXPECT_NEAR(MAG(gamma_L_opt),  0.80609, ERROR);
+        EXPECT_NEAR(ARG_DEG(gamma_L_opt),  66.098, ERROR);
+
+        // Zl optimum
+        EXPECT_NEAR(gamma2z(gamma_L_opt, z0).real(),  17.572, ERROR);
+        EXPECT_NEAR(gamma2z(gamma_L_opt, z0).imag(),  73.95, ERROR);
+
+    }
+
 }
 
 
@@ -589,12 +608,12 @@ TEST(s_parameters, Test3){
     EXPECT_NEAR((calculate_K(s11, s12, s21, s22)),  0.76336, ERROR);
 
     // Gamma S
-    EXPECT_NEAR((MAG(calculate_gamma(zs, z0))),  0.89152, ERROR);
-    EXPECT_NEAR((ARG_DEG(calculate_gamma(zs, z0))),  -169.89, ERROR);
+    EXPECT_NEAR((MAG(z2gamma(zs, z0))),  0.89152, ERROR);
+    EXPECT_NEAR((ARG_DEG(z2gamma(zs, z0))),  -169.89, ERROR);
 
     // Gamma L
-    EXPECT_NEAR((MAG(calculate_gamma(zl, z0))), 0.67102, ERROR);
-    EXPECT_NEAR((ARG_DEG(calculate_gamma(zl, z0))),  -158.02, ERROR);
+    EXPECT_NEAR((MAG(z2gamma(zl, z0))), 0.67102, ERROR);
+    EXPECT_NEAR((ARG_DEG(z2gamma(zl, z0))),  -158.02, ERROR);
 
     // Gamma in
     EXPECT_NEAR((MAG(calculate_gamma_in(s11, s12, s21, s22, zl, z0))),  0.59305, ERROR);

@@ -30,11 +30,10 @@ public:
 
 private slots:
 
+    /// Y TAB ///
     void on_open_datasheet_Y_button_clicked();
 
     void on_Calculate_button_4_clicked();
-    void closeEvent (QCloseEvent *event);
-
 
     void on_f0_box_2_returnPressed();
     void on_y_i_box_2_returnPressed();
@@ -50,8 +49,23 @@ private slots:
     void on_radiobutton_2n4957_clicked();
     void on_manual_input_y_radioButton_clicked();
 
+    /// END Y TAB ///
+
+    /// S TAB ///
+    void on_Calculate_button_5_clicked();
 
 
+
+
+
+
+    /// END S TAB ///
+
+
+
+
+
+    void closeEvent (QCloseEvent *event);
 private:
     Ui::MainWindow *ui;
 

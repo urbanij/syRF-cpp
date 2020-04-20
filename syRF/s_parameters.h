@@ -34,10 +34,6 @@ calculate_K(complex_t s11,
 
 /////// GAMMAS ///////
 complex_t
-calculate_gamma(complex_t zl,
-                complex_t z0);
-
-complex_t
 calculate_gamma_in(complex_t s11,
                 complex_t s12,
                 complex_t s21,
@@ -76,8 +72,8 @@ calculate_GP(complex_t s11,
                 complex_t s21,
                 complex_t s22,
                 complex_t zl,
-                complex_t z0
-                );
+                complex_t z0);
+                
 float
 calculate_GT(complex_t s11,
                 complex_t s12,
@@ -85,16 +81,15 @@ calculate_GT(complex_t s11,
                 complex_t s22,
                 complex_t zs,
                 complex_t zl,
-                complex_t z0
-                );
+                complex_t z0);
+
 float
 calculate_GA(complex_t s11,
                 complex_t s12,
                 complex_t s21,
                 complex_t s22,
                 complex_t zs,
-                complex_t z0
-                );
+                complex_t z0);
 
 
 float
@@ -149,6 +144,11 @@ calculate_gamma_S_opt(complex_t s11,
                     complex_t s21,
                     complex_t s22);
 
+complex_t
+calculate_gamma_L_opt(complex_t s11,
+                    complex_t s12,
+                    complex_t s21,
+                    complex_t s22);
 
 
 

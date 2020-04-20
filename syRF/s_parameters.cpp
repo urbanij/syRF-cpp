@@ -36,12 +36,26 @@ calculate_K(complex_t s11,
 }
 
 complex_t
-calculate_gamma(complex_t zl,
-                complex_t z0
+z2gamma(complex_t zl,
+        complex_t z0
 ){
-    return (zl-z0)/(zl+z0);
+    complex_t gamma = (zl-z0)/(zl+z0);
+    return gamma;
 }
 
+
+complex_t
+gamma2z(complex_t gamma,
+        complex_t z0
+){
+    complex_t z;
+    if (gamma != ONE_COMPLEX){
+        z = z0 * ((ONE_COMPLEX + gamma)/(ONE_COMPLEX - gamma));
+    } else {
+        z = complex_t(INFINITY, INFINITY); // maybe unnecessary
+    }
+    return z;
+}
 
 complex_t
 calculate_gamma_in(complex_t s11,
@@ -52,7 +66,7 @@ calculate_gamma_in(complex_t s11,
                 complex_t z0
                 )
 {
-    complex_t gamma_L = calculate_gamma(zl, z0);
+    complex_t gamma_L = z2gamma(zl, z0);
     return ( s11 + (s12*s21*gamma_L)/(ONE_COMPLEX - s22*gamma_L) );
 }
 
@@ -65,7 +79,7 @@ calculate_gamma_out(complex_t s11,
                 complex_t z0
                 )
 {
-    complex_t gamma_S = calculate_gamma(zs, z0);
+    complex_t gamma_S = z2gamma(zs, z0);
     return ( s22 + (s21*s12*gamma_S)/(ONE_COMPLEX - s11*gamma_S) );
 }
 
@@ -117,7 +131,7 @@ calculate_GP(complex_t s11,
                 complex_t z0
                 )
 {
-    complex_t gamma_L = calculate_gamma(zl, z0);
+    complex_t gamma_L = z2gamma(zl, z0);
     complex_t gamma_in = calculate_gamma_in(s11, s12, s21, s22, zl, z0);
     // page 51 ETLC disp
     return pow(abs( (s21)/(ONE_COMPLEX - s22*gamma_L) ),2) * ( (1.0 - pow(abs(gamma_L),2))/(1.0 - pow(abs(gamma_in),2)) );
@@ -134,8 +148,8 @@ calculate_GT(complex_t s11,
                 complex_t z0
                 )
 {
-    complex_t gamma_S = calculate_gamma(zs, z0);
-    complex_t gamma_L = calculate_gamma(zl, z0);
+    complex_t gamma_S = z2gamma(zs, z0);
+    complex_t gamma_L = z2gamma(zl, z0);
     complex_t gamma_out = calculate_gamma_out(s11, s12, s21, s22, zs, z0);
 
     float num = ( pow(abs(s21),2) ) * (1.0 - pow(abs(gamma_S),2)) * (1.0 - pow(abs(gamma_L),2));
@@ -153,7 +167,7 @@ calculate_GA(complex_t s11,
             complex_t z0
             )
 {
-    complex_t gamma_S = calculate_gamma(zs, z0);
+    complex_t gamma_S = z2gamma(zs, z0);
     complex_t gamma_out = calculate_gamma_out(s11, s12, s21, s22, zs, z0);
 
     float num = (pow(abs(s21),2)) * ( 1.0 - pow(abs(gamma_S),2) );
@@ -173,7 +187,7 @@ calculate_NF(float      NFmin_db,
 {
     float NFmin = dB_2_linear(NFmin_db);
     float rn = Rn/z0;
-    complex_t gamma_S = calculate_gamma(zs, z0);
+    complex_t gamma_S = z2gamma(zs, z0);
 
     if (abs(gamma_S) != 1){
         // from page 60 ETLC disp
@@ -275,7 +289,7 @@ calculate_GTi(float Gt_circle_dB,
                     complex_t zs,
                     float z0)
 {
-    complex_t gamma_S = calculate_gamma(zs, z0);
+    complex_t gamma_S = z2gamma(zs, z0);
     float Gt_circle = dB_2_linear(Gt_circle_dB);
     return ( (Gt_circle * pow(abs(ONE_COMPLEX - s11*gamma_S),2))/((1.0-pow(abs(gamma_S),2))*pow(abs(s21),2)) );
 }

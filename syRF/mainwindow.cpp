@@ -6,7 +6,7 @@
 ******************************************************************
 **  Author:    Francesco Urbani <https://urbanij.github.io/>    **
 **  Date:      Sat Dec  7 11:36:08 CET 2019                     **
-**  File:           mainwindow.cpp                              **                
+**  File:           mainwindow.cpp                              **
 **  Description:                                                **
 ******************************************************************/
 
@@ -89,24 +89,24 @@ void MainWindow::on_open_datasheet_Y_button_clicked(){
 void MainWindow::on_Calculate_button_4_clicked(){
     #if DEBUG
         PRINT("===================================");
-        // system("clear");
+        system("clear");
     #endif
 
     // reads Y parameter inputs
-    complex_t y_i,
-                        y_f,
-                        y_r,
-                        y_o,
-                        y_s,
-                        y_l;
+    complex_t   y_i,
+                y_f,
+                y_r,
+                y_o,
+                y_s,
+                y_l;
 
 
     if (ui->radiobutton_2n4957->isChecked()){
         // fetch data from y_parameters_data.h and auto-fill the y parameters input values
-        
+
         float f0 = ui->f0_box_2->text().toFloat();
-        #if DEBUG 
-            WATCH(f0); 
+        #if DEBUG
+            WATCH(f0);
         #endif
 
 
@@ -196,7 +196,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
         // manually fill the y parameters values.
 
         if (! ui->y_i_box_2->text().isEmpty()){
-            
+
             #define DUMBTEST 0
             #if DUMBTEST
             QString a = ui->y_i_box_2->text();
@@ -212,7 +212,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
                         ccomplex( ui->y_i_box_2->text().toStdString()).Im()
                         );
 
-            
+
 
         } else {
             y_i = complex_t (0,0);  // INFINITY is the max value a float can hold
@@ -308,7 +308,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
     ui->C_box_2->setText( QString::number(C));
     ui->beta_A_box_2->setText(
                             QString::number(MAG(betaA)) + "∠" +
-                            QString::number(ARG_DEG(betaA)) + " deg" 
+                            QString::number(ARG_DEG(betaA)) + " deg"
                             );
     ui->y_in_box_2->setText(COMPLEX_REPR_RE_IM(y_in));
     ui->y_out_box_2->setText(COMPLEX_REPR_RE_IM(y_out));
@@ -411,6 +411,27 @@ void MainWindow::on_manual_input_y_radioButton_clicked(){
 
 
 
+void MainWindow::on_Calculate_button_5_clicked(){
+    #if DEBUG
+        PRINT("===================================");
+        system("clear");
+    #endif
+
+    // reads S parameter inputs
+    complex_t s11,
+            s12,
+            s21,
+            s22;
+
+
+    /* displays output */
+    ui->D_box_2->setText( QString::number(2.23));
+}
+
+
+
+
+
 void MainWindow::on_action_About_2_triggered(){
     About about;
     about.setModal(true);
@@ -429,8 +450,3 @@ void MainWindow::closeEvent (QCloseEvent *event){
 
 #endif
 }
-
-
-
-
-
