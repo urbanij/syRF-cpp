@@ -72,8 +72,8 @@ int main(int argc, char *argv[])
 
 
     MainWindow w;
-    w.setWindowTitle("syRF " VERSION);
-    // w.setWindowTitle("syRF 🔴" VERSION);
+    w.setWindowTitle("syRF");
+    // w.setWindowTitle("syRF " VERSION);
 
     w.show();
 

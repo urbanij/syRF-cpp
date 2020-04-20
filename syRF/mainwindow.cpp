@@ -60,11 +60,18 @@ MainWindow::MainWindow( QWidget *parent) :
     ui->setupUi(this);
     ui->f0_box_2->setFocus();
     ui->radiobutton_2n4957->setChecked(true);
-            ui->y_i_box_2->setEnabled(false);
-            ui->y_f_box_2->setEnabled(false);
-            ui->y_o_box_2->setEnabled(false);
-            ui->y_r_box_2->setEnabled(false);
+            // ui->y_i_box_2->setEnabled(false);
+            // ui->y_f_box_2->setEnabled(false);
+            // ui->y_o_box_2->setEnabled(false);
+            // ui->y_r_box_2->setEnabled(false);
+            ui->y_i_box_2->setReadOnly(true);
+            ui->y_f_box_2->setReadOnly(true);
+            ui->y_o_box_2->setReadOnly(true);
+            ui->y_r_box_2->setReadOnly(true);
 
+
+
+    ui->radiobutton_2n4957->setChecked(true);
     ui->radioButton_CE->setChecked(true);
 
 //    ui->radioButton_CE->toggle();
@@ -323,23 +330,46 @@ void MainWindow::on_Calculate_button_4_clicked(){
     ui->k_box_3->setText(QString::number( k ));
     ui->y_s_opt_box_2->setText(COMPLEX_REPR_RE_IM(y_s_opt) );
     ui->y_L_opt_box_2->setText(COMPLEX_REPR_RE_IM(y_l_opt) );
+
+    this->setWindowTitle("syRF");
 }
 
 
 
 
 void MainWindow::on_f0_box_2_returnPressed(){
-    on_Calculate_button_4_clicked();
-    // go on manual after inserting the frequency
-    ui->manual_input_y_radioButton->click();
+    // on_Calculate_button_4_clicked();
+    /* go on manual after inserting the frequency */
+    // ui->manual_input_y_radioButton->click();
+
+
+    this->setWindowTitle("* syRF");
 }
 
-void MainWindow::on_y_i_box_2_returnPressed(){on_Calculate_button_4_clicked();}
-void MainWindow::on_y_f_box_2_returnPressed(){on_Calculate_button_4_clicked();}
-void MainWindow::on_y_r_box_2_returnPressed(){on_Calculate_button_4_clicked();}
-void MainWindow::on_y_o_box_2_returnPressed(){on_Calculate_button_4_clicked();}
-void MainWindow::on_y_s_box_2_returnPressed(){on_Calculate_button_4_clicked();}
-void MainWindow::on_y_L_box_2_returnPressed(){on_Calculate_button_4_clicked();}
+void MainWindow::on_y_i_box_2_returnPressed(){
+    // on_Calculate_button_4_clicked();
+    this->setWindowTitle("* syRF");
+}
+void MainWindow::on_y_f_box_2_returnPressed(){
+    // on_Calculate_button_4_clicked();
+    this->setWindowTitle("* syRF");
+}
+void MainWindow::on_y_r_box_2_returnPressed(){
+    // on_Calculate_button_4_clicked();
+    this->setWindowTitle("* syRF");
+}
+void MainWindow::on_y_o_box_2_returnPressed(){
+    // on_Calculate_button_4_clicked();
+    this->setWindowTitle("* syRF");
+}
+void MainWindow::on_y_s_box_2_returnPressed(){
+    // on_Calculate_button_4_clicked();
+    this->setWindowTitle("* syRF");
+}
+void MainWindow::on_y_L_box_2_returnPressed(){
+    // on_Calculate_button_4_clicked();
+    this->setWindowTitle("* syRF");
+}
 
 
 void MainWindow::on_radioButton_CE_clicked(){
@@ -350,7 +380,9 @@ void MainWindow::on_radioButton_CE_clicked(){
     ui->label_79->setText("Y<sub>oe</sub>");
     ui->label_78->setText("Y<sub>re</sub>");
     ui->label_165->setText("V<sub>CE</sub>");
-    on_Calculate_button_4_clicked();
+    
+    // on_Calculate_button_4_clicked();
+    this->setWindowTitle("* syRF");
 }
 
 void MainWindow::on_radioButton_CB_clicked(){
@@ -361,7 +393,9 @@ void MainWindow::on_radioButton_CB_clicked(){
     ui->label_79->setText("Y<sub>ob</sub>");
     ui->label_78->setText("Y<sub>rb</sub>");
     ui->label_165->setText("V<sub>CB</sub>");
-    on_Calculate_button_4_clicked();
+    
+    // on_Calculate_button_4_clicked();
+    this->setWindowTitle("* syRF");
 }
 
 void MainWindow::on_radiobutton_2n4957_clicked(){
@@ -374,13 +408,22 @@ void MainWindow::on_radiobutton_2n4957_clicked(){
     ui->radioButton_CE->setEnabled(true);
     ui->radioButton_CB->setEnabled(true);
     ui->f0_box_2->setEnabled(true);
-    ui->y_i_box_2->setEnabled(false);
-    ui->y_f_box_2->setEnabled(false);
-    ui->y_o_box_2->setEnabled(false);
-    ui->y_r_box_2->setEnabled(false);
+    
+
+    // ui->y_i_box_2->setEnabled(false);
+    // ui->y_f_box_2->setEnabled(false);
+    // ui->y_o_box_2->setEnabled(false);
+    // ui->y_r_box_2->setEnabled(false);
+
+    ui->y_i_box_2->setReadOnly(true);
+    ui->y_f_box_2->setReadOnly(true);
+    ui->y_o_box_2->setReadOnly(true);
+    ui->y_r_box_2->setReadOnly(true);
 
     ui->f0_box_2->setFocus();
-    on_Calculate_button_4_clicked();
+    
+    // on_Calculate_button_4_clicked();
+    this->setWindowTitle("* syRF");
 }
 
 void MainWindow::on_manual_input_y_radioButton_clicked(){
@@ -393,10 +436,17 @@ void MainWindow::on_manual_input_y_radioButton_clicked(){
     ui->radioButton_CE->setEnabled(false);
     ui->radioButton_CB->setEnabled(false);
     ui->f0_box_2->setEnabled(false);
-    ui->y_i_box_2->setEnabled(true);
-    ui->y_f_box_2->setEnabled(true);
-    ui->y_o_box_2->setEnabled(true);
-    ui->y_r_box_2->setEnabled(true);
+
+
+    // ui->y_i_box_2->setEnabled(true);
+    // ui->y_f_box_2->setEnabled(true);
+    // ui->y_o_box_2->setEnabled(true);
+    // ui->y_r_box_2->setEnabled(true);
+
+    ui->y_i_box_2->setReadOnly(false);
+    ui->y_f_box_2->setReadOnly(false);
+    ui->y_o_box_2->setReadOnly(false);
+    ui->y_r_box_2->setReadOnly(false);
 
     ui->label_20->setText("Y<sub>i</sub>");
     ui->label_81->setText("Y<sub>f</sub>");
@@ -405,7 +455,9 @@ void MainWindow::on_manual_input_y_radioButton_clicked(){
     ui->label_165->setText("V<sub>CE</sub>");
 
     ui->y_i_box_2->setFocus();
-    on_Calculate_button_4_clicked();
+
+    // on_Calculate_button_4_clicked();
+    this->setWindowTitle("* syRF");
 }
 
 
@@ -430,6 +482,7 @@ void MainWindow::on_Calculate_button_5_clicked(){
     if (ui->radioButton1_MRF571->isChecked()){
 
         PRINT(ui->comboBox_MRF_bias->currentText().toStdString());
+
 
     }
     
@@ -456,7 +509,7 @@ void MainWindow::on_action_About_2_triggered(){
 
 
 void MainWindow::closeEvent (QCloseEvent *event){
-#if 1
+#if 0
     QMessageBox::StandardButton resBtn = QMessageBox::question( this, "syRF",
                                                                 tr("Are you sure?\n"),
                                                                 QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
