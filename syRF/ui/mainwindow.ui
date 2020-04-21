@@ -8,7 +8,7 @@
     <x>0</x>
     <y>0</y>
     <width>1246</width>
-    <height>750</height>
+    <height>762</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,7 +22,7 @@
        <bool>false</bool>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -481,302 +481,302 @@
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=6V, Ic=5mA, f=200MHz</string>
+                 <string>MRF571, Vce=6 V, Ic=5 mA, f=200 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=6V, Ic=5mA, f=500MHz</string>
+                 <string>MRF571, Vce=6 V, Ic=5 mA, f=500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=6V, Ic=5mA, f=1GHz</string>
+                 <string>MRF571, Vce=6 V, Ic=5 mA, f=1000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=6V, Ic=5mA, f=1.5GHz</string>
+                 <string>MRF571, Vce=6 V, Ic=5 mA, f=1500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=6V, Ic=5mA, f=2GHz</string>
+                 <string>MRF571, Vce=6 V, Ic= 5mA, f=2000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=6V, Ic=10mA, f=200MHz</string>
+                 <string>MRF571, Vce=6 V, Ic=10 mA, f=200 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=6V, Ic=10mA, f=500MHz</string>
+                 <string>MRF571, Vce=6 V, Ic=10 mA, f=500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=6V, Ic=10mA, f=1GHz</string>
+                 <string>MRF571, Vce=6 V, Ic=10 mA, f=1000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=6V, Ic=10mA, f=1.5GHz</string>
+                 <string>MRF571, Vce=6 V, Ic=10 mA, f=1500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=6V, Ic=10mA, f=2GHz</string>
+                 <string>MRF571, Vce=6 V, Ic=10 mA, f=2000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=6V, Ic=50mA, f=200MHz</string>
+                 <string>MRF571, Vce=6V, Ic=50 mA, f=200 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=6V, Ic=50mA, f=500MHz</string>
+                 <string>MRF571, Vce=6 V, Ic=50 mA, f=500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=6V, Ic=50mA, f=1GHz</string>
+                 <string>MRF571, Vce=6 V, Ic=50 mA, f=1000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=6V, Ic=50mA, f=1.5GHz</string>
+                 <string>MRF571, Vce=6 V, Ic=50 mA, f=1500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=6V, Ic=50mA, f=2GHz</string>
+                 <string>MRF571, Vce=6 V, Ic=50 mA, f=2000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=8V, Ic=5mA, f=200MHz</string>
+                 <string>MRF571, Vce=8 V, Ic=5 mA, f=200 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=8V, Ic=5mA, f=500MHz</string>
+                 <string>MRF571, Vce=8 V, Ic=5 mA, f=500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=8V, Ic=5mA, f=1GHz</string>
+                 <string>MRF571, Vce=8 V, Ic=5 mA, f=1000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=8V, Ic=5mA, f=1.5GHz</string>
+                 <string>MRF571, Vce=8 V, Ic=5 mA, f=1500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=8V, Ic=5mA, f=2GHz</string>
+                 <string>MRF571, Vce=8 V, Ic=5 mA, f=2000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=8V, Ic=10mA, f=200MHz</string>
+                 <string>MRF571, Vce=8 V, Ic=10 mA, f=200 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=8V, Ic=10mA, f=500MHz</string>
+                 <string>MRF571, Vce=8 V, Ic=10 mA, f=500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=8V, Ic=10mA, f=1GHz</string>
+                 <string>MRF571, Vce=8 V, Ic=10 mA, f=1000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=8V, Ic=10mA, f=1.5GHz</string>
+                 <string>MRF571, Vce=8 V, Ic=10 mA, f=1500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=8V, Ic=10mA, f=2GHz</string>
+                 <string>MRF571, Vce=8 V, Ic=10 mA, f=2000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=8V, Ic=50mA, f=200MHz</string>
+                 <string>MRF571, Vce=8 V, Ic=50 mA, f=200 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=8V, Ic=50mA, f=500MHz</string>
+                 <string>MRF571, Vce=8 V, Ic=50 mA, f=500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=8V, Ic=50mA, f=1GHz</string>
+                 <string>MRF571, Vce=8 V, Ic=50 mA, f=1000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=8V, Ic=50mA, f=1.5GHz</string>
+                 <string>MRF571, Vce=8 V, Ic=50 mA, f=1500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=8V, Ic=50mA, f=2GHz</string>
+                 <string>MRF571, Vce=8 V, Ic=50 mA, f=2000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=6V, Ic=5mA, f=200MHz</string>
+                 <string>MRF572, Vce=6 V, Ic=5 mA, f=200 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=6V, Ic=5mA, f=500MHz</string>
+                 <string>MRF572, Vce=6 V, Ic=5 mA, f=500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=6V, Ic=5mA, f=1GHz</string>
+                 <string>MRF572, Vce=6 V, Ic=5 mA, f=1000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=6V, Ic=5mA, f=1.5GHz</string>
+                 <string>MRF572, Vce=6 V, Ic=5 mA, f=1500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=6V, Ic=5mA, f=2GHz</string>
+                 <string>MRF572, Vce=6 V, Ic=5 mA, f=2000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=6V, Ic=10mA, f=200MHz</string>
+                 <string>MRF572, Vce=6 V, Ic=10 mA, f=200 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=6V, Ic=10mA, f=500MHz</string>
+                 <string>MRF572, Vce=6 V, Ic=10 mA, f=500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=6V, Ic=10mA, f=1GHz</string>
+                 <string>MRF572, Vce=6 V, Ic=10 mA, f=1000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=6V, Ic=10mA, f=1.5GHz</string>
+                 <string>MRF572, Vce=6 V, Ic=10 mA, f=1500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=6V, Ic=10mA, f=2GHz</string>
+                 <string>MRF572, Vce=6 V, Ic=10 mA, f=2000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=6V, Ic=50mA, f=200MHz</string>
+                 <string>MRF572, Vce=6 V, Ic=50 mA, f=200 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=6V, Ic=50mA, f=500MHz</string>
+                 <string>MRF572, Vce=6 V, Ic=50 mA, f=500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=6V, Ic=50mA, f=1GHz</string>
+                 <string>MRF572, Vce=6 V, Ic=50 mA, f=1000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=6V, Ic=50mA, f=1.5GHz</string>
+                 <string>MRF572, Vce=6 V, Ic=50 mA, f=1500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=6V, Ic=50mA, f=2GHz</string>
+                 <string>MRF572, Vce=6 V, Ic=50 mA, f=2000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=8V, Ic=5mA, f=200MHz</string>
+                 <string>MRF572, Vce=8 V, Ic=5 mA, f=200 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=8V, Ic=5mA, f=500MHz</string>
+                 <string>MRF572, Vce=8 V, Ic=5 mA, f=500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=8V, Ic=5mA, f=1GHz</string>
+                 <string>MRF572, Vce=8 V, Ic=5 mA, f=1000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=8V, Ic=5mA, f=1.5GHz</string>
+                 <string>MRF572, Vce=8 V, Ic=5 mA, f=1500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=8V, Ic=5mA, f=2GHz</string>
+                 <string>MRF572, Vce=8 V, Ic=5 mA, f=2000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=8V, Ic=10mA, f=200MHz</string>
+                 <string>MRF572, Vce=8 V, Ic=10 mA, f=200 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=8V, Ic=10mA, f=500MHz</string>
+                 <string>MRF572, Vce=8 V, Ic=10 mA, f=500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=8V, Ic=10mA, f=1GHz</string>
+                 <string>MRF572, Vce=8 V, Ic=10 mA, f=1000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=8V, Ic=10mA, f=1.5GHz</string>
+                 <string>MRF572, Vce=8 V, Ic=10 mA, f=1500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=8V, Ic=10mA, f=2GHz</string>
+                 <string>MRF572, Vce=8 V, Ic=10 mA, f=2000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=8V, Ic=50mA, f=200MHz</string>
+                 <string>MRF572, Vce=8 V, Ic=50 mA, f=200 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=8V, Ic=50mA, f=500MHz</string>
+                 <string>MRF572, Vce=8 V, Ic=50 mA, f=500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=8V, Ic=50mA, f=1GHz</string>
+                 <string>MRF572, Vce=8 V, Ic=50 mA, f=1000 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=8V, Ic=50mA, f=1.5GHz</string>
+                 <string>MRF572, Vce=8 V, Ic=50 mA, f=1500 MHz</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>MRF572, Vce=8V, Ic=50mA, f=2GHz</string>
+                 <string>MRF572, Vce=8 V, Ic=50 mA, f=2000 MHz</string>
                 </property>
                </item>
               </widget>
@@ -3151,8 +3151,8 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup_3"/>
+  <buttongroup name="buttonGroup"/>
  </buttongroups>
 </ui>

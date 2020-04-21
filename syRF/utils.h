@@ -18,6 +18,16 @@
 #include <complex>
 #include <cmath>
 
+#define USE_QT_REGEX 1
+#if USE_QT_REGEX
+    #include <QRegularExpression>
+#else
+    #include <regex>
+#endif
+#include <string>
+
+
+
 
 
 /* ANSI colors and stuff */
@@ -105,6 +115,58 @@ get_value_from_dictionary(
 
 
 
+void 
+filter_S_transistor_bias_settings(const std::string s,
+                                  std::string&      transistor_name, 
+                                  int&              Vce, 
+                                  int&              Ic, 
+                                  int&              f0)
+{
+
+#define REGEX_MATCHING_PATTERN      "(^MRF57[1-2]), Vce=(\\d+) V, Ic=(\\d+) mA, f=(\\d+) MHz"
+
+#if USE_QT_REGEX
+    QRegularExpression re(REGEX_MATCHING_PATTERN);
+    QString s_qstr = QString::fromStdString(s); // casting s from std::string to QString because that's what re.match wants.
+    QRegularExpressionMatch match = re.match(s_qstr);
+    if (match.hasMatch()) {
+        // QString matched_entire_string = match.captured(0); 
+        QString matched_transistor_name = match.captured(1); 
+        QString matched_Vce             = match.captured(2); 
+        QString matched_Ic              = match.captured(3); 
+        QString matched_f0              = match.captured(4); 
+
+        transistor_name = matched_transistor_name.toStdString();
+        Vce = matched_Vce.toInt();
+        Ic  = matched_Ic.toInt();
+        f0  = matched_f0.toInt();
+    }
+
+#else
+    std::regex rgx(REGEX_MATCHING_PATTERN);
+    std::smatch match;
+
+    if (std::regex_search(s.begin(), s.end(), match, rgx)){
+
+        for (auto i: match){
+            std::cout << i << '\n';
+        }
+
+    }
+#endif
+
+    
+#if USE_QT_REGEX
+    
+#else
+    /* match[0] is the whole line, e.g.: MRF572, Vce=6 V, Ic=50 mA, f=1500 MHz */
+    transistor_name = match[1];
+    Vce             = std::stoi(match[2]);
+    Ic              = std::stoi(match[3]);
+    f0              = std::stoi(match[4]);
+#endif
+    return;
+}
 
 
 

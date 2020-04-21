@@ -481,7 +481,25 @@ void MainWindow::on_Calculate_button_5_clicked(){
 
     if (ui->radioButton1_MRF571->isChecked()){
 
-        PRINT(ui->comboBox_MRF_bias->currentText().toStdString());
+        std::string combobox_entry = ui->comboBox_MRF_bias->currentText().toStdString();
+
+        WATCH(combobox_entry);
+
+        if (combobox_entry != ""){
+
+            std::string transistor_name;
+            int Vce;
+            int Ic;
+            int f0;
+
+            filter_S_transistor_bias_settings(combobox_entry, transistor_name, Vce, Ic, f0);
+
+            WATCH(transistor_name);
+            WATCH(Vce);
+            WATCH(Ic);
+            WATCH(f0);
+
+        }
 
 
     }
