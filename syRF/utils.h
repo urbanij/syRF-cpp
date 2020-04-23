@@ -50,8 +50,9 @@ typedef std::complex<float>     complex_t;
 
 
 #define MAG(x)                  std::abs((x))
-#define ARG_DEG(x)              std::arg((x))/3.14159265 * 180
+#define ARG_DEG(x)              std::arg((x))/3.14159265 * 180  // radians to degrees
 #define ARG_RAD(x)              std::arg((x))
+#define DEG_2_RAD(x)            (((x))/180)*3.14159265          // degrees to radians
 
 
 //#define CHECK_EQUALS(x,y)       ( std::abs( (x)-(y) ) < 0.01)
@@ -70,8 +71,9 @@ float dB_2_linear(float x){
     return pow(10, (x/10));
 }
 
-complex_t polar_2_rect( float mag,
-                        float phase)
+complex_t 
+polar_2_rect(float mag,
+             float phase)
 {
     return complex_t(mag*cos(phase), mag*sin(phase));
 }
@@ -147,17 +149,15 @@ filter_S_transistor_bias_settings(const std::string s,
     std::smatch match;
 
     if (std::regex_search(s.begin(), s.end(), match, rgx)){
-
         for (auto i: match){
             std::cout << i << '\n';
         }
-
     }
 #endif
 
     
 #if USE_QT_REGEX
-    
+    // nothing, values already assigned.    
 #else
     /* match[0] is the whole line, e.g.: MRF572, Vce=6 V, Ic=50 mA, f=1500 MHz */
     transistor_name = match[1];
@@ -167,6 +167,13 @@ filter_S_transistor_bias_settings(const std::string s,
 #endif
     return;
 }
+
+
+
+
+
+
+
 
 
 

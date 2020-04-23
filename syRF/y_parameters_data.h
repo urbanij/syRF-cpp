@@ -10,6 +10,10 @@
 **  Description:                                                **
 ******************************************************************/
 
+
+#ifndef Y_PARAMETERS_DATA_H
+#define Y_PARAMETERS_DATA_H
+
 #include <map>
 
 std::map<float, float> 
@@ -3422,3 +3426,6 @@ b_rb = {
         { 1472.63600701,    -1.78201373 },
         { 1488.12404969,    -1.80322167 },
 };
+
+
+#endif

@@ -31,6 +31,10 @@
 #include "y_parameters_data.h"
 
 
+#include "s_parameters.h"
+#include "s_parameters_data.h"
+
+
 #include <iostream>
 
 
@@ -476,9 +480,6 @@ void MainWindow::on_Calculate_button_5_clicked(){
             s22;
 
 
-    /* displays output */
-    ui->D_box_2->setText( QString::number(2.23));
-
     if (ui->radioButton1_MRF571->isChecked()){
 
         std::string combobox_entry = ui->comboBox_MRF_bias->currentText().toStdString();
@@ -488,16 +489,88 @@ void MainWindow::on_Calculate_button_5_clicked(){
         if (combobox_entry != ""){
 
             std::string transistor_name;
-            int Vce;
-            int Ic;
-            int f0;
+            int         Vce;
+            int         Ic;
+            int         f0;
 
             filter_S_transistor_bias_settings(combobox_entry, transistor_name, Vce, Ic, f0);
 
+#if 0
             WATCH(transistor_name);
             WATCH(Vce);
             WATCH(Ic);
             WATCH(f0);
+#endif
+
+
+            s11 = polar_2_rect(
+                        MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].first,
+                        DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].second)
+                        );
+            s12 = polar_2_rect(
+                        MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s12"].first,
+                        DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s12"].second)
+                        );
+            s21 = polar_2_rect(
+                        MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s21"].first,
+                        DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s21"].second)
+                        );
+            s22 = polar_2_rect(
+                        MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s22"].first,
+                        DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s22"].second)
+                        );
+
+#if 1
+
+            WATCH(s11.real());
+            WATCH(s11.imag());
+            WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].first);
+            WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].second);
+            WATCH(DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].second));
+            WATCH(MAG(s11));
+            WATCH(ARG_DEG(s11));
+
+
+            WATCH(s12.real());
+            WATCH(s12.imag());
+            WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s12"].first);
+            WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s12"].second);
+            WATCH(DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s12"].second));
+            WATCH(MAG(s12));
+            WATCH(ARG_DEG(s12));
+
+
+            WATCH(s21.real());
+            WATCH(s21.imag());
+            WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s21"].first);
+            WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s21"].second);
+            WATCH(DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s21"].second));
+            WATCH(MAG(s21));
+            WATCH(ARG_DEG(s21));
+
+
+            WATCH(s22.real());
+            WATCH(s22.imag());
+            WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s22"].first);
+            WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s22"].second);
+            WATCH(DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s22"].second));
+            WATCH(MAG(s22));
+            WATCH(ARG_DEG(s22));
+#endif
+
+
+
+            complex_t determinant = compute_D(s11, s12, s21, s22);
+
+
+
+            /* displays output */
+            ui->D_box_2->setText(
+                        QString::number(MAG(determinant),'g', 3) + "∠" +
+                        QString::number(ARG_DEG(determinant), 'g', 3) + " deg"
+                        );
+
+
 
         }
 
