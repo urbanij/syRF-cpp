@@ -88,6 +88,8 @@ MainWindow::~MainWindow(){
 }
 
 
+
+
 void MainWindow::on_open_datasheet_Y_button_clicked(){
 //    QDesktopServices::openUrl(QUrl(":/new/docs/docs/datasheets/2N4957.pdf"));
     // QDesktopServices::openUrl(QUrl::fromLocalFile(".cpp"));
@@ -96,6 +98,8 @@ void MainWindow::on_open_datasheet_Y_button_clicked(){
     process->start(":/new/docs/docs/datasheets/2N4957.pdf");
 
 }
+
+
 
 void MainWindow::on_Calculate_button_4_clicked(){
     #if PRINT_TO_CONSOLE
@@ -112,6 +116,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
                 y_l;
 
 
+
     if (ui->radiobutton_2n4957->isChecked()){
         // fetch data from y_parameters_data.h and auto-fill the y parameters input values
 
@@ -121,8 +126,16 @@ void MainWindow::on_Calculate_button_4_clicked(){
         #endif
 
 
+        /** radio button is checked meaning: i've choosen to use my 2N4957 transistor
+         *  and i'm going to use it data which will be retrieved from `y_parameters_data.h` file.
+         *
+         *  First off: fill the boxes with the values, and
+         *  second:    assign the values to the variables.
+         */
+
+
         if (f0 > 1500 || f0 < 45){
-            // frequency out of range
+            // display out of range frequency error message in the status bar at the bottom.
             ui->statusBar->showMessage("Frequency out of range. Enter a frequency within the 45 - 1500 MHz range.");
             ui->statusBar->setStyleSheet("background-color: red; color: white;");
         } else {
@@ -130,74 +143,34 @@ void MainWindow::on_Calculate_button_4_clicked(){
             ui->statusBar->setStyleSheet("background-color: auto;");
 
             if (ui->radioButton_CE->isChecked()){
-                ui->y_i_box_2->setText(
-                        COMPLEX_REPR_RE_IM(
-                            complex_t(
-                                get_value_from_dictionary(&g_ie, f0),
-                                get_value_from_dictionary(&b_ie, f0)
-                            )
-                        )
-                );
-                ui->y_f_box_2->setText(
-                        COMPLEX_REPR_RE_IM(
-                            complex_t(
-                                get_value_from_dictionary(&g_fe, f0),
-                                get_value_from_dictionary(&b_fe, f0)
-                            )
-                        )
-                );
-                ui->y_r_box_2->setText(
-                        COMPLEX_REPR_RE_IM(
-                            complex_t(
-                                get_value_from_dictionary(&g_re, f0),
-                                get_value_from_dictionary(&b_re, f0)
-                            )
-                        )
-                );
-                ui->y_o_box_2->setText(
-                        COMPLEX_REPR_RE_IM(
-                            complex_t(
-                                get_value_from_dictionary(&g_oe, f0),
-                                get_value_from_dictionary(&b_oe, f0)
-                            )
-                        )
-                );
 
+
+                y_i = complex_t(get_value_from_dictionary(&g_ie, f0),
+                                get_value_from_dictionary(&b_ie, f0));
+                y_f = complex_t(get_value_from_dictionary(&g_fe, f0),
+                                get_value_from_dictionary(&b_fe, f0));
+                y_r = complex_t(get_value_from_dictionary(&g_re, f0),
+                                get_value_from_dictionary(&b_re, f0));
+                y_o = complex_t(get_value_from_dictionary(&g_oe, f0),
+                                get_value_from_dictionary(&b_oe, f0));
             }
+
             else if (ui->radioButton_CB->isChecked()){
-                ui->y_i_box_2->setText(
-                        COMPLEX_REPR_RE_IM(
-                            complex_t(
-                                get_value_from_dictionary(&g_ib, f0),
-                                get_value_from_dictionary(&b_ib, f0)
-                            )
-                        )
-                );
-                ui->y_f_box_2->setText(
-                        COMPLEX_REPR_RE_IM(
-                            complex_t(
-                                get_value_from_dictionary(&g_fb, f0),
-                                get_value_from_dictionary(&b_fb, f0)
-                            )
-                        )
-                );
-                ui->y_r_box_2->setText(
-                        COMPLEX_REPR_RE_IM(
-                            complex_t(
-                                get_value_from_dictionary(&g_rb, f0),
-                                get_value_from_dictionary(&b_rb, f0)
-                            )
-                        )
-                );
-                ui->y_o_box_2->setText(
-                        COMPLEX_REPR_RE_IM(
-                            complex_t(
-                                get_value_from_dictionary(&g_ob, f0),
-                                get_value_from_dictionary(&b_ob, f0)
-                            )
-                        )
-                );
+
+                y_i = complex_t(get_value_from_dictionary(&g_ib, f0),
+                                get_value_from_dictionary(&b_ib, f0));
+                y_f = complex_t(get_value_from_dictionary(&g_fb, f0),
+                                get_value_from_dictionary(&b_fb, f0));
+                y_r = complex_t(get_value_from_dictionary(&g_rb, f0),
+                                get_value_from_dictionary(&b_rb, f0));
+                y_o = complex_t(get_value_from_dictionary(&g_ob, f0),
+                                get_value_from_dictionary(&b_ob, f0));
             }
+
+            ui->y_i_box_2->setText(COMPLEX_REPR_RE_IM(y_i));
+            ui->y_f_box_2->setText(COMPLEX_REPR_RE_IM(y_f));
+            ui->y_r_box_2->setText(COMPLEX_REPR_RE_IM(y_r));
+            ui->y_o_box_2->setText(COMPLEX_REPR_RE_IM(y_o));
 
         }
 
@@ -286,6 +259,8 @@ void MainWindow::on_Calculate_button_4_clicked(){
     #endif
 
 
+    // compute actual stuff
+
     float       C       = compute_C(y_i,y_f,y_o,y_r);
     complex_t   betaA   = calculate_betaA(y_i,y_f,y_o,y_r, y_s, y_l);
     complex_t   y_in    = calculate_yin( y_i, y_f, y_o, y_r, y_l );
@@ -300,7 +275,8 @@ void MainWindow::on_Calculate_button_4_clicked(){
     complex_t   y_l_opt = calculate_y_l_opt(y_i, y_f, y_o, y_r);
 
 
-    #if PRINT_TO_CONSOLE
+
+#if PRINT_TO_CONSOLE
         WATCH(C);
         WATCH(betaA);
         WATCH(y_in);
@@ -313,7 +289,8 @@ void MainWindow::on_Calculate_button_4_clicked(){
         WATCH(k);
         WATCH(y_s_opt);
         WATCH(y_l_opt);
-    #endif
+#endif
+
 
     /* displays output */
     ui->C_box_2->setText( QString::number(C));
@@ -340,38 +317,63 @@ void MainWindow::on_Calculate_button_4_clicked(){
 
 
 
-
+void MainWindow::on_f0_box_2_textEdited(const QString &arg1)
+{
+    this->setWindowTitle("* syRF");
+}
 void MainWindow::on_f0_box_2_returnPressed(){
-    // on_Calculate_button_4_clicked();
+    on_Calculate_button_4_clicked();
     /* go on manual after inserting the frequency */
     // ui->manual_input_y_radioButton->click();
-
-
-    this->setWindowTitle("* syRF");
 }
+
+
+
 
 void MainWindow::on_y_i_box_2_returnPressed(){
-    // on_Calculate_button_4_clicked();
+    on_Calculate_button_4_clicked();
+}
+void MainWindow::on_y_i_box_2_textChanged(const QString &arg1){
     this->setWindowTitle("* syRF");
 }
+
+
 void MainWindow::on_y_f_box_2_returnPressed(){
-    // on_Calculate_button_4_clicked();
+    on_Calculate_button_4_clicked();
+}
+void MainWindow::on_y_f_box_2_textChanged(const QString &arg1){
     this->setWindowTitle("* syRF");
 }
+
+
 void MainWindow::on_y_r_box_2_returnPressed(){
-    // on_Calculate_button_4_clicked();
+    on_Calculate_button_4_clicked();
+}
+void MainWindow::on_y_r_box_2_textChanged(const QString &arg1){
     this->setWindowTitle("* syRF");
 }
+
+
 void MainWindow::on_y_o_box_2_returnPressed(){
-    // on_Calculate_button_4_clicked();
+    on_Calculate_button_4_clicked();
+}
+void MainWindow::on_y_o_box_2_textChanged(const QString &arg1){
     this->setWindowTitle("* syRF");
 }
+
+
 void MainWindow::on_y_s_box_2_returnPressed(){
-    // on_Calculate_button_4_clicked();
+    on_Calculate_button_4_clicked();
+}
+void MainWindow::on_y_s_box_2_textChanged(const QString &arg1){
     this->setWindowTitle("* syRF");
 }
+
+
 void MainWindow::on_y_L_box_2_returnPressed(){
-    // on_Calculate_button_4_clicked();
+    on_Calculate_button_4_clicked();
+}
+void MainWindow::on_y_L_box_2_textChanged(const QString &arg1){
     this->setWindowTitle("* syRF");
 }
 
@@ -385,8 +387,7 @@ void MainWindow::on_radioButton_CE_clicked(){
     ui->label_78->setText("Y<sub>re</sub>");
     ui->label_165->setText("V<sub>CE</sub>");
     
-    // on_Calculate_button_4_clicked();
-    this->setWindowTitle("* syRF");
+    on_Calculate_button_4_clicked();
 }
 
 void MainWindow::on_radioButton_CB_clicked(){
@@ -398,8 +399,7 @@ void MainWindow::on_radioButton_CB_clicked(){
     ui->label_78->setText("Y<sub>rb</sub>");
     ui->label_165->setText("V<sub>CB</sub>");
     
-    // on_Calculate_button_4_clicked();
-    this->setWindowTitle("* syRF");
+    on_Calculate_button_4_clicked();
 }
 
 void MainWindow::on_radiobutton_2n4957_clicked(){
@@ -426,8 +426,7 @@ void MainWindow::on_radiobutton_2n4957_clicked(){
 
     ui->f0_box_2->setFocus();
     
-    // on_Calculate_button_4_clicked();
-    this->setWindowTitle("* syRF");
+    on_Calculate_button_4_clicked();
 }
 
 void MainWindow::on_manual_input_y_radioButton_clicked(){
@@ -460,11 +459,13 @@ void MainWindow::on_manual_input_y_radioButton_clicked(){
 
     ui->y_i_box_2->setFocus();
 
-    // on_Calculate_button_4_clicked();
-    this->setWindowTitle("* syRF");
+    on_Calculate_button_4_clicked();
 }
 
 
+
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 
 
 void MainWindow::on_Calculate_button_5_clicked(){
@@ -473,11 +474,41 @@ void MainWindow::on_Calculate_button_5_clicked(){
         system("clear");
     #endif
 
-    // reads S parameter inputs
-    complex_t s11,
-            s12,
-            s21,
-            s22;
+    // these variables will hold the value of the s parameters
+    std::complex<float>     s11,        // complex_t is an alias for std::complex<float>        
+                            s12,
+                            s21,
+                            s22;
+    
+    std::pair<float,float>  s11_polar,  // could have used its alias S_parameter_t
+                            s12_polar,
+                            s21_polar,
+                            s22_polar;
+
+
+    float z0;
+
+    if (! ui->Z0_box->text().isEmpty()){
+        z0 = ui->Z0_box->text().toFloat();
+    } else {
+
+    }
+
+
+
+    complex_t zl;
+
+    if (! ui->ZL_box->text().isEmpty()){
+        zl = complex_t (
+                    ccomplex( ui->ZL_box->text().toStdString()).Re(),
+                    ccomplex( ui->ZL_box->text().toStdString()).Im()
+                    );
+    } else {
+        //zl = complex_t (0,0);
+    }
+
+
+
 
 
     if (ui->radioButton1_MRF571->isChecked()){
@@ -492,7 +523,6 @@ void MainWindow::on_Calculate_button_5_clicked(){
             int         Vce;
             int         Ic;
             int         f0;
-
             filter_S_transistor_bias_settings(combobox_entry, transistor_name, Vce, Ic, f0);
 
 #if 0
@@ -502,23 +532,31 @@ void MainWindow::on_Calculate_button_5_clicked(){
             WATCH(f0);
 #endif
 
+            s11_polar = std::make_pair(
+                            MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].first,    // mag
+                            MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].second    // phase in deg
+                        );
 
-            s11 = polar_2_rect(
-                        MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].first,
-                        DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].second)
+            s12_polar = std::make_pair(
+                            MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s12"].first,
+                            MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s12"].second
                         );
-            s12 = polar_2_rect(
-                        MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s12"].first,
-                        DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s12"].second)
+
+            s21_polar = std::make_pair(
+                            MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s21"].first,
+                            MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s21"].second
                         );
-            s21 = polar_2_rect(
-                        MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s21"].first,
-                        DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s21"].second)
+
+            s22_polar = std::make_pair(
+                            MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s22"].first,
+                            MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s22"].second
                         );
-            s22 = polar_2_rect(
-                        MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s22"].first,
-                        DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s22"].second)
-                        );
+
+
+            s11 = polar_2_rect(s11_polar.first, DEG_2_RAD(s11_polar.second));
+            s12 = polar_2_rect(s12_polar.first, DEG_2_RAD(s12_polar.second));
+            s21 = polar_2_rect(s21_polar.first, DEG_2_RAD(s21_polar.second));
+            s22 = polar_2_rect(s22_polar.first, DEG_2_RAD(s22_polar.second));
 
 #if 1
 
@@ -527,8 +565,8 @@ void MainWindow::on_Calculate_button_5_clicked(){
             WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].first);
             WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].second);
             WATCH(DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].second));
-            WATCH(MAG(s11));
-            WATCH(ARG_DEG(s11));
+            WATCH(s11_polar.first);
+            WATCH(s11_polar.second);
 
 
             WATCH(s12.real());
@@ -536,9 +574,8 @@ void MainWindow::on_Calculate_button_5_clicked(){
             WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s12"].first);
             WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s12"].second);
             WATCH(DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s12"].second));
-            WATCH(MAG(s12));
-            WATCH(ARG_DEG(s12));
-
+WATCH(s12_polar.first);
+            WATCH(s12_polar.second);
 
             WATCH(s21.real());
             WATCH(s21.imag());
@@ -547,7 +584,8 @@ void MainWindow::on_Calculate_button_5_clicked(){
             WATCH(DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s21"].second));
             WATCH(MAG(s21));
             WATCH(ARG_DEG(s21));
-
+WATCH(s21_polar.first);
+            WATCH(s21_polar.second);
 
             WATCH(s22.real());
             WATCH(s22.imag());
@@ -556,12 +594,18 @@ void MainWindow::on_Calculate_button_5_clicked(){
             WATCH(DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s22"].second));
             WATCH(MAG(s22));
             WATCH(ARG_DEG(s22));
+WATCH(s22_polar.first);
+            WATCH(s22_polar.second);
+
+
 #endif
 
 
 
-            complex_t determinant = compute_D(s11, s12, s21, s22);
-
+            complex_t   determinant = compute_D(s11, s12, s21, s22);
+            float       K =           calculate_K(s11, s12, s21, s22);
+            complex_t   gamma_in =    calculate_gamma_in(s11, s12, s21, s22, zl, z0);
+ 
 
 
             /* displays output */
@@ -570,6 +614,12 @@ void MainWindow::on_Calculate_button_5_clicked(){
                         QString::number(ARG_DEG(determinant), 'g', 3) + " deg"
                         );
 
+            ui->k_box_4->setText(QString::number(MAG(K)));
+            
+            ui->gamma_in_box_2->setText(
+                        QString::number(MAG(gamma_in),'g', 3) + "∠" +
+                        QString::number(ARG_DEG(gamma_in), 'g', 3) + " deg"
+                        );
 
 
         }
@@ -609,3 +659,5 @@ void MainWindow::closeEvent (QCloseEvent *event){
 
 #endif
 }
+
+

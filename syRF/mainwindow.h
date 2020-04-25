@@ -36,12 +36,27 @@ private slots:
     void on_Calculate_button_4_clicked();
 
     void on_f0_box_2_returnPressed();
+    void on_f0_box_2_textEdited(const QString &arg1);
+
     void on_y_i_box_2_returnPressed();
+    void on_y_i_box_2_textChanged(const QString &arg1);
+
     void on_y_f_box_2_returnPressed();
+    void on_y_f_box_2_textChanged(const QString &arg1);
+
     void on_y_r_box_2_returnPressed();
+    void on_y_r_box_2_textChanged(const QString &arg1);
+
     void on_y_o_box_2_returnPressed();
+    void on_y_o_box_2_textChanged(const QString &arg1);
+
     void on_y_s_box_2_returnPressed();
+    void on_y_s_box_2_textChanged(const QString &arg1);
+
     void on_y_L_box_2_returnPressed();
+    void on_y_L_box_2_textChanged(const QString &arg1);
+
+
 
     void on_radioButton_CE_clicked();
     void on_radioButton_CB_clicked();
@@ -64,6 +79,14 @@ private slots:
 
 
     void closeEvent (QCloseEvent *event);
+
+
+
+
+
+
+
+
 private:
     Ui::MainWindow *ui;
 
