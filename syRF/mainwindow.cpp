@@ -144,7 +144,6 @@ void MainWindow::on_Calculate_button_4_clicked(){
 
             if (ui->radioButton_CE->isChecked()){
 
-
                 y_i = complex_t(get_value_from_dictionary(&g_ie, f0),
                                 get_value_from_dictionary(&b_ie, f0));
                 y_f = complex_t(get_value_from_dictionary(&g_fe, f0),
@@ -180,24 +179,10 @@ void MainWindow::on_Calculate_button_4_clicked(){
         // manually fill the y parameters values.
 
         if (! ui->y_i_box_2->text().isEmpty()){
-
-#define DUMBTEST 0
-#if DUMBTEST
-            QString a = ui->y_i_box_2->text();
-            std::string utf8_text = a.toUtf8().constData();
-            WATCH(utf8_text);
-            WATCH(ccomplex(utf8_text));
-            WATCH(ccomplex(utf8_text).Re());
-            WATCH(ccomplex(utf8_text).Im());
-#endif
-
             y_i= complex_t (
                         ccomplex( ui->y_i_box_2->text().toStdString()).Re(),
                         ccomplex( ui->y_i_box_2->text().toStdString()).Im()
                         );
-
-
-
         } else {
             y_i = complex_t (0,0);  // INFINITY is the max value a float can hold
         }

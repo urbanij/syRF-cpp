@@ -48,7 +48,8 @@ SOURCES += \
     about.cpp \
     ccomplex.cpp \
     s_parameters.cpp \
-    y_parameters.cpp
+    y_parameters.cpp \
+    utils.cpp
 
 HEADERS += \
     config.h \
