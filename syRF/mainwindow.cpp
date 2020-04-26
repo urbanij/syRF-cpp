@@ -57,29 +57,51 @@ QString COMPLEX_REPR_MAG_ARG(complex_t c){
 }
 
 
+
 MainWindow::MainWindow( QWidget *parent) :
                         QMainWindow(parent),
                         ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    /////////////
+    ///// Y /////
     ui->f0_box_2->setFocus();
     ui->radiobutton_2n4957->setChecked(true);
-            // ui->y_i_box_2->setEnabled(false);
-            // ui->y_f_box_2->setEnabled(false);
-            // ui->y_o_box_2->setEnabled(false);
-            // ui->y_r_box_2->setEnabled(false);
             ui->y_i_box_2->setReadOnly(true);
             ui->y_f_box_2->setReadOnly(true);
             ui->y_o_box_2->setReadOnly(true);
             ui->y_r_box_2->setReadOnly(true);
 
-
-
     ui->radiobutton_2n4957->setChecked(true);
     ui->radioButton_CE->setChecked(true);
 
-//    ui->radioButton_CE->toggle();
-//    ui->checkBox->toggle();
+    /////////////
+    ///// S /////
+
+    ui->radioButton1_MRF571->setChecked(true);
+            ui->s11_box->setReadOnly(true);
+            ui->s11_box_arg->setReadOnly(true);
+            ui->s12_box->setReadOnly(true);
+            ui->s12_box_arg->setReadOnly(true);
+            ui->s21_box->setReadOnly(true);
+            ui->s21_box_arg->setReadOnly(true);
+            ui->s22_box->setReadOnly(true);
+            ui->s22_box_arg->setReadOnly(true);
+
+    ui->radioButton_input_as_Z->setChecked(true);
+            ui->label_250->setEnabled(false);
+            ui->ZS_box_2->setEnabled(false);
+            ui->label_257->setEnabled(false);
+            ui->ZS_box_5->setEnabled(false);
+            ui->label_264->setEnabled(false);
+            ui->ZS_box_4->setEnabled(false);
+            ui->label_265->setEnabled(false);
+            ui->ZS_box_3->setEnabled(false);
+
+
+
+    this->setWindowModified(false);
 
 }
 
@@ -184,7 +206,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
                         ccomplex( ui->y_i_box_2->text().toStdString()).Im()
                         );
         } else {
-            y_i = complex_t (0,0);  // INFINITY is the max value a float can hold
+            y_i = complex_t(NAN, NAN); // complex_t (0,0);  // INFINITY is the max value a float can hold
         }
 
         if (! ui->y_f_box_2->text().isEmpty()){
@@ -193,7 +215,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
                         ccomplex( ui->y_f_box_2->text().toStdString()).Im()
                         );
         } else {
-            y_f = complex_t (0,0);
+            y_f = complex_t(NAN, NAN); // complex_t (0,0);
         }
 
         if (! ui->y_r_box_2->text().isEmpty()){
@@ -202,7 +224,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
                         ccomplex( ui->y_r_box_2->text().toStdString()).Im()
                         );
         } else {
-            y_r = complex_t (0,0);
+            y_r = complex_t(NAN, NAN); // complex_t (0,0);
         }
 
         if (! ui->y_o_box_2->text().isEmpty()){
@@ -211,28 +233,31 @@ void MainWindow::on_Calculate_button_4_clicked(){
                         ccomplex( ui->y_o_box_2->text().toStdString()).Im()
                         );
         } else {
-            y_o = complex_t (0,0);
+            y_o = complex_t(NAN, NAN); // complex_t (0,0);
         }
 
-        /// source and load
-        if (! ui->y_s_box_2->text().isEmpty()){
-            y_s = complex_t (
-                    ccomplex( ui->y_s_box_2->text().toStdString()).Re(),
-                    ccomplex( ui->y_s_box_2->text().toStdString()).Im()
-                    );
-        } else {
-            y_s = complex_t (0,0);
-        }
-
-        if (! ui->y_L_box_2->text().isEmpty()){
-             y_l = complex_t (
-                        ccomplex( ui->y_L_box_2->text().toStdString()).Re(),
-                        ccomplex( ui->y_L_box_2->text().toStdString()).Im()
-                        );
-        } else {
-             y_l = complex_t (0,0);
-        }
     }
+
+    /// read source and load values
+    if (! ui->y_s_box_2->text().isEmpty()){
+        y_s = complex_t (
+                ccomplex( ui->y_s_box_2->text().toStdString()).Re(),
+                ccomplex( ui->y_s_box_2->text().toStdString()).Im()
+                );
+    } else {
+        y_s = complex_t(NAN, NAN); // complex_t (0,0);
+    }
+
+    if (! ui->y_L_box_2->text().isEmpty()){
+         y_l = complex_t (
+                    ccomplex( ui->y_L_box_2->text().toStdString()).Re(),
+                    ccomplex( ui->y_L_box_2->text().toStdString()).Im()
+                    );
+    } else {
+         y_l = complex_t(NAN, NAN); // complex_t (0,0);
+    }
+
+
 
     #if PRINT_TO_CONSOLE
         WATCH(y_i);
@@ -297,14 +322,14 @@ void MainWindow::on_Calculate_button_4_clicked(){
     ui->y_s_opt_box_2->setText(COMPLEX_REPR_RE_IM(y_s_opt) );
     ui->y_L_opt_box_2->setText(COMPLEX_REPR_RE_IM(y_l_opt) );
 
-    this->setWindowTitle("syRF");
+    this->setWindowModified(false);
 }
 
 
 
-void MainWindow::on_f0_box_2_textEdited(const QString &arg1)
-{
-    this->setWindowTitle("* syRF");
+void MainWindow::on_f0_box_2_textEdited(const QString &arg1){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
 }
 void MainWindow::on_f0_box_2_returnPressed(){
     on_Calculate_button_4_clicked();
@@ -319,7 +344,8 @@ void MainWindow::on_y_i_box_2_returnPressed(){
     on_Calculate_button_4_clicked();
 }
 void MainWindow::on_y_i_box_2_textChanged(const QString &arg1){
-    this->setWindowTitle("* syRF");
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
 }
 
 
@@ -327,7 +353,8 @@ void MainWindow::on_y_f_box_2_returnPressed(){
     on_Calculate_button_4_clicked();
 }
 void MainWindow::on_y_f_box_2_textChanged(const QString &arg1){
-    this->setWindowTitle("* syRF");
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
 }
 
 
@@ -335,7 +362,8 @@ void MainWindow::on_y_r_box_2_returnPressed(){
     on_Calculate_button_4_clicked();
 }
 void MainWindow::on_y_r_box_2_textChanged(const QString &arg1){
-    this->setWindowTitle("* syRF");
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
 }
 
 
@@ -343,7 +371,8 @@ void MainWindow::on_y_o_box_2_returnPressed(){
     on_Calculate_button_4_clicked();
 }
 void MainWindow::on_y_o_box_2_textChanged(const QString &arg1){
-    this->setWindowTitle("* syRF");
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
 }
 
 
@@ -351,7 +380,8 @@ void MainWindow::on_y_s_box_2_returnPressed(){
     on_Calculate_button_4_clicked();
 }
 void MainWindow::on_y_s_box_2_textChanged(const QString &arg1){
-    this->setWindowTitle("* syRF");
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
 }
 
 
@@ -359,7 +389,8 @@ void MainWindow::on_y_L_box_2_returnPressed(){
     on_Calculate_button_4_clicked();
 }
 void MainWindow::on_y_L_box_2_textChanged(const QString &arg1){
-    this->setWindowTitle("* syRF");
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
 }
 
 
@@ -470,7 +501,7 @@ void MainWindow::on_Calculate_button_5_clicked(){
                             s21_polar,
                             s22_polar;
 
-
+    complex_t zs, zl;
     float z0;
 
     if (! ui->Z0_box->text().isEmpty()){
@@ -478,18 +509,21 @@ void MainWindow::on_Calculate_button_5_clicked(){
     } else {
 
     }
-
-
-
-    complex_t zl;
-
     if (! ui->ZL_box->text().isEmpty()){
         zl = complex_t (
                     ccomplex( ui->ZL_box->text().toStdString()).Re(),
                     ccomplex( ui->ZL_box->text().toStdString()).Im()
                     );
     } else {
-        //zl = complex_t (0,0);
+        zl = complex_t (NAN, NAN);
+    }
+    if (! ui->ZS_box->text().isEmpty()){
+        zs = complex_t (
+                    ccomplex( ui->ZS_box->text().toStdString()).Re(),
+                    ccomplex( ui->ZS_box->text().toStdString()).Im()
+                    );
+    } else {
+        zs = complex_t (NAN, NAN);
     }
 
 
@@ -543,7 +577,33 @@ void MainWindow::on_Calculate_button_5_clicked(){
             s21 = polar_2_rect(s21_polar.first, DEG_2_RAD(s21_polar.second));
             s22 = polar_2_rect(s22_polar.first, DEG_2_RAD(s22_polar.second));
 
-#if 1
+
+#if PRINT_TO_CONSOLE
+            WATCH(s11.real() << " " << s11.imag() << " | " << s11_polar.first << " " << s11_polar.second);
+            WATCH(s12.real() << " " << s12.imag() << " | " << s12_polar.first << " " << s12_polar.second);
+            WATCH(s21.real() << " " << s21.imag() << " | " << s21_polar.first << " " << s21_polar.second);
+            WATCH(s22.real() << " " << s22.imag() << " | " << s22_polar.first << " " << s22_polar.second);
+#endif
+
+
+            // fill boxes
+            ui->s11_box->setText(QString::number(s11_polar.first));
+            ui->s11_box_arg->setText(QString::number(s11_polar.second));
+
+            ui->s12_box->setText(QString::number(s12_polar.first));
+            ui->s12_box_arg->setText(QString::number(s12_polar.second));
+
+            ui->s21_box->setText(QString::number(s21_polar.first));
+            ui->s21_box_arg->setText(QString::number(s21_polar.second));
+
+            ui->s22_box->setText(QString::number(s22_polar.first));
+            ui->s22_box_arg->setText(QString::number(s22_polar.second));
+
+
+            
+
+
+#if 0
 
             WATCH(s11.real());
             WATCH(s11.imag());
@@ -587,32 +647,147 @@ WATCH(s22_polar.first);
 
 
 
-            complex_t   determinant = compute_D(s11, s12, s21, s22);
-            float       K =           calculate_K(s11, s12, s21, s22);
-            complex_t   gamma_in =    calculate_gamma_in(s11, s12, s21, s22, zl, z0);
- 
-
-
-            /* displays output */
-            ui->D_box_2->setText(
-                        QString::number(MAG(determinant),'g', 3) + "∠" +
-                        QString::number(ARG_DEG(determinant), 'g', 3) + " deg"
-                        );
-
-            ui->k_box_4->setText(QString::number(MAG(K)));
-            
-            ui->gamma_in_box_2->setText(
-                        QString::number(MAG(gamma_in),'g', 3) + "∠" +
-                        QString::number(ARG_DEG(gamma_in), 'g', 3) + " deg"
-                        );
-
+        } else {
+            // combo box entry is empty
 
         }
 
 
+    } else {
+        // MRF transistor radio button is NOT checked, i.e. you are in manual
+
+        // read from lineedit the S parameters.
+
+        // note: if the user inserts a non-float value it's casted to 0
+        s11_polar = std::make_pair( ui->s11_box->text().toFloat(),
+                                    ui->s11_box_arg->text().toFloat());
+        s12_polar = std::make_pair( ui->s12_box->text().toFloat(),
+                                    ui->s12_box_arg->text().toFloat());
+        s21_polar = std::make_pair( ui->s21_box->text().toFloat(),
+                                    ui->s21_box_arg->text().toFloat());
+        s22_polar = std::make_pair( ui->s22_box->text().toFloat(),
+                                    ui->s22_box_arg->text().toFloat());
+
+        s11 = complex_t(polar_2_rect(s11_polar.first, DEG_2_RAD(s11_polar.second)));
+        s12 = complex_t(polar_2_rect(s12_polar.first, DEG_2_RAD(s12_polar.second)));
+        s21 = complex_t(polar_2_rect(s21_polar.first, DEG_2_RAD(s21_polar.second)));
+        s22 = complex_t(polar_2_rect(s22_polar.first, DEG_2_RAD(s22_polar.second)));
+
+        
+
+
     }
-    
+
+
+    complex_t   determinant = compute_D(s11, s12, s21, s22);
+    float       K =           calculate_K(s11, s12, s21, s22);
+    complex_t   gamma_in =    calculate_gamma_in(s11, s12, s21, s22, zl, z0);
+
+
+
+    /* displays output */
+    ui->D_box_2->setText(
+                QString::number(MAG(determinant),'g', 3) + "∠" +
+                QString::number(ARG_DEG(determinant), 'g', 3) + " deg"
+                );
+
+    ui->k_box_4->setText(QString::number(MAG(K)));
+
+    ui->gamma_in_box_2->setText(
+                QString::number(MAG(gamma_in),'g', 3) + "∠" +
+                QString::number(ARG_DEG(gamma_in), 'g', 3) + " deg"
+                );
+
+
+
+
 }
+
+
+void MainWindow::on_radioButton1_MRF571_clicked(){
+    ui->s11_box->setReadOnly(true);
+    ui->s11_box_arg->setReadOnly(true);
+    ui->s12_box->setReadOnly(true);
+    ui->s12_box_arg->setReadOnly(true);
+    ui->s21_box->setReadOnly(true);
+    ui->s21_box_arg->setReadOnly(true);
+    ui->s22_box->setReadOnly(true);
+    ui->s22_box_arg->setReadOnly(true);
+    ui->comboBox_MRF_bias->setEnabled(true);
+
+    ui->ZS_box->setFocus();
+
+    on_Calculate_button_5_clicked();
+}
+
+void MainWindow::on_manual_input_s_radioButton_clicked(){
+    ui->s11_box->setReadOnly(false);
+    ui->s11_box_arg->setReadOnly(false);
+    ui->s12_box->setReadOnly(false);
+    ui->s12_box_arg->setReadOnly(false);
+    ui->s21_box->setReadOnly(false);
+    ui->s21_box_arg->setReadOnly(false);
+    ui->s22_box->setReadOnly(false);
+    ui->s22_box_arg->setReadOnly(false);
+
+    ui->comboBox_MRF_bias->setEnabled(false);
+
+    ui->s11_box->setFocus();
+
+    on_Calculate_button_5_clicked();
+}
+
+
+void MainWindow::on_radioButton_input_as_Z_clicked(){
+    ui->label_250->setEnabled(false);
+    ui->ZS_box_2->setEnabled(false);
+    ui->label_257->setEnabled(false);
+    ui->ZS_box_5->setEnabled(false);
+    ui->label_264->setEnabled(false);
+    ui->ZS_box_4->setEnabled(false);
+    ui->label_265->setEnabled(false);
+    ui->ZS_box_3->setEnabled(false);
+
+    ui->label_196->setEnabled(true);
+    ui->ZS_box->setEnabled(true);
+    ui->label_26->setEnabled(true);
+    ui->label_197->setEnabled(true);
+    ui->ZL_box->setEnabled(true);
+    ui->label_25->setEnabled(true);
+
+    ui->ZS_box->setFocus();
+}
+
+void MainWindow::on_radioButton_input_as_gamma_clicked(){
+    
+    ui->label_250->setEnabled(true);
+    ui->ZS_box_2->setEnabled(true);
+    ui->label_257->setEnabled(true);
+    ui->ZS_box_5->setEnabled(true);
+    ui->label_264->setEnabled(true);
+    ui->ZS_box_4->setEnabled(true);
+    ui->label_265->setEnabled(true);
+    ui->ZS_box_3->setEnabled(true);
+
+    ui->label_196->setEnabled(false);
+    ui->ZS_box->setEnabled(false);
+    ui->label_26->setEnabled(false);
+    ui->label_197->setEnabled(false);
+    ui->ZL_box->setEnabled(false);
+    ui->label_25->setEnabled(false);
+
+    ui->ZS_box_2->setFocus();
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

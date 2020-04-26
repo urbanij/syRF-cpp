@@ -69,6 +69,11 @@ private slots:
     void on_Calculate_button_5_clicked();
 
 
+    void on_radioButton1_MRF571_clicked();
+    void on_manual_input_s_radioButton_clicked();
+    void on_radioButton_input_as_Z_clicked();
+    void on_radioButton_input_as_gamma_clicked();
+
 
 
     /// END S TAB ///
@@ -79,8 +84,6 @@ private slots:
 
 
     void closeEvent (QCloseEvent *event);
-
-
 
 
 

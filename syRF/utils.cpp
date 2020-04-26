@@ -14,7 +14,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include "util.h"
+#include "utils.h"
 #include <cmath>
 #include <complex>
 #include <map>
@@ -44,7 +44,7 @@ float dB_2_linear(float x){
 
 complex_t 
 polar_2_rect(float mag,
-             float phase)
+             float phase) // phase in radians!
 {
     return complex_t(mag*cos(phase), mag*sin(phase));
 }

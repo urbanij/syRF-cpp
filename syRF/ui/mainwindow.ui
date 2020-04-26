@@ -22,7 +22,7 @@
        <bool>false</bool>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -501,7 +501,7 @@
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=6 V, Ic= 5mA, f=2000 MHz</string>
+                 <string>MRF571, Vce=6 V, Ic=5 mA, f=2000 MHz</string>
                 </property>
                </item>
                <item>
@@ -531,7 +531,7 @@
                </item>
                <item>
                 <property name="text">
-                 <string>MRF571, Vce=6V, Ic=50 mA, f=200 MHz</string>
+                 <string>MRF571, Vce=6 V, Ic=50 mA, f=200 MHz</string>
                 </property>
                </item>
                <item>
@@ -1076,7 +1076,7 @@
                   </size>
                  </property>
                  <property name="readOnly">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
@@ -1109,7 +1109,7 @@
                   </size>
                  </property>
                  <property name="readOnly">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
@@ -1132,7 +1132,7 @@
                   </size>
                  </property>
                  <property name="readOnly">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
@@ -1145,7 +1145,7 @@
                   </size>
                  </property>
                  <property name="readOnly">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
@@ -1383,7 +1383,7 @@
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_3">
                <item>
-                <widget class="QRadioButton" name="radioButton_5">
+                <widget class="QRadioButton" name="radioButton_input_as_Z">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -1393,10 +1393,13 @@
                  <property name="text">
                   <string>Input as Z</string>
                  </property>
+                 <attribute name="buttonGroup">
+                  <string notr="true">buttonGroup_4</string>
+                 </attribute>
                 </widget>
                </item>
                <item>
-                <widget class="QRadioButton" name="radioButton_6">
+                <widget class="QRadioButton" name="radioButton_input_as_gamma">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -1406,6 +1409,9 @@
                  <property name="text">
                   <string>Input as Γ</string>
                  </property>
+                 <attribute name="buttonGroup">
+                  <string notr="true">buttonGroup_4</string>
+                 </attribute>
                 </widget>
                </item>
               </layout>
@@ -2301,7 +2307,7 @@
              <item row="3" column="1">
               <widget class="QLineEdit" name="y_o_box_2">
                <property name="placeholderText">
-                <string>0</string>
+                <string/>
                </property>
               </widget>
              </item>
@@ -2339,14 +2345,14 @@
              <item row="2" column="1">
               <widget class="QLineEdit" name="y_f_box_2">
                <property name="placeholderText">
-                <string>0</string>
+                <string/>
                </property>
               </widget>
              </item>
              <item row="4" column="1">
               <widget class="QLineEdit" name="y_r_box_2">
                <property name="placeholderText">
-                <string>0</string>
+                <string/>
                </property>
               </widget>
              </item>
@@ -2400,7 +2406,7 @@
              <item row="1" column="1">
               <widget class="QLineEdit" name="y_i_box_2">
                <property name="placeholderText">
-                <string>0</string>
+                <string/>
                </property>
               </widget>
              </item>
@@ -2484,7 +2490,7 @@
              <item row="5" column="1">
               <widget class="QLineEdit" name="y_s_box_2">
                <property name="placeholderText">
-                <string>0</string>
+                <string/>
                </property>
               </widget>
              </item>
@@ -2514,7 +2520,7 @@
              <item row="6" column="1">
               <widget class="QLineEdit" name="y_L_box_2">
                <property name="placeholderText">
-                <string>0</string>
+                <string/>
                </property>
               </widget>
              </item>
@@ -3108,8 +3114,8 @@
   <tabstop>GT_box_2</tabstop>
   <tabstop>y_f_box_2</tabstop>
   <tabstop>y_L_box_2</tabstop>
-  <tabstop>radioButton_5</tabstop>
-  <tabstop>radioButton_6</tabstop>
+  <tabstop>radioButton_input_as_Z</tabstop>
+  <tabstop>radioButton_input_as_gamma</tabstop>
   <tabstop>GA_box_2</tabstop>
   <tabstop>radioButton_CE</tabstop>
   <tabstop>GT_box_dB_2</tabstop>
@@ -3152,7 +3158,8 @@
  <connections/>
  <buttongroups>
   <buttongroup name="buttonGroup"/>
-  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup_3"/>
+  <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="buttonGroup_4"/>
  </buttongroups>
 </ui>
