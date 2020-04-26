@@ -120,9 +120,9 @@ filter_S_transistor_bias_settings(const std::string s,
     std::smatch match;
 
     if (std::regex_search(s.begin(), s.end(), match, rgx)){
-        for (auto i: match){
-            std::cout << i << '\n';
-        }
+        // for (auto i: match){
+        //     std::cout << i << '\n';
+        // }
     }
 #endif
 

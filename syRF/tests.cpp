@@ -9,7 +9,7 @@
 **  File:           tests.cpp                                   **
 **  Description:                                                **
 **
-**  g++ -std=c++14 tests.cpp utils.cpp -lgtest -lgtest_main -pthread -o tests && ./tests
+**  g++ -std=c++17 tests.cpp utils.cpp -lgtest -lgtest_main -pthread -o tests && ./tests
 *****************************************************************/
 #include <gtest/gtest.h>
 

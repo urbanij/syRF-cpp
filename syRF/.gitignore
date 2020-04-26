@@ -72,3 +72,4 @@ Thumbs.db
 *.exe
 
 tests
+tests_regex

@@ -18,7 +18,7 @@
 #include <complex>
 #include <cmath>
 
-#define USE_QT_REGEX 1
+#define USE_QT_REGEX 0
 #if USE_QT_REGEX
     #include <QRegularExpression>
 #else
