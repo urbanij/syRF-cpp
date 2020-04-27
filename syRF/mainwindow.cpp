@@ -89,6 +89,13 @@ MainWindow::MainWindow( QWidget *parent) :
             ui->s22_box->setReadOnly(true);
             ui->s22_box_arg->setReadOnly(true);
 
+            ui->NFmindb_box_2->setReadOnly(true);
+            ui->rn_box_2->setReadOnly(true);
+            ui->gamma_s_on_box->setReadOnly(true);
+            ui->gamma_s_on_box_2->setReadOnly(true);
+
+
+
     ui->radioButton_input_as_Z->setChecked(true);
             ui->label_250->setEnabled(false);
             ui->ZS_box_2->setEnabled(false);
@@ -485,10 +492,11 @@ void MainWindow::on_manual_input_y_radioButton_clicked(){
 
 
 void MainWindow::on_Calculate_button_5_clicked(){
-    #if PRINT_TO_CONSOLE
+    
+#if PRINT_TO_CONSOLE
         PRINT("===================================");
         system("clear");
-    #endif
+#endif
 
     // these variables will hold the value of the s parameters
     std::complex<float>     s11,        // complex_t is an alias for std::complex<float>        
@@ -504,10 +512,21 @@ void MainWindow::on_Calculate_button_5_clicked(){
     complex_t zs, zl;
     float z0;
 
+
+    float NFmin_db;
+    float Rn;
+    complex_t gamma_s_on;
+
+
+//// CHANGE POSTION OF THIS //////////////////////////////////////
     if (! ui->Z0_box->text().isEmpty()){
         z0 = ui->Z0_box->text().toFloat();
-    } else {
 
+        ui->statusBar->showMessage("");
+        ui->statusBar->setStyleSheet("background-color: auto;");
+    } else {
+        ui->statusBar->showMessage("Fill z0 before proceeding.");
+        ui->statusBar->setStyleSheet("background-color: red; color: white;");
     }
     if (! ui->ZL_box->text().isEmpty()){
         zl = complex_t (
@@ -525,7 +544,7 @@ void MainWindow::on_Calculate_button_5_clicked(){
     } else {
         zs = complex_t (NAN, NAN);
     }
-
+////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -578,7 +597,59 @@ void MainWindow::on_Calculate_button_5_clicked(){
             s22 = polar_2_rect(s22_polar.first, DEG_2_RAD(s22_polar.second));
 
 
-#if PRINT_TO_CONSOLE
+            // fill noise parameters if they are available
+            if ( Vce == 6.0 && Ic == 5.0 && (f0 == 500.0 || f0 == 1000.0) ){
+                // noise parameters are given by the datasheet, just do
+                // ahead and retrieve them from `s_parameters_data.h`.
+                // prevent the fields from being editable.
+                ui->NFmindb_box_2->setReadOnly(true);
+                ui->rn_box_2->setReadOnly(true);
+                ui->gamma_s_on_box->setReadOnly(true);
+                ui->gamma_s_on_box_2->setReadOnly(true);
+
+
+                NFmin_db =   MRF_transistor_noise_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["NF_opt_db"];
+                Rn =         MRF_transistor_noise_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["R_n"];
+                gamma_s_on = polar_2_rect(
+                            MRF_transistor_noise_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["Gamma_S_on_mag"],
+                            DEG_2_RAD(MRF_transistor_noise_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["Gamma_S_on_arg"])
+                        );
+
+
+                ui->NFmindb_box_2->setText(QString::number(NFmin_db));
+                ui->rn_box_2->setText(QString::number(Rn));
+                ui->gamma_s_on_box->setText(QString::number(MAG(gamma_s_on)));
+                ui->gamma_s_on_box_2->setText(QString::number(ARG_DEG(gamma_s_on)));
+
+                WATCH(gamma_s_on);
+                WATCH(MAG(gamma_s_on));
+                WATCH(ARG_DEG(gamma_s_on));
+
+            }
+            else {
+
+                // not given from the datasheet hence make those fields editable.
+
+                // clean the fields first
+                ui->NFmindb_box_2->setText("");
+                ui->rn_box_2->setText("");
+                ui->gamma_s_on_box->setText("");
+                ui->gamma_s_on_box_2->setText("");
+
+                ui->NFmindb_box_2->setReadOnly(false);
+                ui->rn_box_2->setReadOnly(false);
+                ui->gamma_s_on_box->setReadOnly(false);
+                ui->gamma_s_on_box_2->setReadOnly(false);
+
+                NFmin_db = ui->NFmindb_box_2->text().toFloat();
+                Rn = ui->rn_box_2->text().toFloat();
+                gamma_s_on = polar_2_rect(ui->gamma_s_on_box->text().toFloat(),
+                                          DEG_2_RAD(ui->gamma_s_on_box_2->text().toFloat())
+                                          );
+            }
+
+
+#if 0
             WATCH(s11.real() << " " << s11.imag() << " | " << s11_polar.first << " " << s11_polar.second);
             WATCH(s12.real() << " " << s12.imag() << " | " << s12_polar.first << " " << s12_polar.second);
             WATCH(s21.real() << " " << s21.imag() << " | " << s21_polar.first << " " << s21_polar.second);
@@ -599,79 +670,87 @@ void MainWindow::on_Calculate_button_5_clicked(){
             ui->s22_box->setText(QString::number(s22_polar.first));
             ui->s22_box_arg->setText(QString::number(s22_polar.second));
 
-
-            
-
-
-#if 0
-
-            WATCH(s11.real());
-            WATCH(s11.imag());
-            WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].first);
-            WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].second);
-            WATCH(DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].second));
-            WATCH(s11_polar.first);
-            WATCH(s11_polar.second);
-
-
-            WATCH(s12.real());
-            WATCH(s12.imag());
-            WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s12"].first);
-            WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s12"].second);
-            WATCH(DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s12"].second));
-WATCH(s12_polar.first);
-            WATCH(s12_polar.second);
-
-            WATCH(s21.real());
-            WATCH(s21.imag());
-            WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s21"].first);
-            WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s21"].second);
-            WATCH(DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s21"].second));
-            WATCH(MAG(s21));
-            WATCH(ARG_DEG(s21));
-WATCH(s21_polar.first);
-            WATCH(s21_polar.second);
-
-            WATCH(s22.real());
-            WATCH(s22.imag());
-            WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s22"].first);
-            WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s22"].second);
-            WATCH(DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s22"].second));
-            WATCH(MAG(s22));
-            WATCH(ARG_DEG(s22));
-WATCH(s22_polar.first);
-            WATCH(s22_polar.second);
-
-
-#endif
-
-
-
-        } else {
+        }
+        else {
             // combo box entry is empty
 
+            // clean the S and noise boxes.
+            ui->s11_box->setText("");
+            ui->s11_box_arg->setText("");
+
+            ui->s12_box->setText("");
+            ui->s12_box_arg->setText("");
+
+            ui->s21_box->setText("");
+            ui->s21_box_arg->setText("");
+
+            ui->s22_box->setText("");
+            ui->s22_box_arg->setText("");
+
+
+
+            ui->NFmindb_box_2->setText("");
+            ui->rn_box_2->setText("");
+            ui->gamma_s_on_box->setText("");
+            ui->gamma_s_on_box_2->setText("");
         }
 
 
-    } else {
+    }
+    else {
         // MRF transistor radio button is NOT checked, i.e. you are in manual
 
         // read from lineedit the S parameters.
+        if (!ui->s11_box->text().isEmpty() && !ui->s11_box_arg->text().isEmpty()){
+            s11_polar = std::make_pair( ui->s11_box->text().toFloat(),
+                                        ui->s11_box_arg->text().toFloat());
+        } else {
+            s11_polar = std::make_pair(NAN, NAN);
+        }
+        if (!ui->s12_box->text().isEmpty() && !ui->s12_box_arg->text().isEmpty()){
+            s12_polar = std::make_pair( ui->s12_box->text().toFloat(),
+                                        ui->s12_box_arg->text().toFloat());
+        } else {
+            s12_polar = std::make_pair(NAN, NAN);
+        }
+        if (!ui->s21_box->text().isEmpty() && !ui->s21_box_arg->text().isEmpty()){
+            s21_polar = std::make_pair( ui->s21_box->text().toFloat(),
+                                        ui->s21_box_arg->text().toFloat());
+        } else {
+            s21_polar = std::make_pair(NAN, NAN);
+        }
+        if (!ui->s22_box->text().isEmpty() && !ui->s22_box_arg->text().isEmpty()){
+            s22_polar = std::make_pair( ui->s22_box->text().toFloat(),
+                                        ui->s22_box_arg->text().toFloat());
+        } else {
+            s22_polar = std::make_pair(NAN, NAN);
+        }
 
-        // note: if the user inserts a non-float value it's casted to 0
-        s11_polar = std::make_pair( ui->s11_box->text().toFloat(),
-                                    ui->s11_box_arg->text().toFloat());
-        s12_polar = std::make_pair( ui->s12_box->text().toFloat(),
-                                    ui->s12_box_arg->text().toFloat());
-        s21_polar = std::make_pair( ui->s21_box->text().toFloat(),
-                                    ui->s21_box_arg->text().toFloat());
-        s22_polar = std::make_pair( ui->s22_box->text().toFloat(),
-                                    ui->s22_box_arg->text().toFloat());
 
-        s11 = complex_t(polar_2_rect(s11_polar.first, DEG_2_RAD(s11_polar.second)));
-        s12 = complex_t(polar_2_rect(s12_polar.first, DEG_2_RAD(s12_polar.second)));
-        s21 = complex_t(polar_2_rect(s21_polar.first, DEG_2_RAD(s21_polar.second)));
-        s22 = complex_t(polar_2_rect(s22_polar.first, DEG_2_RAD(s22_polar.second)));
+
+        
+        
+    
+        // read noise parameters
+        ui->NFmindb_box_2->setReadOnly(false);
+        ui->rn_box_2->setReadOnly(false);
+        ui->gamma_s_on_box->setReadOnly(false);
+        ui->gamma_s_on_box_2->setReadOnly(false);
+
+        NFmin_db = ui->NFmindb_box_2->text().toFloat();
+        Rn = ui->rn_box_2->text().toFloat();
+        gamma_s_on = polar_2_rect(ui->gamma_s_on_box->text().toFloat(),
+                                  DEG_2_RAD(ui->gamma_s_on_box_2->text().toFloat())
+                                );
+
+
+
+        // convert S parameters in polar form to std::complex<float> in order
+        // for them to be easily processed by the functions.
+        s11 = polar_2_rect(s11_polar.first, DEG_2_RAD(s11_polar.second));
+        s12 = polar_2_rect(s12_polar.first, DEG_2_RAD(s12_polar.second));
+        s21 = polar_2_rect(s21_polar.first, DEG_2_RAD(s21_polar.second));
+        s22 = polar_2_rect(s22_polar.first, DEG_2_RAD(s22_polar.second));
 
         
 
@@ -679,9 +758,111 @@ WATCH(s22_polar.first);
     }
 
 
-    complex_t   determinant = compute_D(s11, s12, s21, s22);
-    float       K =           calculate_K(s11, s12, s21, s22);
-    complex_t   gamma_in =    calculate_gamma_in(s11, s12, s21, s22, zl, z0);
+#if 1
+            WATCH(s11.real());
+            WATCH(s11.imag());
+            // WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].first);
+            // WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].second);
+            // WATCH(DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].second));
+            WATCH(s11_polar.first);
+            WATCH(s11_polar.second);
+
+
+            WATCH(s12.real());
+            WATCH(s12.imag());
+            // WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s12"].first);
+            // WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s12"].second);
+            // WATCH(DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s12"].second));
+            WATCH(s12_polar.first);
+            WATCH(s12_polar.second);
+
+            WATCH(s21.real());
+            WATCH(s21.imag());
+            // WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s21"].first);
+            // WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s21"].second);
+            // WATCH(DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s21"].second));
+            WATCH(MAG(s21));
+            WATCH(ARG_DEG(s21));
+            WATCH(s21_polar.first);
+            WATCH(s21_polar.second);
+
+            WATCH(s22.real());
+            WATCH(s22.imag());
+            // WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s22"].first);
+            // WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s22"].second);
+            // WATCH(DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s22"].second));
+            WATCH(MAG(s22));
+            WATCH(ARG_DEG(s22));
+            WATCH(s22_polar.first);
+            WATCH(s22_polar.second);
+#endif
+
+
+    //////////////////////////       variables declaration       /////////////
+    complex_t determinant;
+    float K;
+    complex_t gamma_in;
+    complex_t gamma_out;
+    
+    complex_t Cs;
+    float rs;
+
+    complex_t Cl;
+    float rl;
+
+    float GP;
+    float GT;
+    float GA;
+    float NF;
+
+    complex_t Cnf;
+    float rnf;
+
+    complex_t Ca;
+    float ra;
+
+    complex_t Cp;
+    float rp;
+
+    complex_t Ct;
+    float rt;
+
+    complex_t gamma_s_opt;
+    complex_t gamma_l_opt;
+
+    complex_t zs_opt;
+    complex_t zl_opt;
+    //////////////////////////   end  variables declaration       /////////////
+
+
+
+    determinant = compute_D(s11, s12, s21, s22);
+    K = calculate_K(s11, s12, s21, s22);
+    
+    gamma_in = calculate_gamma_in(s11, s12, s21, s22, zl, z0);
+    gamma_out = calculate_gamma_out(s11,s12,s21,s22,zs,z0);
+
+    std::tie(Cs, rs) = calculate_ISC(s11,s12,s21,s22);
+    std::tie(Cl, rl) = calculate_OSC(s11,s12,s21,s22);
+
+    GP = calculate_GP(s11,s12,s21,s22,zl,z0);
+    GT = calculate_GT(s11,s12,s21,s22,zs,zl,z0);
+    GA = calculate_GA(s11,s12,s21,s22,zs,z0);
+
+    NF = calculate_NF(NFmin_db,Rn,gamma_s_on,zs,z0);
+
+#if 0
+    std::tie(Cnf, rnf) = calculate_NF_circle(s11,s12,s21,s22,z0,NF_circle_dB,gamma_s_on,NF_opt_dB,Rn);
+    std::tie(Ca, ra) = calculate_GA_circle(s11,s12,s21,s22,Ga_circle_dB);
+    std::tie(Cp, rp) = calculate_GP_circle(s11,s12,s21,s22,Gp_circle_dB);
+    std::tie(Ct, rt) = calculate_GT_circle(s11,s12,s21,s22,zs,zl,z0,Gt_circle_dB);
+#endif
+
+    gamma_s_opt = calculate_gamma_S_opt(s11,s12,s21,s22);
+    gamma_l_opt = calculate_gamma_L_opt(s11,s12,s21,s22);
+
+
+
 
 
 
