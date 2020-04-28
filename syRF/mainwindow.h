@@ -90,6 +90,63 @@ private slots:
 
 
 
+    void on_s11_box_returnPressed();
+    void on_s11_box_textChanged(const QString& arg1);
+
+    void on_s11_box_arg_returnPressed();
+    void on_s11_box_arg_textChanged(const QString& arg1);
+
+    void on_s12_box_returnPressed();
+    void on_s12_box_textChanged(const QString& arg1);
+
+    void on_s12_box_arg_returnPressed();
+    void on_s12_box_arg_textChanged(const QString& arg1);
+
+    void on_s21_box_returnPressed();
+    void on_s21_box_textChanged(const QString& arg1);
+
+    void on_s21_box_arg_returnPressed();
+    void on_s21_box_arg_textChanged(const QString& arg1);
+
+    void on_s22_box_returnPressed();
+    void on_s22_box_textChanged(const QString& arg1);
+
+    void on_s22_box_arg_returnPressed();
+    void on_s22_box_arg_textChanged(const QString& arg1);
+
+    void on_Z0_box_returnPressed();
+    void on_Z0_box_textChanged(const QString& arg1);
+
+    void on_ZS_box_returnPressed();
+    void on_ZS_box_textChanged(const QString& arg1);
+
+    void on_ZL_box_returnPressed();
+    void on_ZL_box_textChanged(const QString& arg1);
+
+    void on_ZS_box_2_returnPressed();
+    void on_ZS_box_2_textChanged(const QString& arg1);
+
+    void on_ZS_box_5_returnPressed();
+    void on_ZS_box_5_textChanged(const QString& arg1);
+
+    void on_ZS_box_4_returnPressed();
+    void on_ZS_box_4_textChanged(const QString& arg1);
+
+    void on_ZS_box_3_returnPressed();
+    void on_ZS_box_3_textChanged(const QString& arg1);
+
+    void on_NFdb_box_2_returnPressed();
+    void on_NFdb_box_2_textChanged(const QString& arg1);
+
+    void on_GAdb_box_2_returnPressed();
+    void on_GAdb_box_2_textChanged(const QString& arg1);
+
+    void on_GTdb_box_2_returnPressed();
+    void on_GTdb_box_2_textChanged(const QString& arg1);
+
+    void on_GPdb_box_2_returnPressed();
+    void on_GPdb_box_2_textChanged(const QString& arg1);
+
 private:
     Ui::MainWindow *ui;
 

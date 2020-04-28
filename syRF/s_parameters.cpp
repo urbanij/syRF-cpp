@@ -189,11 +189,15 @@ calculate_NF(float      NFmin_db,
     float rn = Rn/z0;
     complex_t gamma_S = z2gamma(zs, z0);
 
+#if 0
     if (abs(gamma_S) != 1){
         // from page 60 ETLC disp
         return ( NFmin + (4 * rn * (pow( (abs(gamma_S - gamma_s_on)) ,2)) )/( (1.0 - pow(abs(gamma_S),2))*(pow(abs(ONE_COMPLEX+gamma_s_on),2)) ) );
     }
     return INFINITY;
+#endif
+
+    return ( NFmin + (4 * rn * (pow( (abs(gamma_S - gamma_s_on)) ,2)) )/( (1.0 - pow(abs(gamma_S),2))*(pow(abs(ONE_COMPLEX+gamma_s_on),2)) ) );
 }
 
 

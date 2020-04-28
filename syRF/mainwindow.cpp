@@ -108,6 +108,7 @@ MainWindow::MainWindow( QWidget *parent) :
 
 
 
+    this->setWindowTitle("syRF");
     this->setWindowModified(false);
 
 }
@@ -329,6 +330,8 @@ void MainWindow::on_Calculate_button_4_clicked(){
     ui->y_s_opt_box_2->setText(COMPLEX_REPR_RE_IM(y_s_opt) );
     ui->y_L_opt_box_2->setText(COMPLEX_REPR_RE_IM(y_l_opt) );
 
+
+    this->setWindowTitle("syRF");
     this->setWindowModified(false);
 }
 
@@ -644,7 +647,7 @@ void MainWindow::on_Calculate_button_5_clicked(){
                 ui->gamma_s_on_box->setReadOnly(false);
                 ui->gamma_s_on_box_2->setReadOnly(false);
 
-                if (!ui->NFdb_box_2->text().isEmpty()){
+                if (!ui->NFmindb_box_2->text().isEmpty()){
                     NFmin_db = ui->NFmindb_box_2->text().toFloat();
                 } else {
                     NFmin_db = NAN;
@@ -774,45 +777,6 @@ void MainWindow::on_Calculate_button_5_clicked(){
     }
 
 
-#if 1
-            WATCH(s11.real());
-            WATCH(s11.imag());
-            // WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].first);
-            // WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].second);
-            // WATCH(DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].second));
-            WATCH(s11_polar.first);
-            WATCH(s11_polar.second);
-
-
-            WATCH(s12.real());
-            WATCH(s12.imag());
-            // WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s12"].first);
-            // WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s12"].second);
-            // WATCH(DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s12"].second));
-            WATCH(s12_polar.first);
-            WATCH(s12_polar.second);
-
-            WATCH(s21.real());
-            WATCH(s21.imag());
-            // WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s21"].first);
-            // WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s21"].second);
-            // WATCH(DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s21"].second));
-            WATCH(MAG(s21));
-            WATCH(ARG_DEG(s21));
-            WATCH(s21_polar.first);
-            WATCH(s21_polar.second);
-
-            WATCH(s22.real());
-            WATCH(s22.imag());
-            // WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s22"].first);
-            // WATCH(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s22"].second);
-            // WATCH(DEG_2_RAD(MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s22"].second));
-            WATCH(MAG(s22));
-            WATCH(ARG_DEG(s22));
-            WATCH(s22_polar.first);
-            WATCH(s22_polar.second);
-#endif
-
 
     //////////////////////////       variables declaration       /////////////
     complex_t determinant;
@@ -890,7 +854,7 @@ void MainWindow::on_Calculate_button_5_clicked(){
                 QString::number(ARG_DEG(determinant), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
                 );
 
-    ui->k_box_4->setText(QString::number(MAG(K)));
+    ui->k_box_4->setText(QString::number(K));
 
     
     // ZS_box2
@@ -951,6 +915,80 @@ void MainWindow::on_Calculate_button_5_clicked(){
                 QString::number(ARG_DEG(gamma_l_opt), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
     );
 
+
+
+    #if 1
+            WATCH(s11.real());
+            WATCH(s11.imag());
+            WATCH(s11_polar.first);
+            WATCH(s11_polar.second);
+
+            WATCH(s12.real());
+            WATCH(s12.imag());
+            WATCH(s12_polar.first);
+            WATCH(s12_polar.second);
+
+            WATCH(s21.real());
+            WATCH(s21.imag());
+            WATCH(MAG(s21));
+            WATCH(ARG_DEG(s21));
+            WATCH(s21_polar.first);
+            WATCH(s21_polar.second);
+
+            WATCH(s22.real());
+            WATCH(s22.imag());
+            WATCH(MAG(s22));
+            WATCH(ARG_DEG(s22));
+            WATCH(s22_polar.first);
+            WATCH(s22_polar.second);
+            
+            WATCH(NFmin_db);
+            WATCH(Rn);
+            WATCH(gamma_s_on);
+
+            std::cout << '\n';
+
+                
+            WATCH(determinant);
+            WATCH(K);
+            WATCH(gamma_in);
+            WATCH(gamma_out);
+
+            WATCH(Cs);
+            WATCH(rs);
+
+            WATCH(Cl);
+            WATCH(rl);
+
+            WATCH(GP);
+            WATCH(GT);
+            WATCH(GA);
+            WATCH(NF);
+
+            WATCH(Cnf);
+            WATCH(rnf);
+
+            WATCH(Ca);
+            WATCH(ra);
+
+            WATCH(Cp);
+            WATCH(rp);
+
+            WATCH(Ct);
+            WATCH(rt);
+
+            WATCH(gamma_s_opt);
+            WATCH(gamma_l_opt);
+
+            WATCH(zs_opt);
+            WATCH(zl_opt);
+
+#endif
+
+
+
+            this->setWindowTitle("syRF");
+            this->setWindowModified(false);
 }
 
 
@@ -1071,3 +1109,155 @@ void MainWindow::closeEvent (QCloseEvent *event){
 }
 
 
+
+void MainWindow::on_s11_box_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_s11_box_textChanged(const QString& arg1){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_s11_box_arg_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_s11_box_arg_textChanged(const QString& arg1){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_s12_box_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_s12_box_textChanged(const QString& arg1){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_s12_box_arg_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_s12_box_arg_textChanged(const QString& arg1){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_s21_box_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_s21_box_textChanged(const QString& arg1){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_s21_box_arg_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_s21_box_arg_textChanged(const QString& arg1){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_s22_box_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_s22_box_textChanged(const QString& arg1){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_s22_box_arg_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_s22_box_arg_textChanged(const QString& arg1){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_Z0_box_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_Z0_box_textChanged(const QString& arg1){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_ZS_box_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_ZS_box_textChanged(const QString& arg1){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_ZL_box_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_ZL_box_textChanged(const QString& arg1){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_ZS_box_2_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_ZS_box_2_textChanged(const QString& arg1){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_ZS_box_5_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_ZS_box_5_textChanged(const QString& arg1){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_ZS_box_4_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_ZS_box_4_textChanged(const QString& arg1){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_ZS_box_3_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_ZS_box_3_textChanged(const QString& arg1){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_NFdb_box_2_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_NFdb_box_2_textChanged(const QString& arg1){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_GAdb_box_2_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_GAdb_box_2_textChanged(const QString& arg1){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_GTdb_box_2_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_GTdb_box_2_textChanged(const QString& arg1){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_GPdb_box_2_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_GPdb_box_2_textChanged(const QString& arg1){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
