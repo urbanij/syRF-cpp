@@ -2,7 +2,7 @@
 #define CCOMPLEX_H
 
 #include <iostream>
-#include <QString>
+// #include <QString>
 
 
 class ccomplex {

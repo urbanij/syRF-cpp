@@ -47,7 +47,6 @@ calculate_yin(
      complex_t y_o,
      complex_t y_r,
 
-     // complex_t y_s,
      complex_t y_l
         ){
     return ( y_i - (y_r*y_f)/(y_o + y_l) );
@@ -154,8 +153,7 @@ calculate_G_T(
      complex_t y_r,
 
      complex_t y_s,
-     complex_t y_l
-        )
+     complex_t y_l)
 {
     return ( 4*y_s.real()*y_l.real()* pow(abs(y_f),2))/ pow(abs((y_s+y_i)*(y_o+y_l)-y_r*y_f),2);
 }
@@ -169,8 +167,7 @@ calculate_k(
      complex_t y_r,
 
      complex_t y_s,
-     complex_t y_l
-        )
+     complex_t y_l)
 {
     return ( 2*(y_i.real()+y_s.real())*(y_o.real()+y_l.real()) )/ ( (y_r*y_f).real() + abs(y_r*y_f) );
 }

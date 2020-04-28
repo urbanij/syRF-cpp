@@ -4,7 +4,7 @@
 #include <regex>
 #include <iostream>
 
-#include <QDebug>
+// #include <QDebug>
 #include "ccomplex.h"
 
 
@@ -38,8 +38,11 @@ ccomplex::ccomplex(const std::string& str) {
         }
     }
     else {
-//        throw std::runtime_error("Invalid number format " + str);
-        qDebug("Invalid number format ");
+        // throw std::runtime_error("Invalid number format " + str); // THIS ABORTS THE APP
+        // qDebug("Invalid number format ");
+        std::cerr << "Invalid number format " << str << "\n";
+        real = NAN;
+        imag = NAN;
 
     }
     _re = real;

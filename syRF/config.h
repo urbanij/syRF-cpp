@@ -14,10 +14,11 @@
 #define CONFIG_H
 
 
-#define DEBUG           1
-#define PRINT_TO_CONSOLE 1
+#define DEBUG               1
+#define PRINT_TO_CONSOLE    1
 
-#define THEME_1_DARK    1
+#define THEME_1_DARK        1
+
 
 
 #define VERSION         "2.0.0 (Beta)"

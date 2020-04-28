@@ -10,7 +10,7 @@
 **  Description:                                                **
 ******************************************************************/
 
-// #include "s_parameters.h"
+#include "s_parameters.h"
 #include "utils.h"
 
 
@@ -37,8 +37,8 @@ calculate_K(complex_t s11,
 
 complex_t
 z2gamma(complex_t zl,
-        complex_t z0
-){
+        complex_t z0)
+{
     complex_t gamma = (zl-z0)/(zl+z0);
     return gamma;
 }
@@ -46,8 +46,8 @@ z2gamma(complex_t zl,
 
 complex_t
 gamma2z(complex_t gamma,
-        complex_t z0
-){
+        complex_t z0)
+{
     complex_t z;
     if (gamma != ONE_COMPLEX){
         z = z0 * ((ONE_COMPLEX + gamma)/(ONE_COMPLEX - gamma));

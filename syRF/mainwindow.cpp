@@ -209,8 +209,8 @@ void MainWindow::on_Calculate_button_4_clicked(){
 
         if (! ui->y_i_box_2->text().isEmpty()){
             y_i= complex_t (
-                        ccomplex( ui->y_i_box_2->text().toStdString()).Re(),
-                        ccomplex( ui->y_i_box_2->text().toStdString()).Im()
+                        (float) ccomplex( ui->y_i_box_2->text().toStdString()).Re(),
+                        (float) ccomplex( ui->y_i_box_2->text().toStdString()).Im()
                         );
         } else {
             y_i = complex_t(NAN, NAN); // complex_t (0,0);  // INFINITY is the max value a float can hold
@@ -218,8 +218,8 @@ void MainWindow::on_Calculate_button_4_clicked(){
 
         if (! ui->y_f_box_2->text().isEmpty()){
             y_f = complex_t (
-                        ccomplex( ui->y_f_box_2->text().toStdString()).Re(),
-                        ccomplex( ui->y_f_box_2->text().toStdString()).Im()
+                        (float) ccomplex( ui->y_f_box_2->text().toStdString()).Re(),
+                        (float) ccomplex( ui->y_f_box_2->text().toStdString()).Im()
                         );
         } else {
             y_f = complex_t(NAN, NAN); // complex_t (0,0);
@@ -227,8 +227,8 @@ void MainWindow::on_Calculate_button_4_clicked(){
 
         if (! ui->y_r_box_2->text().isEmpty()){
             y_r = complex_t (
-                        ccomplex( ui->y_r_box_2->text().toStdString()).Re(),
-                        ccomplex( ui->y_r_box_2->text().toStdString()).Im()
+                        (float) ccomplex( ui->y_r_box_2->text().toStdString()).Re(),
+                        (float) ccomplex( ui->y_r_box_2->text().toStdString()).Im()
                         );
         } else {
             y_r = complex_t(NAN, NAN); // complex_t (0,0);
@@ -236,8 +236,8 @@ void MainWindow::on_Calculate_button_4_clicked(){
 
         if (! ui->y_o_box_2->text().isEmpty()){
             y_o = complex_t (
-                        ccomplex( ui->y_o_box_2->text().toStdString()).Re(),
-                        ccomplex( ui->y_o_box_2->text().toStdString()).Im()
+                        (float) ccomplex( ui->y_o_box_2->text().toStdString()).Re(),
+                        (float) ccomplex( ui->y_o_box_2->text().toStdString()).Im()
                         );
         } else {
             y_o = complex_t(NAN, NAN); // complex_t (0,0);
@@ -616,6 +616,7 @@ void MainWindow::on_Calculate_button_5_clicked(){
                         );
 
 
+                // fill noise parameters
                 ui->NFmindb_box_2->setText(QString::number(NFmin_db));
                 ui->rn_box_2->setText(QString::number(Rn));
                 ui->gamma_s_on_box->setText(QString::number(MAG(gamma_s_on)));
@@ -631,21 +632,36 @@ void MainWindow::on_Calculate_button_5_clicked(){
                 // not given from the datasheet hence make those fields editable.
 
                 // clean the fields first
+#if 0
                 ui->NFmindb_box_2->setText("");
                 ui->rn_box_2->setText("");
                 ui->gamma_s_on_box->setText("");
                 ui->gamma_s_on_box_2->setText("");
+#endif
 
                 ui->NFmindb_box_2->setReadOnly(false);
                 ui->rn_box_2->setReadOnly(false);
                 ui->gamma_s_on_box->setReadOnly(false);
                 ui->gamma_s_on_box_2->setReadOnly(false);
 
-                NFmin_db = ui->NFmindb_box_2->text().toFloat();
-                Rn = ui->rn_box_2->text().toFloat();
-                gamma_s_on = polar_2_rect(ui->gamma_s_on_box->text().toFloat(),
-                                          DEG_2_RAD(ui->gamma_s_on_box_2->text().toFloat())
-                                          );
+                if (!ui->NFdb_box_2->text().isEmpty()){
+                    NFmin_db = ui->NFmindb_box_2->text().toFloat();
+                } else {
+                    NFmin_db = NAN;
+                }
+                if (!ui->rn_box_2->text().isEmpty()){
+                    Rn = ui->rn_box_2->text().toFloat();
+                } else {
+                    Rn = NAN;
+                }
+                if (!ui->gamma_s_on_box->text().isEmpty() && !ui->gamma_s_on_box_2->text().isEmpty()){
+                    gamma_s_on = polar_2_rect(ui->gamma_s_on_box->text().toFloat(),
+                                              DEG_2_RAD(ui->gamma_s_on_box_2->text().toFloat())
+                                              );
+                }else {
+                    gamma_s_on = complex_t(NAN, NAN);
+                }
+
             }
 
 
@@ -867,20 +883,73 @@ void MainWindow::on_Calculate_button_5_clicked(){
 
 
     /* displays output */
+
+#define NUM_SIGNIFICANT_DIGITS 4
     ui->D_box_2->setText(
-                QString::number(MAG(determinant),'g', 3) + "∠" +
-                QString::number(ARG_DEG(determinant), 'g', 3) + " deg"
+                QString::number(MAG(determinant),'g', NUM_SIGNIFICANT_DIGITS) + "∠" +
+                QString::number(ARG_DEG(determinant), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
                 );
 
     ui->k_box_4->setText(QString::number(MAG(K)));
 
+    
+    // ZS_box2
+
+    // gamma_S_box
+
+    ui->gamma_out_box_2->setText(
+                QString::number(MAG(gamma_out),'g', NUM_SIGNIFICANT_DIGITS) + "∠" +
+                QString::number(ARG_DEG(gamma_out), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
+                );
+    // ZL_box2
+
+    // gamma_L_box
+
+
     ui->gamma_in_box_2->setText(
-                QString::number(MAG(gamma_in),'g', 3) + "∠" +
-                QString::number(ARG_DEG(gamma_in), 'g', 3) + " deg"
+                QString::number(MAG(gamma_in),'g', NUM_SIGNIFICANT_DIGITS) + "∠" +
+                QString::number(ARG_DEG(gamma_in), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
                 );
 
+    ui->textBrowser_4->setText(QString::number(NF));
+
+    ui->textBrowser_5->setText(QString::number(linear_2_dB(NF)));
+
+    ui->GAdb_box2_7->setText(QString::number(GA));
+    ui->GAdb_box2_8->setText(QString::number(linear_2_dB(GA)));
+    // ui->textBrowser_2->setText(); // GA max
 
 
+    ui->GPdb_box2_8->setText(QString::number(GP));
+    ui->GPdb_box2_7->setText(QString::number(linear_2_dB(GP)));
+    // ui->textBrowser->setText(); // GP max
+
+    ui->GTdb_box2_7->setText(QString::number(GT));
+    ui->GTdb_box2_8->setText(QString::number(linear_2_dB(GT)));
+    // ui->textBrowser_3->setText(QString::number()); // GT max
+
+
+
+// ui->textBrowser_8->setText(
+
+//     );
+
+    ui->gamma_s_opt_box_5->setText(
+            QString::number(MAG(gamma_s_opt),'g', NUM_SIGNIFICANT_DIGITS) + "∠" +
+            QString::number(ARG_DEG(gamma_s_opt), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
+    );
+
+// ui->->setText(
+
+//     );
+// ui->textBrowser_7->setText(
+
+//     );
+
+    ui->gamma_L_opt_box_5->setText(
+                QString::number(MAG(gamma_l_opt),'g', NUM_SIGNIFICANT_DIGITS) + "∠" +
+                QString::number(ARG_DEG(gamma_l_opt), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
+    );
 
 }
 

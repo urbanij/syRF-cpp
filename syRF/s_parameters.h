@@ -16,7 +16,6 @@
 
 #include <complex>
 #include "utils.h"
-#include "s_parameters.cpp"
 
 
 complex_t
@@ -33,6 +32,15 @@ calculate_K(complex_t s11,
 
 
 /////// GAMMAS ///////
+complex_t
+z2gamma(complex_t zl,
+        complex_t z0);
+
+complex_t
+gamma2z(complex_t gamma,
+        complex_t z0);
+
+
 complex_t
 calculate_gamma_in(complex_t s11,
                 complex_t s12,
@@ -96,7 +104,7 @@ float
 calculate_NF(float      NFmin_db,
             float       Rn,
             complex_t   gamma_s_on,
-            float       zs,
+            complex_t   zs,
             float       z0);
 
 

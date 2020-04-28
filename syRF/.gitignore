@@ -71,5 +71,7 @@ Thumbs.db
 *.dll
 *.exe
 
-tests
+tests_y_s_parameters
+tests_ccomplex
 tests_regex
+

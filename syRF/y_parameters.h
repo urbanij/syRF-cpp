@@ -15,7 +15,6 @@
 
 #include <complex>
 #include "utils.h"
-#include "y_parameters.cpp"
 
 float
 linear_2_dB(float x);
@@ -60,8 +59,7 @@ calculate_yout(
      complex_t y_o,
      complex_t y_r,
 
-     complex_t y_s,
-     complex_t y_l
+     complex_t y_s
 );
 
 
@@ -131,10 +129,7 @@ calculate_g_s_opt(
      complex_t y_i,
      complex_t y_f,
      complex_t y_o,
-     complex_t y_r,
-
-     complex_t y_s,
-     complex_t y_l
+     complex_t y_r
 );
 
 complex_t
@@ -142,10 +137,7 @@ calculate_y_s_opt(
      complex_t y_i,
      complex_t y_f,
      complex_t y_o,
-     complex_t y_r,
-
-     complex_t y_s,
-     complex_t y_l
+     complex_t y_r
 );
 
 complex_t
@@ -153,10 +145,7 @@ calculate_y_l_opt(
      complex_t y_i,
      complex_t y_f,
      complex_t y_o,
-     complex_t y_r,
-
-     complex_t y_s,
-     complex_t y_l
+     complex_t y_r
 );
 
 

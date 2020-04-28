@@ -11,8 +11,6 @@
                     the project
 ******************************************************************/
 
-#ifndef UTILS_H
-#define UTILS_H
 
 #include "utils.h"
 #include <cmath>
@@ -34,11 +32,13 @@ typedef std::complex<float>     complex_t;
 
 
 
-float linear_2_dB(float x){
+float 
+linear_2_dB(float x){
     return 10*log10(abs(x));
 }
 
-float dB_2_linear(float x){
+float 
+dB_2_linear(float x){
     return pow(10, (x/10));
 }
 
@@ -144,8 +144,3 @@ filter_S_transistor_bias_settings(const std::string s,
 
 
 
-
-
-
-
-#endif // UTILS_H
