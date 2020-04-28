@@ -337,7 +337,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
 
 
 
-void MainWindow::on_f0_box_2_textEdited(const QString &arg1){
+void MainWindow::on_f0_box_2_textEdited(){
     this->setWindowTitle("syRF[*]");
     this->setWindowModified(true);
 }
@@ -353,7 +353,7 @@ void MainWindow::on_f0_box_2_returnPressed(){
 void MainWindow::on_y_i_box_2_returnPressed(){
     on_Calculate_button_4_clicked();
 }
-void MainWindow::on_y_i_box_2_textChanged(const QString &arg1){
+void MainWindow::on_y_i_box_2_textChanged(){
     this->setWindowTitle("syRF[*]");
     this->setWindowModified(true);
 }
@@ -362,7 +362,7 @@ void MainWindow::on_y_i_box_2_textChanged(const QString &arg1){
 void MainWindow::on_y_f_box_2_returnPressed(){
     on_Calculate_button_4_clicked();
 }
-void MainWindow::on_y_f_box_2_textChanged(const QString &arg1){
+void MainWindow::on_y_f_box_2_textChanged(){
     this->setWindowTitle("syRF[*]");
     this->setWindowModified(true);
 }
@@ -371,7 +371,7 @@ void MainWindow::on_y_f_box_2_textChanged(const QString &arg1){
 void MainWindow::on_y_r_box_2_returnPressed(){
     on_Calculate_button_4_clicked();
 }
-void MainWindow::on_y_r_box_2_textChanged(const QString &arg1){
+void MainWindow::on_y_r_box_2_textChanged(){
     this->setWindowTitle("syRF[*]");
     this->setWindowModified(true);
 }
@@ -380,7 +380,7 @@ void MainWindow::on_y_r_box_2_textChanged(const QString &arg1){
 void MainWindow::on_y_o_box_2_returnPressed(){
     on_Calculate_button_4_clicked();
 }
-void MainWindow::on_y_o_box_2_textChanged(const QString &arg1){
+void MainWindow::on_y_o_box_2_textChanged(){
     this->setWindowTitle("syRF[*]");
     this->setWindowModified(true);
 }
@@ -389,7 +389,7 @@ void MainWindow::on_y_o_box_2_textChanged(const QString &arg1){
 void MainWindow::on_y_s_box_2_returnPressed(){
     on_Calculate_button_4_clicked();
 }
-void MainWindow::on_y_s_box_2_textChanged(const QString &arg1){
+void MainWindow::on_y_s_box_2_textChanged(){
     this->setWindowTitle("syRF[*]");
     this->setWindowModified(true);
 }
@@ -398,7 +398,7 @@ void MainWindow::on_y_s_box_2_textChanged(const QString &arg1){
 void MainWindow::on_y_L_box_2_returnPressed(){
     on_Calculate_button_4_clicked();
 }
-void MainWindow::on_y_L_box_2_textChanged(const QString &arg1){
+void MainWindow::on_y_L_box_2_textChanged(){
     this->setWindowTitle("syRF[*]");
     this->setWindowModified(true);
 }
@@ -512,42 +512,17 @@ void MainWindow::on_Calculate_button_5_clicked(){
                             s21_polar,
                             s22_polar;
 
-    complex_t zs, zl;
+    complex_t zs;
+    complex_t zl;
+    complex_t gamma_s;
+    complex_t gamma_l;
+
     float z0;
 
 
     float NFmin_db;
     float Rn;
     complex_t gamma_s_on;
-
-
-//// CHANGE POSTION OF THIS //////////////////////////////////////
-    if (! ui->Z0_box->text().isEmpty()){
-        z0 = ui->Z0_box->text().toFloat();
-
-        ui->statusBar->showMessage("");
-        ui->statusBar->setStyleSheet("background-color: auto;");
-    } else {
-        ui->statusBar->showMessage("Fill z0 before proceeding.");
-        ui->statusBar->setStyleSheet("background-color: red; color: white;");
-    }
-    if (! ui->ZL_box->text().isEmpty()){
-        zl = complex_t (
-                    ccomplex( ui->ZL_box->text().toStdString()).Re(),
-                    ccomplex( ui->ZL_box->text().toStdString()).Im()
-                    );
-    } else {
-        zl = complex_t (NAN, NAN);
-    }
-    if (! ui->ZS_box->text().isEmpty()){
-        zs = complex_t (
-                    ccomplex( ui->ZS_box->text().toStdString()).Re(),
-                    ccomplex( ui->ZS_box->text().toStdString()).Im()
-                    );
-    } else {
-        zs = complex_t (NAN, NAN);
-    }
-////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -631,7 +606,7 @@ void MainWindow::on_Calculate_button_5_clicked(){
 
             }
             else {
-
+                // custom mode (i.e. data from combobox) but noise parameters missing from datasheet
                 // not given from the datasheet hence make those fields editable.
 
                 // clean the fields first
@@ -717,7 +692,7 @@ void MainWindow::on_Calculate_button_5_clicked(){
 
     }
     else {
-        // MRF transistor radio button is NOT checked, i.e. you are in manual
+        // MRF transistor radio button is NOT checked, i.e. you are in MANUAL MODE
 
         // read from lineedit the S parameters.
         if (!ui->s11_box->text().isEmpty() && !ui->s11_box_arg->text().isEmpty()){
@@ -756,11 +731,23 @@ void MainWindow::on_Calculate_button_5_clicked(){
         ui->gamma_s_on_box->setReadOnly(false);
         ui->gamma_s_on_box_2->setReadOnly(false);
 
-        NFmin_db = ui->NFmindb_box_2->text().toFloat();
-        Rn = ui->rn_box_2->text().toFloat();
-        gamma_s_on = polar_2_rect(ui->gamma_s_on_box->text().toFloat(),
-                                  DEG_2_RAD(ui->gamma_s_on_box_2->text().toFloat())
-                                );
+        if (!ui->NFmindb_box_2->text().isEmpty()){
+            NFmin_db = ui->NFmindb_box_2->text().toFloat();
+        } else {
+            NFmin_db = NAN;
+        }
+        if (!ui->rn_box_2->text().isEmpty()){
+            Rn = ui->rn_box_2->text().toFloat();
+        } else {
+            Rn = NAN;
+        }
+        if (!ui->gamma_s_on_box->text().isEmpty() && !ui->gamma_s_on_box_2->text().isEmpty()){
+            gamma_s_on = polar_2_rect(ui->gamma_s_on_box->text().toFloat(),
+                                      DEG_2_RAD(ui->gamma_s_on_box_2->text().toFloat())
+                                      );
+        }else {
+            gamma_s_on = complex_t(NAN, NAN);
+        }
 
 
 
@@ -778,6 +765,76 @@ void MainWindow::on_Calculate_button_5_clicked(){
 
 
 
+    /// read source and load now
+    ///
+    /// Z0 first..
+
+    if (! ui->Z0_box->text().isEmpty()){
+        z0 = ui->Z0_box->text().toFloat();
+
+        ui->statusBar->showMessage("");
+        ui->statusBar->setStyleSheet("background-color: auto;");
+    } else {
+        z0 = NAN;
+        ui->statusBar->showMessage("Fill z0 before proceeding.");
+        ui->statusBar->setStyleSheet("background-color: red; color: white;");
+    }
+
+    // now S and L
+    if (ui->radioButton_input_as_Z->isChecked()){
+        // source and load as IMPEDANCES
+        if (! ui->ZL_box->text().isEmpty()){
+            zl = complex_t (
+                        ccomplex( ui->ZL_box->text().toStdString()).Re(),
+                        ccomplex( ui->ZL_box->text().toStdString()).Im()
+                        );
+        } else {
+            zl = complex_t (NAN, NAN);
+        }
+        if (! ui->ZS_box->text().isEmpty()){
+            zs = complex_t (
+                        ccomplex( ui->ZS_box->text().toStdString()).Re(),
+                        ccomplex( ui->ZS_box->text().toStdString()).Im()
+                        );
+        } else {
+            zs = complex_t (NAN, NAN);
+        }
+
+        // now i can compute it's equivalent gamma-value
+        gamma_s = z2gamma(zs, complex_t(z0, 0));
+        gamma_l = z2gamma(zl, complex_t(z0, 0));
+
+    }
+    else {
+        // source and load as GAMMAS
+        if (!ui->ZS_box_2->text().isEmpty() && !ui->ZS_box_5->text().isEmpty()){
+            gamma_s = polar_2_rect(ui->ZS_box_2->text().toFloat(),
+                                   DEG_2_RAD(ui->ZS_box_5->text().toFloat())
+                                 );
+        }else{
+            gamma_s = complex_t(NAN, NAN);
+        }
+
+        if (!ui->ZS_box_4->text().isEmpty() && !ui->ZS_box_3->text().isEmpty()){
+            gamma_l = polar_2_rect(ui->ZS_box_4->text().toFloat(),
+                                   DEG_2_RAD(ui->ZS_box_3->text().toFloat())
+                                   );
+        }else{
+            gamma_l = complex_t(NAN, NAN);
+        }
+
+        // now i can compute it's equivalent impedance:
+        zs = gamma2z(gamma_s, complex_t(z0, 0));
+        zl = gamma2z(gamma_l, complex_t(z0, 0));
+
+
+    }
+
+
+
+
+
+
     //////////////////////////       variables declaration       /////////////
     complex_t determinant;
     float K;
@@ -790,9 +847,9 @@ void MainWindow::on_Calculate_button_5_clicked(){
     complex_t Cl;
     float rl;
 
-    float GP;
-    float GT;
-    float GA;
+    float GA,     GP,     GT;
+    float GA_max, GP_max, GT_max;
+
     float NF;
 
     complex_t Cnf;
@@ -812,6 +869,8 @@ void MainWindow::on_Calculate_button_5_clicked(){
 
     complex_t zs_opt;
     complex_t zl_opt;
+
+
     //////////////////////////   end  variables declaration       /////////////
 
 
@@ -825,9 +884,9 @@ void MainWindow::on_Calculate_button_5_clicked(){
     std::tie(Cs, rs) = calculate_ISC(s11,s12,s21,s22);
     std::tie(Cl, rl) = calculate_OSC(s11,s12,s21,s22);
 
+    GA = calculate_GA(s11,s12,s21,s22,zs,z0);
     GP = calculate_GP(s11,s12,s21,s22,zl,z0);
     GT = calculate_GT(s11,s12,s21,s22,zs,zl,z0);
-    GA = calculate_GA(s11,s12,s21,s22,zs,z0);
 
     NF = calculate_NF(NFmin_db,Rn,gamma_s_on,zs,z0);
 
@@ -841,8 +900,12 @@ void MainWindow::on_Calculate_button_5_clicked(){
     gamma_s_opt = calculate_gamma_S_opt(s11,s12,s21,s22);
     gamma_l_opt = calculate_gamma_L_opt(s11,s12,s21,s22);
 
+    zs_opt = gamma2z(gamma_s_opt, complex_t(z0, 0));
+    zl_opt = gamma2z(gamma_l_opt, complex_t(z0, 0));
 
-
+    GA_max = calculate_GA(s11,s12,s21,s22,zs_opt,z0);
+    GP_max = calculate_GP(s11,s12,s21,s22,zl_opt,z0);
+    GT_max = calculate_GT(s11,s12,s21,s22,zs_opt,zl_opt,z0);
 
 
 
@@ -857,17 +920,22 @@ void MainWindow::on_Calculate_button_5_clicked(){
     ui->k_box_4->setText(QString::number(K));
 
     
-    // ZS_box2
+    ui->ZS_box2->setText(COMPLEX_REPR_RE_IM(zs));
+    ui->gamma_S_box->setText(QString::number(MAG(gamma_s),'g', NUM_SIGNIFICANT_DIGITS) + "∠" +
+                             QString::number(ARG_DEG(gamma_s), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
+                             );
 
-    // gamma_S_box
 
     ui->gamma_out_box_2->setText(
                 QString::number(MAG(gamma_out),'g', NUM_SIGNIFICANT_DIGITS) + "∠" +
                 QString::number(ARG_DEG(gamma_out), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
                 );
-    // ZL_box2
 
-    // gamma_L_box
+
+    ui->ZL_box2->setText(COMPLEX_REPR_RE_IM(zl));
+    ui->gamma_L_box->setText(QString::number(MAG(gamma_l),'g', NUM_SIGNIFICANT_DIGITS) + "∠" +
+                             QString::number(ARG_DEG(gamma_l), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
+                             );
 
 
     ui->gamma_in_box_2->setText(
@@ -875,41 +943,32 @@ void MainWindow::on_Calculate_button_5_clicked(){
                 QString::number(ARG_DEG(gamma_in), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
                 );
 
-    ui->textBrowser_4->setText(QString::number(NF));
 
+    ui->textBrowser_4->setText(QString::number(NF));
     ui->textBrowser_5->setText(QString::number(linear_2_dB(NF)));
 
     ui->GAdb_box2_7->setText(QString::number(GA));
     ui->GAdb_box2_8->setText(QString::number(linear_2_dB(GA)));
-    // ui->textBrowser_2->setText(); // GA max
-
+    ui->textBrowser_2->setText(QString::number(linear_2_dB(GA_max)));
 
     ui->GPdb_box2_8->setText(QString::number(GP));
     ui->GPdb_box2_7->setText(QString::number(linear_2_dB(GP)));
-    // ui->textBrowser->setText(); // GP max
+    ui->textBrowser->setText(QString::number(linear_2_dB(GP_max))); // GP max
 
     ui->GTdb_box2_7->setText(QString::number(GT));
     ui->GTdb_box2_8->setText(QString::number(linear_2_dB(GT)));
-    // ui->textBrowser_3->setText(QString::number()); // GT max
+    ui->textBrowser_3->setText(QString::number(linear_2_dB(GT_max))); // GT max
 
 
 
-// ui->textBrowser_8->setText(
-
-//     );
-
+    ui->textBrowser_8->setText(COMPLEX_REPR_RE_IM(zs_opt));
     ui->gamma_s_opt_box_5->setText(
             QString::number(MAG(gamma_s_opt),'g', NUM_SIGNIFICANT_DIGITS) + "∠" +
             QString::number(ARG_DEG(gamma_s_opt), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
     );
 
-// ui->->setText(
 
-//     );
-// ui->textBrowser_7->setText(
-
-//     );
-
+    ui->textBrowser_7->setText(COMPLEX_REPR_RE_IM(zl_opt));
     ui->gamma_L_opt_box_5->setText(
                 QString::number(MAG(gamma_l_opt),'g', NUM_SIGNIFICANT_DIGITS) + "∠" +
                 QString::number(ARG_DEG(gamma_l_opt), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
@@ -1069,6 +1128,187 @@ void MainWindow::on_radioButton_input_as_gamma_clicked(){
 
 
 
+void MainWindow::on_s11_box_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_s11_box_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_s11_box_arg_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_s11_box_arg_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_s12_box_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_s12_box_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_s12_box_arg_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_s12_box_arg_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_s21_box_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_s21_box_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_s21_box_arg_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_s21_box_arg_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_s22_box_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_s22_box_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_s22_box_arg_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_s22_box_arg_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_NFmindb_box_2_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_NFmindb_box_2_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+void MainWindow::on_rn_box_2_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_rn_box_2_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+void MainWindow::on_gamma_s_on_box_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_gamma_s_on_box_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+void MainWindow::on_gamma_s_on_box_2_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_gamma_s_on_box_2_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_Z0_box_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_Z0_box_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_ZS_box_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_ZS_box_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_ZL_box_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_ZL_box_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_ZS_box_2_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_ZS_box_2_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_ZS_box_5_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_ZS_box_5_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_ZS_box_4_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_ZS_box_4_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_ZS_box_3_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_ZS_box_3_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_NFdb_box_2_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_NFdb_box_2_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_GAdb_box_2_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_GAdb_box_2_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_GTdb_box_2_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_GTdb_box_2_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
+void MainWindow::on_GPdb_box_2_returnPressed(){
+    on_Calculate_button_5_clicked();
+}
+void MainWindow::on_GPdb_box_2_textChanged(){
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
+
 
 
 
@@ -1109,155 +1349,3 @@ void MainWindow::closeEvent (QCloseEvent *event){
 }
 
 
-
-void MainWindow::on_s11_box_returnPressed(){
-    on_Calculate_button_5_clicked();
-}
-void MainWindow::on_s11_box_textChanged(const QString& arg1){
-    this->setWindowTitle("syRF[*]");
-    this->setWindowModified(true);
-}
-
-void MainWindow::on_s11_box_arg_returnPressed(){
-    on_Calculate_button_5_clicked();
-}
-void MainWindow::on_s11_box_arg_textChanged(const QString& arg1){
-    this->setWindowTitle("syRF[*]");
-    this->setWindowModified(true);
-}
-
-void MainWindow::on_s12_box_returnPressed(){
-    on_Calculate_button_5_clicked();
-}
-void MainWindow::on_s12_box_textChanged(const QString& arg1){
-    this->setWindowTitle("syRF[*]");
-    this->setWindowModified(true);
-}
-
-void MainWindow::on_s12_box_arg_returnPressed(){
-    on_Calculate_button_5_clicked();
-}
-void MainWindow::on_s12_box_arg_textChanged(const QString& arg1){
-    this->setWindowTitle("syRF[*]");
-    this->setWindowModified(true);
-}
-
-void MainWindow::on_s21_box_returnPressed(){
-    on_Calculate_button_5_clicked();
-}
-void MainWindow::on_s21_box_textChanged(const QString& arg1){
-    this->setWindowTitle("syRF[*]");
-    this->setWindowModified(true);
-}
-
-void MainWindow::on_s21_box_arg_returnPressed(){
-    on_Calculate_button_5_clicked();
-}
-void MainWindow::on_s21_box_arg_textChanged(const QString& arg1){
-    this->setWindowTitle("syRF[*]");
-    this->setWindowModified(true);
-}
-
-void MainWindow::on_s22_box_returnPressed(){
-    on_Calculate_button_5_clicked();
-}
-void MainWindow::on_s22_box_textChanged(const QString& arg1){
-    this->setWindowTitle("syRF[*]");
-    this->setWindowModified(true);
-}
-
-void MainWindow::on_s22_box_arg_returnPressed(){
-    on_Calculate_button_5_clicked();
-}
-void MainWindow::on_s22_box_arg_textChanged(const QString& arg1){
-    this->setWindowTitle("syRF[*]");
-    this->setWindowModified(true);
-}
-
-void MainWindow::on_Z0_box_returnPressed(){
-    on_Calculate_button_5_clicked();
-}
-void MainWindow::on_Z0_box_textChanged(const QString& arg1){
-    this->setWindowTitle("syRF[*]");
-    this->setWindowModified(true);
-}
-
-void MainWindow::on_ZS_box_returnPressed(){
-    on_Calculate_button_5_clicked();
-}
-void MainWindow::on_ZS_box_textChanged(const QString& arg1){
-    this->setWindowTitle("syRF[*]");
-    this->setWindowModified(true);
-}
-
-void MainWindow::on_ZL_box_returnPressed(){
-    on_Calculate_button_5_clicked();
-}
-void MainWindow::on_ZL_box_textChanged(const QString& arg1){
-    this->setWindowTitle("syRF[*]");
-    this->setWindowModified(true);
-}
-
-void MainWindow::on_ZS_box_2_returnPressed(){
-    on_Calculate_button_5_clicked();
-}
-void MainWindow::on_ZS_box_2_textChanged(const QString& arg1){
-    this->setWindowTitle("syRF[*]");
-    this->setWindowModified(true);
-}
-
-void MainWindow::on_ZS_box_5_returnPressed(){
-    on_Calculate_button_5_clicked();
-}
-void MainWindow::on_ZS_box_5_textChanged(const QString& arg1){
-    this->setWindowTitle("syRF[*]");
-    this->setWindowModified(true);
-}
-
-void MainWindow::on_ZS_box_4_returnPressed(){
-    on_Calculate_button_5_clicked();
-}
-void MainWindow::on_ZS_box_4_textChanged(const QString& arg1){
-    this->setWindowTitle("syRF[*]");
-    this->setWindowModified(true);
-}
-
-void MainWindow::on_ZS_box_3_returnPressed(){
-    on_Calculate_button_5_clicked();
-}
-void MainWindow::on_ZS_box_3_textChanged(const QString& arg1){
-    this->setWindowTitle("syRF[*]");
-    this->setWindowModified(true);
-}
-
-void MainWindow::on_NFdb_box_2_returnPressed(){
-    on_Calculate_button_5_clicked();
-}
-void MainWindow::on_NFdb_box_2_textChanged(const QString& arg1){
-    this->setWindowTitle("syRF[*]");
-    this->setWindowModified(true);
-}
-
-void MainWindow::on_GAdb_box_2_returnPressed(){
-    on_Calculate_button_5_clicked();
-}
-void MainWindow::on_GAdb_box_2_textChanged(const QString& arg1){
-    this->setWindowTitle("syRF[*]");
-    this->setWindowModified(true);
-}
-
-void MainWindow::on_GTdb_box_2_returnPressed(){
-    on_Calculate_button_5_clicked();
-}
-void MainWindow::on_GTdb_box_2_textChanged(const QString& arg1){
-    this->setWindowTitle("syRF[*]");
-    this->setWindowModified(true);
-}
-
-void MainWindow::on_GPdb_box_2_returnPressed(){
-    on_Calculate_button_5_clicked();
-}
-void MainWindow::on_GPdb_box_2_textChanged(const QString& arg1){
-    this->setWindowTitle("syRF[*]");
-    this->setWindowModified(true);
-}

@@ -36,25 +36,25 @@ private slots:
     void on_Calculate_button_4_clicked();
 
     void on_f0_box_2_returnPressed();
-    void on_f0_box_2_textEdited(const QString &arg1);
+    void on_f0_box_2_textEdited();
 
     void on_y_i_box_2_returnPressed();
-    void on_y_i_box_2_textChanged(const QString &arg1);
+    void on_y_i_box_2_textChanged();
 
     void on_y_f_box_2_returnPressed();
-    void on_y_f_box_2_textChanged(const QString &arg1);
+    void on_y_f_box_2_textChanged();
 
     void on_y_r_box_2_returnPressed();
-    void on_y_r_box_2_textChanged(const QString &arg1);
+    void on_y_r_box_2_textChanged();
 
     void on_y_o_box_2_returnPressed();
-    void on_y_o_box_2_textChanged(const QString &arg1);
+    void on_y_o_box_2_textChanged();
 
     void on_y_s_box_2_returnPressed();
-    void on_y_s_box_2_textChanged(const QString &arg1);
+    void on_y_s_box_2_textChanged();
 
     void on_y_L_box_2_returnPressed();
-    void on_y_L_box_2_textChanged(const QString &arg1);
+    void on_y_L_box_2_textChanged();
 
 
 
@@ -76,6 +76,75 @@ private slots:
 
 
 
+
+    void on_s11_box_returnPressed();
+    void on_s11_box_textChanged();
+
+    void on_s11_box_arg_returnPressed();
+    void on_s11_box_arg_textChanged();
+
+    void on_s12_box_returnPressed();
+    void on_s12_box_textChanged();
+
+    void on_s12_box_arg_returnPressed();
+    void on_s12_box_arg_textChanged();
+
+    void on_s21_box_returnPressed();
+    void on_s21_box_textChanged();
+
+    void on_s21_box_arg_returnPressed();
+    void on_s21_box_arg_textChanged();
+
+    void on_s22_box_returnPressed();
+    void on_s22_box_textChanged();
+
+    void on_s22_box_arg_returnPressed();
+    void on_s22_box_arg_textChanged();
+
+    void on_NFmindb_box_2_returnPressed();
+    void on_NFmindb_box_2_textChanged();
+
+    void on_rn_box_2_returnPressed();
+    void on_rn_box_2_textChanged();
+    
+    void on_gamma_s_on_box_returnPressed();
+    void on_gamma_s_on_box_textChanged();
+
+    void on_gamma_s_on_box_2_returnPressed();
+    void on_gamma_s_on_box_2_textChanged();
+
+    void on_Z0_box_returnPressed();
+    void on_Z0_box_textChanged();
+
+    void on_ZS_box_returnPressed();
+    void on_ZS_box_textChanged();
+
+    void on_ZL_box_returnPressed();
+    void on_ZL_box_textChanged();
+
+    void on_ZS_box_2_returnPressed();
+    void on_ZS_box_2_textChanged();
+
+    void on_ZS_box_5_returnPressed();
+    void on_ZS_box_5_textChanged();
+
+    void on_ZS_box_4_returnPressed();
+    void on_ZS_box_4_textChanged();
+
+    void on_ZS_box_3_returnPressed();
+    void on_ZS_box_3_textChanged();
+
+    void on_NFdb_box_2_returnPressed();
+    void on_NFdb_box_2_textChanged();
+
+    void on_GAdb_box_2_returnPressed();
+    void on_GAdb_box_2_textChanged();
+
+    void on_GTdb_box_2_returnPressed();
+    void on_GTdb_box_2_textChanged();
+
+    void on_GPdb_box_2_returnPressed();
+    void on_GPdb_box_2_textChanged();
     /// END S TAB ///
 
 
@@ -87,65 +156,6 @@ private slots:
 
 
 
-
-
-
-    void on_s11_box_returnPressed();
-    void on_s11_box_textChanged(const QString& arg1);
-
-    void on_s11_box_arg_returnPressed();
-    void on_s11_box_arg_textChanged(const QString& arg1);
-
-    void on_s12_box_returnPressed();
-    void on_s12_box_textChanged(const QString& arg1);
-
-    void on_s12_box_arg_returnPressed();
-    void on_s12_box_arg_textChanged(const QString& arg1);
-
-    void on_s21_box_returnPressed();
-    void on_s21_box_textChanged(const QString& arg1);
-
-    void on_s21_box_arg_returnPressed();
-    void on_s21_box_arg_textChanged(const QString& arg1);
-
-    void on_s22_box_returnPressed();
-    void on_s22_box_textChanged(const QString& arg1);
-
-    void on_s22_box_arg_returnPressed();
-    void on_s22_box_arg_textChanged(const QString& arg1);
-
-    void on_Z0_box_returnPressed();
-    void on_Z0_box_textChanged(const QString& arg1);
-
-    void on_ZS_box_returnPressed();
-    void on_ZS_box_textChanged(const QString& arg1);
-
-    void on_ZL_box_returnPressed();
-    void on_ZL_box_textChanged(const QString& arg1);
-
-    void on_ZS_box_2_returnPressed();
-    void on_ZS_box_2_textChanged(const QString& arg1);
-
-    void on_ZS_box_5_returnPressed();
-    void on_ZS_box_5_textChanged(const QString& arg1);
-
-    void on_ZS_box_4_returnPressed();
-    void on_ZS_box_4_textChanged(const QString& arg1);
-
-    void on_ZS_box_3_returnPressed();
-    void on_ZS_box_3_textChanged(const QString& arg1);
-
-    void on_NFdb_box_2_returnPressed();
-    void on_NFdb_box_2_textChanged(const QString& arg1);
-
-    void on_GAdb_box_2_returnPressed();
-    void on_GAdb_box_2_textChanged(const QString& arg1);
-
-    void on_GTdb_box_2_returnPressed();
-    void on_GTdb_box_2_textChanged(const QString& arg1);
-
-    void on_GPdb_box_2_returnPressed();
-    void on_GPdb_box_2_textChanged(const QString& arg1);
 
 private:
     Ui::MainWindow *ui;
