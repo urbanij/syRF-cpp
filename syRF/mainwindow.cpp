@@ -311,7 +311,28 @@ void MainWindow::on_Calculate_button_4_clicked(){
 
 
     /* displays output */
-    ui->C_box_2->setText( QString::number(C));
+    #define ORANGE          "#cf9936"
+    #define RED             "#db3309"
+    #define GREEN           "#23ad2e"
+
+    if (C < 0.0 || C > 1.0){
+        // potentially unstable
+        ui->C_box_2->setStyleSheet("border: 0.1ex solid " ORANGE);
+    } 
+    else if ( (C < 0.0 || C > 1.0) && k < 1.0 ){
+        // unstable 
+        ui->C_box_2->setStyleSheet("border: 0.1ex solid " RED); 
+    }
+    else if (C >= 0.0 && C <= 1.0) {
+        // unconditionally stable
+        ui->C_box_2->setStyleSheet("border: 0.1ex solid " GREEN);
+    } else {
+        ui->C_box_2->setStyleSheet(styleSheet()); 
+    }
+    ui->C_box_2->setText(QString::number(C));    
+
+    
+
     ui->beta_A_box_2->setText(
                             QString::number(MAG(betaA)) + "∠" +
                             QString::number(ARG_DEG(betaA)) + " deg"
@@ -326,9 +347,55 @@ void MainWindow::on_Calculate_button_4_clicked(){
     ui->GP_box_dB_2->setText(QString::number( linear_2_dB(G_P)));
     ui->GT_box_2->setText(QString::number( G_T ));
     ui->GT_box_dB_2->setText(QString::number( linear_2_dB(G_T)));
-    ui->k_box_3->setText(QString::number( k ));
+    
+    if (k > 1.0){
+        ui->k_box_3->setStyleSheet("border: 0.1ex solid " GREEN);
+    }
+    else if (k <= 1.0){
+        ui->k_box_3->setStyleSheet("border: 0.1ex solid " RED);
+    } else {
+        ui->k_box_3->setStyleSheet(styleSheet()); 
+    }
+    ui->k_box_3->setText(QString::number(k));
+    
     ui->y_s_opt_box_2->setText(COMPLEX_REPR_RE_IM(y_s_opt) );
     ui->y_L_opt_box_2->setText(COMPLEX_REPR_RE_IM(y_l_opt) );
+
+
+    std::string stability_status = "";
+    ui->text_2->setText(QString::fromStdString(stability_status));
+    
+#if 0 // FINISH THIS
+    if (C < 0.0 || C>1.0):
+        stability_status = "Potentially unstable system";
+        self.text_2.setText("<i><font color=red>"+stability_status+"</font></i>")
+    
+    if (C > 0.0 && C<1.0):
+        stability_status = "Unconditionally stable system"
+        color  = 'green'
+        self.text_2.setText("<i><font color="+color+">"+stability_status+"</font></i>")
+    
+    if (C==1):
+        stability_status = "Marginally stable system"
+        color  = 'orange'
+        self.text_2.setText("<i><font color="+color+">"+stability_status+"</font></i>")
+
+
+    if (C < 0 or C>=1) and k > 1:
+        stability_status = "Stable system"
+        color  = 'green'
+        self.text_2.setText("<font color="+color+">"+stability_status+"</font>")
+    
+    if (C < 0 or C>=1) and k < 1:
+        stability_status = "Unstable system"
+        color  = 'red'
+        self.text_2.setText("<font color="+color+">"+stability_status+"</font>")
+    
+    if (C > 0 and C<1) and k>0: # regardless of wheter k<1 or k>1
+        stability_status = "Stable system"
+        color  = 'green'
+        self.text_2.setText("<font color="+color+">"+stability_status+"</font>")
+#endif
 
 
     this->setWindowTitle("syRF");
@@ -831,6 +898,32 @@ void MainWindow::on_Calculate_button_5_clicked(){
     }
 
 
+    // read values for computing constant circumferences:
+
+    float NF_circle_dB;
+    float Ga_circle_dB, Gp_circle_dB, Gt_circle_dB;
+
+
+    if (!ui->NFdb_box_2->text().isEmpty()){
+        NF_circle_dB = ui->NFdb_box_2->text().toFloat();
+    }else{
+        NF_circle_dB = NAN;
+    }
+    if (!ui->GAdb_box_2->text().isEmpty()){
+        Ga_circle_dB = ui->GAdb_box_2->text().toFloat();
+    }else{
+        Ga_circle_dB = NAN;
+    }
+    if (!ui->GPdb_box_2->text().isEmpty()){
+        Gp_circle_dB = ui->GPdb_box_2->text().toFloat();
+    }else{
+        Gp_circle_dB = NAN;
+    }
+    if (!ui->GTdb_box_2->text().isEmpty()){
+        Gt_circle_dB = ui->GTdb_box_2->text().toFloat();
+    }else{
+        Gt_circle_dB = NAN;
+    }
 
 
 
@@ -881,8 +974,6 @@ void MainWindow::on_Calculate_button_5_clicked(){
     gamma_in = calculate_gamma_in(s11, s12, s21, s22, zl, z0);
     gamma_out = calculate_gamma_out(s11,s12,s21,s22,zs,z0);
 
-    std::tie(Cs, rs) = calculate_ISC(s11,s12,s21,s22);
-    std::tie(Cl, rl) = calculate_OSC(s11,s12,s21,s22);
 
     GA = calculate_GA(s11,s12,s21,s22,zs,z0);
     GP = calculate_GP(s11,s12,s21,s22,zl,z0);
@@ -890,12 +981,6 @@ void MainWindow::on_Calculate_button_5_clicked(){
 
     NF = calculate_NF(NFmin_db,Rn,gamma_s_on,zs,z0);
 
-#if 0
-    std::tie(Cnf, rnf) = calculate_NF_circle(s11,s12,s21,s22,z0,NF_circle_dB,gamma_s_on,NF_opt_dB,Rn);
-    std::tie(Ca, ra) = calculate_GA_circle(s11,s12,s21,s22,Ga_circle_dB);
-    std::tie(Cp, rp) = calculate_GP_circle(s11,s12,s21,s22,Gp_circle_dB);
-    std::tie(Ct, rt) = calculate_GT_circle(s11,s12,s21,s22,zs,zl,z0,Gt_circle_dB);
-#endif
 
     gamma_s_opt = calculate_gamma_S_opt(s11,s12,s21,s22);
     gamma_l_opt = calculate_gamma_L_opt(s11,s12,s21,s22);
@@ -908,10 +993,23 @@ void MainWindow::on_Calculate_button_5_clicked(){
     GT_max = calculate_GT(s11,s12,s21,s22,zs_opt,zl_opt,z0);
 
 
+    // input and output stability circles:
+    std::tie(Cs, rs) = calculate_ISC(s11,s12,s21,s22);
+    std::tie(Cl, rl) = calculate_OSC(s11,s12,s21,s22);
+
+    // constatnt circumferences (NF and gains)
+    #define NF_opt_dB NFmin_db // alias
+
+    std::tie(Cnf, rnf) = calculate_NF_circle(s11,s12,s21,s22,z0,NF_circle_dB,gamma_s_on,NF_opt_dB,Rn);
+    std::tie(Ca, ra) = calculate_GA_circle(s11,s12,s21,s22,Ga_circle_dB);
+    std::tie(Cp, rp) = calculate_GP_circle(s11,s12,s21,s22,Gp_circle_dB);
+    std::tie(Ct, rt) = calculate_GT_circle(s11,s12,s21,s22,zs,zl,z0,Gt_circle_dB);
+
+
 
     /* displays output */
 
-#define NUM_SIGNIFICANT_DIGITS 4
+#define NUM_SIGNIFICANT_DIGITS 3
     ui->D_box_2->setText(
                 QString::number(MAG(determinant),'g', NUM_SIGNIFICANT_DIGITS) + "∠" +
                 QString::number(ARG_DEG(determinant), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
@@ -973,6 +1071,78 @@ void MainWindow::on_Calculate_button_5_clicked(){
                 QString::number(MAG(gamma_l_opt),'g', NUM_SIGNIFICANT_DIGITS) + "∠" +
                 QString::number(ARG_DEG(gamma_l_opt), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
     );
+
+
+    // circumferences:
+
+    // ISC
+    ui->C_box_13->setText(  
+                QString::number(MAG(Cs),'g', NUM_SIGNIFICANT_DIGITS) + "∠" +
+                QString::number(ARG_DEG(Cs), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
+    );
+    ui->C_box_19->setText(QString::number(rs));
+
+
+
+    // OSC
+    ui->C_box_16->setText(
+                QString::number(MAG(Cl),'g', NUM_SIGNIFICANT_DIGITS) + "∠" +
+                QString::number(ARG_DEG(Cl), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
+    );
+    ui->C_box_32->setText(QString::number(rl));
+
+    
+    // Cnf
+    if (!ui->NFdb_box_2->text().isEmpty()){    
+        ui->C_box_37->setText(
+                    QString::number(MAG(Cnf),'g', NUM_SIGNIFICANT_DIGITS) + "∠" +
+                    QString::number(ARG_DEG(Cnf), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
+        );
+        ui->C_box_36->setText(QString::number(rnf));
+    }else{
+        ui->C_box_37->setText(""); // Cnf
+        ui->C_box_36->setText(""); // rnf
+    }
+    
+    //Ca
+    if (!ui->GAdb_box_2->text().isEmpty()){
+        ui->C_box_43->setText(
+                    QString::number(MAG(Ca),'g', NUM_SIGNIFICANT_DIGITS) + "∠" +
+                    QString::number(ARG_DEG(Ca), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
+        );
+        ui->C_box_42->setText(QString::number(ra));
+    }else{
+        ui->C_box_43->setText(""); // Ca
+        ui->C_box_42->setText(""); // ra
+    }
+    
+    //Cp
+    if (!ui->GPdb_box_2->text().isEmpty()){    
+        ui->C_box_39->setText(
+                    QString::number(MAG(Cp),'g', NUM_SIGNIFICANT_DIGITS) + "∠" +
+                    QString::number(ARG_DEG(Cp), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
+        );
+        ui->C_box_38->setText(QString::number(rp));
+    }else{
+        ui->C_box_39->setText(""); // Cp
+        ui->C_box_38->setText(""); // rp
+    }
+    
+    //Ct
+    if (!ui->GTdb_box_2->text().isEmpty()){
+        ui->C_box_41->setText(
+                    QString::number(MAG(Ct),'g', NUM_SIGNIFICANT_DIGITS) + "∠" +
+                    QString::number(ARG_DEG(Ct), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
+        );
+        ui->C_box_40->setText(QString::number(rt));
+    }else{
+        ui->C_box_41->setText(""); // Ct
+        ui->C_box_40->setText(""); // rt
+    }
+
+
+   
+
 
 
 
