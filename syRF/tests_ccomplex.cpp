@@ -13,8 +13,8 @@
 *****************************************************************/
 #include <gtest/gtest.h>
 
-#include <iostream>      
-#include <complex>  
+#include <iostream>
+#include <complex>
 #include <string>
 
 #include "ccomplex.h"

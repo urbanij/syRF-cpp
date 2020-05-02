@@ -315,19 +315,31 @@ void MainWindow::on_Calculate_button_4_clicked(){
     #define RED             "#db3309"
     #define GREEN           "#23ad2e"
 
+    #define PUS_LABEL       "<i><font color=" ORANGE ">Potentially unstable system</font></i>"
+    #define USS_LABEL       "<i><font color=" GREEN ">Unconditionally stable system</font></i>"
+
+    #define  SS_LABEL       "<font color=" GREEN ">Stable system</font>"
+    #define  US_LABEL       "<font color=" RED ">Unstable system</font>"
+
+    std::string stability_status;
+
     if (C < 0.0 || C > 1.0){
         // potentially unstable
         ui->C_box_2->setStyleSheet("border: 0.1ex solid " ORANGE);
+        stability_status = PUS_LABEL;
     } 
     else if ( (C < 0.0 || C > 1.0) && k < 1.0 ){
         // unstable 
         ui->C_box_2->setStyleSheet("border: 0.1ex solid " RED); 
+        stability_status = US_LABEL;
     }
     else if (C >= 0.0 && C <= 1.0) {
         // unconditionally stable
         ui->C_box_2->setStyleSheet("border: 0.1ex solid " GREEN);
+        stability_status = USS_LABEL;
     } else {
-        ui->C_box_2->setStyleSheet(styleSheet()); 
+        ui->C_box_2->setStyleSheet(styleSheet());
+        // stability_status = "";
     }
     ui->C_box_2->setText(QString::number(C));    
 
@@ -350,11 +362,14 @@ void MainWindow::on_Calculate_button_4_clicked(){
     
     if (k > 1.0){
         ui->k_box_3->setStyleSheet("border: 0.1ex solid " GREEN);
+        stability_status = SS_LABEL;
     }
     else if (k <= 1.0){
         ui->k_box_3->setStyleSheet("border: 0.1ex solid " RED);
+        stability_status = US_LABEL;
     } else {
-        ui->k_box_3->setStyleSheet(styleSheet()); 
+        ui->k_box_3->setStyleSheet(styleSheet());
+        // stability_status = "";
     }
     ui->k_box_3->setText(QString::number(k));
     
@@ -362,40 +377,28 @@ void MainWindow::on_Calculate_button_4_clicked(){
     ui->y_L_opt_box_2->setText(COMPLEX_REPR_RE_IM(y_l_opt) );
 
 
-    std::string stability_status = "";
-    ui->text_2->setText(QString::fromStdString(stability_status));
+    ui->label_Y_tab->setText(QString::fromStdString(stability_status));
     
-#if 0 // FINISH THIS
-    if (C < 0.0 || C>1.0):
-        stability_status = "Potentially unstable system";
-        self.text_2.setText("<i><font color=red>"+stability_status+"</font></i>")
-    
-    if (C > 0.0 && C<1.0):
-        stability_status = "Unconditionally stable system"
-        color  = 'green'
-        self.text_2.setText("<i><font color="+color+">"+stability_status+"</font></i>")
-    
-    if (C==1):
-        stability_status = "Marginally stable system"
-        color  = 'orange'
-        self.text_2.setText("<i><font color="+color+">"+stability_status+"</font></i>")
 
-
-    if (C < 0 or C>=1) and k > 1:
-        stability_status = "Stable system"
-        color  = 'green'
-        self.text_2.setText("<font color="+color+">"+stability_status+"</font>")
-    
-    if (C < 0 or C>=1) and k < 1:
-        stability_status = "Unstable system"
-        color  = 'red'
-        self.text_2.setText("<font color="+color+">"+stability_status+"</font>")
-    
-    if (C > 0 and C<1) and k>0: # regardless of wheter k<1 or k>1
-        stability_status = "Stable system"
-        color  = 'green'
-        self.text_2.setText("<font color="+color+">"+stability_status+"</font>")
-#endif
+    if (C < 0.0 || C>1.0){
+        stability_status = PUS_LABEL;
+    }
+    if (C > 0.0 && C<1.0){
+        stability_status = USS_LABEL;
+    }
+    if (C==1.0){
+        stability_status = "<i><font color=orange>Marginally stable system</font></i>";
+    }
+    if ((C < 0.0 or C>=1.0) and k > 1.0){
+        stability_status = SS_LABEL;
+    }
+    if ((C < 0.0 or C>=1.0) and k < 1.0){
+        stability_status = US_LABEL;
+    }
+    if ((C > 0.0 and C<1.0) and k>0.0){ // regardless of wheter k<1 or k>1
+        stability_status = SS_LABEL;
+    }
+    ui->label_Y_tab->setText(QString::fromStdString(stability_status));
 
 
     this->setWindowTitle("syRF");
