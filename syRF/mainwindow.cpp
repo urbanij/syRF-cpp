@@ -310,40 +310,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
 #endif
 
 
-    /* displays output */
-    #define ORANGE          "#cf9936"
-    #define RED             "#db3309"
-    #define GREEN           "#23ad2e"
-
-    #define PUS_LABEL       "<i><font color=" ORANGE ">Potentially unstable system</font></i>"
-    #define USS_LABEL       "<i><font color=" GREEN ">Unconditionally stable system</font></i>"
-
-    #define  SS_LABEL       "<font color=" GREEN ">Stable system</font>"
-    #define  US_LABEL       "<font color=" RED ">Unstable system</font>"
-
-    std::string stability_status;
-
-    if (C < 0.0 || C > 1.0){
-        // potentially unstable
-        ui->C_box_2->setStyleSheet("border: 0.1ex solid " ORANGE);
-        stability_status = PUS_LABEL;
-    } 
-    else if ( (C < 0.0 || C > 1.0) && k < 1.0 ){
-        // unstable 
-        ui->C_box_2->setStyleSheet("border: 0.1ex solid " RED); 
-        stability_status = US_LABEL;
-    }
-    else if (C >= 0.0 && C <= 1.0) {
-        // unconditionally stable
-        ui->C_box_2->setStyleSheet("border: 0.1ex solid " GREEN);
-        stability_status = USS_LABEL;
-    } else {
-        ui->C_box_2->setStyleSheet(styleSheet());
-        // stability_status = "";
-    }
     ui->C_box_2->setText(QString::number(C));    
-
-    
 
     ui->beta_A_box_2->setText(
                             QString::number(MAG(betaA)) + "∠" +
@@ -359,48 +326,71 @@ void MainWindow::on_Calculate_button_4_clicked(){
     ui->GP_box_dB_2->setText(QString::number( linear_2_dB(G_P)));
     ui->GT_box_2->setText(QString::number( G_T ));
     ui->GT_box_dB_2->setText(QString::number( linear_2_dB(G_T)));
-    
-    if (k > 1.0){
-        ui->k_box_3->setStyleSheet("border: 0.1ex solid " GREEN);
-        stability_status = SS_LABEL;
-    }
-    else if (k <= 1.0){
-        ui->k_box_3->setStyleSheet("border: 0.1ex solid " RED);
-        stability_status = US_LABEL;
-    } else {
-        ui->k_box_3->setStyleSheet(styleSheet());
-        // stability_status = "";
-    }
+        
     ui->k_box_3->setText(QString::number(k));
     
     ui->y_s_opt_box_2->setText(COMPLEX_REPR_RE_IM(y_s_opt) );
     ui->y_L_opt_box_2->setText(COMPLEX_REPR_RE_IM(y_l_opt) );
-
-
-    ui->label_Y_tab->setText(QString::fromStdString(stability_status));
     
 
-    if (C < 0.0 || C>1.0){
-        stability_status = PUS_LABEL;
+    #define PUS_LABEL       "<i><font color=" ORANGE ">Potentially unstable system</font></i>"
+    #define USS_LABEL       "<i><font color=" GREEN ">Unconditionally stable system</font></i>"
+
+    #define  SS_LABEL       "<font color=" GREEN ">Stable system</font>"
+    #define  US_LABEL       "<font color=" RED ">Unstable system</font>"
+
+    
+    /*
+    **                \k | <1 |  >1 | nan
+    **               C|--+----+-----+------ 
+    **                |    
+    **     between 0-1|    U    S      US
+    **          1     |    U    S      MS
+    ** not between 0-1|    U    S      PU
+    **                |
+    **
+    **     U: unstable
+    **     S: stable
+    **    US: unconditionally stable
+    **    PS: potentially unstable
+    **    MS: marginally stable
+    */
+    
+
+    std::string stability_status;
+
+    if (isnan(C)){
+        ui->C_box_2->setStyleSheet(styleSheet());
+        ui->k_box_3->setStyleSheet(styleSheet());
+        stability_status = "";
     }
-    if (C > 0.0 && C<1.0){
-        stability_status = USS_LABEL;
+    else if (isnan(k)){
+        if (C < 0.0 || C>1.0){
+            stability_status = PUS_LABEL;
+            ui->C_box_2->setStyleSheet("border: 0.1ex solid " ORANGE);
+        }
+        else if (C > 0.0 && C<1.0){
+            stability_status = USS_LABEL;
+            ui->C_box_2->setStyleSheet("border: 0.1ex solid " GREEN);
+        }else{
+            // C == 1.0
+            stability_status = "<i><font color=orange>Marginally stable system</font></i>";
+            ui->C_box_2->setStyleSheet("border: 0.1ex solid " ORANGE);
+        }
     }
-    if (C==1.0){
-        stability_status = "<i><font color=orange>Marginally stable system</font></i>";
+    else {
+        if (k>1.0){
+            stability_status = SS_LABEL;
+            ui->k_box_3->setStyleSheet("border: 0.1ex solid " GREEN);
+        } else {
+            stability_status = US_LABEL;
+            ui->k_box_3->setStyleSheet("border: 0.1ex solid " RED);
+        }
     }
-    if ((C < 0.0 or C>=1.0) and k > 1.0){
-        stability_status = SS_LABEL;
-    }
-    if ((C < 0.0 or C>=1.0) and k < 1.0){
-        stability_status = US_LABEL;
-    }
-    if ((C > 0.0 and C<1.0) and k>0.0){ // regardless of wheter k<1 or k>1
-        stability_status = SS_LABEL;
-    }
+    
     ui->label_Y_tab->setText(QString::fromStdString(stability_status));
 
-
+    
     this->setWindowTitle("syRF");
     this->setWindowModified(false);
 }
@@ -1143,43 +1133,92 @@ void MainWindow::on_Calculate_button_5_clicked(){
         ui->C_box_40->setText(""); // rt
     }
 
+    /*
+     *                 K
+     *             <1     >1
+     *          +--------------
+     *       <1 | PU     US
+     *   |D|    |
+     *       >1 | PU     PU
+     *          |
+     *
+     *               |Γout| 
+     *             <1     >1
+     *          +--------------
+     *       <1 |  S      U
+     * |Γin|    |
+     *       >1 |  U      U
+     *          |
+     *
+     */
+    
+
+    std::string stability_status;
+
+    if (isnan(abs(determinant)) || isnan(K)){
+        stability_status = "";
+        ui->D_box_2->setStyleSheet(styleSheet()); // D
+        ui->k_box_4->setStyleSheet(styleSheet()); // K
+        ui->gamma_in_box_2->setStyleSheet(styleSheet()); // gamma in
+        ui->gamma_out_box_2->setStyleSheet(styleSheet()); // gamma out
+    } else {
+        if (abs(determinant) < 1.0 && K > 1){
+            stability_status = "<b><font color='green'>Unconditionally stable system</font></b>";
+            ui->D_box_2->setStyleSheet("border: 0.1ex solid " GREEN); // D
+            ui->k_box_4->setStyleSheet("border: 0.1ex solid " GREEN); // k
+        } else {
+            stability_status = "<i>Potentially unstable system</i>";
+            ui->D_box_2->setStyleSheet("border: 0.1ex solid " ORANGE); // D
+            ui->k_box_4->setStyleSheet("border: 0.1ex solid " ORANGE); // K
+        }
+    }
+
+    if (isnan(gamma_out.real()) && isnan(gamma_in.real())){
+        ui->gamma_in_box_2->setStyleSheet(styleSheet()); // gamma in
+        ui->gamma_out_box_2->setStyleSheet(styleSheet()); // gamma out
+    } else if (isnan(gamma_out.real())){
+        ui->gamma_out_box_2->setStyleSheet(styleSheet()); // gamma out
+    } else if (isnan(gamma_in.real())){
+        ui->gamma_in_box_2->setStyleSheet(styleSheet()); // gamma in
+    }
+    else {
+        if (abs(gamma_in) < 1.0 && abs(gamma_out) < 1.0){
+            stability_status = "<b><font color='green'>Stable system</font></b>";
+            ui->gamma_in_box_2->setStyleSheet("border: 0.1ex solid " GREEN); // gamma in
+            ui->gamma_out_box_2->setStyleSheet("border: 0.1ex solid " GREEN); // gamma out
+        } else {
+            if (abs(gamma_out) < 1) {
+                stability_status = "<b><font color='red'>Unstable system.</b> |Γ<sub>in</sub>| &gt; 1</font>";
+                ui->gamma_in_box_2->setStyleSheet("border: 0.1ex solid " RED); // gamma in
+                ui->gamma_out_box_2->setStyleSheet("border: 0.1ex solid " GREEN); // gamma out
+            } else if (abs(gamma_in) < 1){
+                stability_status = "<b><font color='red'>Unstable system.</b> |Γ<sub>out</sub>| &gt; 1</font>";
+                ui->gamma_in_box_2->setStyleSheet("border: 0.1ex solid " GREEN); // gamma in
+                ui->gamma_out_box_2->setStyleSheet("border: 0.1ex solid " RED); // gamma out
+            } else {
+                stability_status = "<b><font color='red'>Unstable system.</b> |Γ<sub>in</sub>| &gt; 1 and |Γ<sub>out</sub>| &gt; 1</font>";
+                ui->gamma_in_box_2->setStyleSheet("border: 0.1ex solid " RED); // gamma in
+                ui->gamma_out_box_2->setStyleSheet("border: 0.1ex solid " RED); // gamma out
+            }
+        }
+    }
+
+    ui->label_S_tab->setText(QString::fromStdString(stability_status));
+
 
    
 
+#if PRINT_TO_CONSOLE
+            WATCH(s11);
+            WATCH(s12);
+            WATCH(s21);
+            WATCH(s22);
+            std::cout << '\n';
 
-
-
-    #if 1
-            WATCH(s11.real());
-            WATCH(s11.imag());
-            WATCH(s11_polar.first);
-            WATCH(s11_polar.second);
-
-            WATCH(s12.real());
-            WATCH(s12.imag());
-            WATCH(s12_polar.first);
-            WATCH(s12_polar.second);
-
-            WATCH(s21.real());
-            WATCH(s21.imag());
-            WATCH(MAG(s21));
-            WATCH(ARG_DEG(s21));
-            WATCH(s21_polar.first);
-            WATCH(s21_polar.second);
-
-            WATCH(s22.real());
-            WATCH(s22.imag());
-            WATCH(MAG(s22));
-            WATCH(ARG_DEG(s22));
-            WATCH(s22_polar.first);
-            WATCH(s22_polar.second);
-            
             WATCH(NFmin_db);
             WATCH(Rn);
             WATCH(gamma_s_on);
-
             std::cout << '\n';
-
                 
             WATCH(determinant);
             WATCH(K);

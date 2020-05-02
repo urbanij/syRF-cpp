@@ -43,6 +43,13 @@ typedef std::complex<float>     complex_t;
 
 
 
+/* displays output */
+#define ORANGE          "#cf9936"
+#define RED             "#db3309"
+#define GREEN           "#23ad2e"
+
+
+
 
 
 #define MAG(x)                  std::abs((x))
