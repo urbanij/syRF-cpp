@@ -2929,14 +2929,6 @@
     <string>Ctrl+W</string>
    </property>
   </action>
-  <action name="action_Lumped_Matching">
-   <property name="text">
-    <string>&amp;Lumped Matching</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+M</string>
-   </property>
-  </action>
   <action name="actionrect2polar">
    <property name="text">
     <string>&amp;rect2polar</string>
@@ -3157,9 +3149,9 @@
  <resources/>
  <connections/>
  <buttongroups>
+  <buttongroup name="buttonGroup"/>
+  <buttongroup name="buttonGroup_4"/>
   <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup_3"/>
-  <buttongroup name="buttonGroup_4"/>
-  <buttongroup name="buttonGroup"/>
  </buttongroups>
 </ui>

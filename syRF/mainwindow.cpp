@@ -21,7 +21,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+///////// other windows
 #include "about.h"
+#include "lumpedmatching.h"
+/////////
+
 
 #include "config.h"
 #include "utils.h"
@@ -1525,19 +1529,10 @@ void MainWindow::on_GPdb_box_2_textChanged(){
 
 
 
-
-
-
-
-
-
-
 void MainWindow::on_action_LumpedMatching_triggered(){
-    // LumpedMatching lumpedmatching;
-    // lumpedmatching.setModal(true);
-    // lumpedmatching.exec();
+    LumpedMatching* lumpedmatching = new LumpedMatching();
+    lumpedmatching->show();
 }
-
 
 
 
@@ -1559,5 +1554,6 @@ void MainWindow::closeEvent (QCloseEvent *event){
 
 #endif
 }
+
 
 

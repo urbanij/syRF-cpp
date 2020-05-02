@@ -148,14 +148,20 @@ private slots:
     /// END S TAB ///
 
 
-    void on_action_About_2_triggered();
-    void on_action_LumpedMatching_triggered();
+
+
+
+
+    void on_action_About_2_triggered();;
+
+
+
 
 
     void closeEvent (QCloseEvent *event);
 
 
-
+    void on_action_LumpedMatching_triggered();
 
 private:
     Ui::MainWindow *ui;

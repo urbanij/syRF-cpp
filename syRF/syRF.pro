@@ -43,8 +43,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
+    lumpedmatching.cpp \
+    main.cpp \
+    mainwindow.cpp \
     about.cpp \
     ccomplex.cpp \
     s_parameters.cpp \
@@ -53,7 +54,8 @@ SOURCES += \
 
 HEADERS += \
     config.h \
-        mainwindow.h \
+    lumpedmatching.h \
+    mainwindow.h \
     about.h \
     ccomplex.h \
     s_parameters.h \
@@ -61,9 +63,9 @@ HEADERS += \
     y_parameters.h
 
 FORMS += \
+        ui/lumpedmatching.ui \
         ui/mainwindow.ui \
-        ui/about.ui \
-        ui/lumped_matching.ui
+        ui/about.ui
 
 
 RESOURCES += \
