@@ -12,7 +12,7 @@
 
 #include "lumpedmatching.h"
 #include "ui_lumpedmatching.h"
-#import "L_section_matching"
+// #import "L_section_matching"
 
 
 LumpedMatching::LumpedMatching(QWidget *parent) :
@@ -122,7 +122,8 @@ void LumpedMatching::on_Calculate_button_3_clicked(){
 #endif
 
 
-    ui->textBrowser->setText(L_section_matching(Zl, Z0, f0));
+
+    // ui->textBrowser->setText(L_section_matching(Zl, Z0, f0));
 
 
 }

@@ -928,9 +928,14 @@ void MainWindow::on_Calculate_button_5_clicked(){
     //////////////////////////       variables declaration       /////////////
     complex_t determinant;
     float K;
+
     complex_t gamma_in;
     complex_t gamma_out;
     
+    complex_t z_in;
+    complex_t z_out;
+        
+
     complex_t Cs;
     float rs;
 
@@ -970,6 +975,9 @@ void MainWindow::on_Calculate_button_5_clicked(){
     
     gamma_in = calculate_gamma_in(s11, s12, s21, s22, zl, z0);
     gamma_out = calculate_gamma_out(s11,s12,s21,s22,zs,z0);
+
+    z_in = gamma2z(gamma_in, z0);
+    z_out = gamma2z(gamma_out, z0);
 
 
     GA = calculate_GA(s11,s12,s21,s22,zs,z0);
@@ -1226,8 +1234,12 @@ void MainWindow::on_Calculate_button_5_clicked(){
                 
             WATCH(determinant);
             WATCH(K);
+
             WATCH(gamma_in);
             WATCH(gamma_out);
+            WATCH(z_in);
+            WATCH(z_out);
+            std::cout << '\n';
 
             WATCH(Cs);
             WATCH(rs);
