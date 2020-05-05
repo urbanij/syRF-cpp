@@ -1046,6 +1046,9 @@ void MainWindow::on_Calculate_button_5_clicked(){
                 QString::number(ARG_DEG(gamma_in), 'g', NUM_SIGNIFICANT_DIGITS) + " deg"
                 );
 
+    ui->z_in_box->setText(COMPLEX_REPR_RE_IM(z_in));
+    ui->z_out_box->setText(COMPLEX_REPR_RE_IM(z_out));
+
 
     ui->textBrowser_4->setText(QString::number(NF));
     ui->textBrowser_5->setText(QString::number(linear_2_dB(NF)));
