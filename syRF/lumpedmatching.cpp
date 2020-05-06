@@ -12,7 +12,6 @@
 
 #include "lumpedmatching.h"
 #include "ui_lumpedmatching.h"
-// #import "L_section_matching"
 
 
 LumpedMatching::LumpedMatching(QWidget *parent) :
@@ -123,12 +122,23 @@ void LumpedMatching::on_Calculate_button_3_clicked(){
 
 
 
-    // ui->textBrowser->setText(L_section_matching(Zl, Z0, f0));
+    ui->textBrowser->setText("NOt implemented yet...");
 
 
 }
 
 
+
+void LumpedMatching::closeEvent (QCloseEvent *event){
+#if 1
+    QMessageBox::StandardButton resBtn = QMessageBox::question( this, "syRF",
+                                                                tr("Are you sure?\n"),
+                                                                QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+                                                                QMessageBox::Yes);
+    resBtn != QMessageBox::Yes ? event->ignore() : event->accept();
+
+#endif
+}
 
 
 

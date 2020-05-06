@@ -31,6 +31,16 @@ typedef std::complex<float>     complex_t;
 
 
 
+
+
+#define URL_2N4957 "https://urbanij.github.io/syRF/src/main/python/2N4957/2N4957.pdf"
+#define URL_MRF571 "https://urbanij.github.io/syRF/src/main/python/MRF57/MRF57.pdf"
+
+
+
+
+
+
 /* ANSI colors and stuff */
 #define ANSI_COLOR_RED          "\x1b[31m"
 #define ANSI_COLOR_GREEN        "\x1b[32m"

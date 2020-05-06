@@ -16,6 +16,10 @@
 #include <QMainWindow>
 #include <QtEvents>
 
+#include <QMessageBox>
+#include <QCloseEvent>
+
+
 namespace Ui {
 class MainWindow;
 }
@@ -145,6 +149,8 @@ private slots:
 
     void on_GPdb_box_2_returnPressed();
     void on_GPdb_box_2_textChanged();
+
+    void on_plot_isc_button_2_clicked();
     /// END S TAB ///
 
 
@@ -154,6 +160,7 @@ private slots:
 
     void on_action_About_2_triggered();;
 
+    void on_action_LumpedMatching_triggered();
 
 
 
@@ -161,7 +168,7 @@ private slots:
     void closeEvent (QCloseEvent *event);
 
 
-    void on_action_LumpedMatching_triggered();
+    void on_open_datasheet_button_clicked();
 
 private:
     Ui::MainWindow *ui;

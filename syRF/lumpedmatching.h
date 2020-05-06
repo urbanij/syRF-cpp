@@ -19,6 +19,9 @@
 #include "config.h"
 
 #include <QDialog>
+#include <QMessageBox>
+#include <QCloseEvent>
+
 
 namespace Ui {
 class LumpedMatching;
@@ -32,8 +35,13 @@ public:
     explicit LumpedMatching(QWidget *parent = nullptr);
     ~LumpedMatching();
 
+
+
+
 private slots:
     void on_Calculate_button_3_clicked();
+
+    void closeEvent (QCloseEvent *event);
 
 
 private:

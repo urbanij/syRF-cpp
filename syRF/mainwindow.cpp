@@ -10,7 +10,7 @@
 **  Description:                                                **
 ******************************************************************/
 
-#include <QMessageBox>
+
 #include <QDesktopServices>
 #include <QProcess>
 #include <QMainWindow>
@@ -125,11 +125,21 @@ MainWindow::~MainWindow(){
 
 
 void MainWindow::on_open_datasheet_Y_button_clicked(){
-//    QDesktopServices::openUrl(QUrl(":/new/docs/docs/datasheets/2N4957.pdf"));
-    // QDesktopServices::openUrl(QUrl::fromLocalFile(".cpp"));
+#if 0
+    std::cout << "trying to open the 2n4957 datasheet" << '\n';
+#endif
 
-    QProcess *process = new QProcess(this);
-    process->start(":/new/docs/docs/datasheets/2N4957.pdf");
+//    QDesktopServices::openUrl(QUrl("qrc:/2N4957.pdf"));
+
+//    QFile HelpFile("qrc:/new/docs/docs/datasheets/2N4957.pdf");
+//    HelpFile.copy(qApp->applicationDirPath().append("/2N4957.pdf"));
+
+    // could open the PDF from local resource so I went this route instead which works pretty alright.
+    QDesktopServices::openUrl(QUrl(URL_2N4957));
+
+
+    //QProcess *process = new QProcess(this);
+    //process->start(":/new/docs/docs/datasheets/2N4957.pdf");
 
 }
 
@@ -1291,6 +1301,8 @@ void MainWindow::on_radioButton1_MRF571_clicked(){
     ui->s21_box_arg->setReadOnly(true);
     ui->s22_box->setReadOnly(true);
     ui->s22_box_arg->setReadOnly(true);
+    
+    ui->open_datasheet_button->setEnabled(true);
     ui->comboBox_MRF_bias->setEnabled(true);
 
     ui->ZS_box->setFocus();
@@ -1308,6 +1320,7 @@ void MainWindow::on_manual_input_s_radioButton_clicked(){
     ui->s22_box->setReadOnly(false);
     ui->s22_box_arg->setReadOnly(false);
 
+    ui->open_datasheet_button->setEnabled(false);
     ui->comboBox_MRF_bias->setEnabled(false);
 
     ui->s11_box->setFocus();
@@ -1544,6 +1557,13 @@ void MainWindow::on_GPdb_box_2_textChanged(){
 
 
 
+void MainWindow::on_plot_isc_button_2_clicked(){
+    std::cout << "Plot unimplemented" << "\n";
+}
+
+
+
+
 void MainWindow::on_action_LumpedMatching_triggered(){
     LumpedMatching* lumpedmatching = new LumpedMatching();
     lumpedmatching->show();
@@ -1560,7 +1580,7 @@ void MainWindow::on_action_About_2_triggered(){
 
 
 void MainWindow::closeEvent (QCloseEvent *event){
-#if 0
+#if 1
     QMessageBox::StandardButton resBtn = QMessageBox::question( this, "syRF",
                                                                 tr("Are you sure?\n"),
                                                                 QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
@@ -1571,4 +1591,6 @@ void MainWindow::closeEvent (QCloseEvent *event){
 }
 
 
-
+void MainWindow::on_open_datasheet_button_clicked(){
+    QDesktopServices::openUrl(QUrl(URL_MRF571));
+}
