@@ -22,7 +22,7 @@
        <bool>false</bool>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -3086,6 +3086,29 @@
   </action>
  </widget>
  <tabstops>
+  <tabstop>f0_box_2</tabstop>
+  <tabstop>y_i_box_2</tabstop>
+  <tabstop>y_f_box_2</tabstop>
+  <tabstop>y_o_box_2</tabstop>
+  <tabstop>y_r_box_2</tabstop>
+  <tabstop>y_s_box_2</tabstop>
+  <tabstop>y_L_box_2</tabstop>
+  <tabstop>C_box_2</tabstop>
+  <tabstop>beta_A_box_2</tabstop>
+  <tabstop>y_in_box_2</tabstop>
+  <tabstop>y_out_box_2</tabstop>
+  <tabstop>A_V_box</tabstop>
+  <tabstop>vout_over_vs_box</tabstop>
+  <tabstop>GA_box_2</tabstop>
+  <tabstop>GA_box_dB_2</tabstop>
+  <tabstop>GP_box_2</tabstop>
+  <tabstop>GP_box_dB_2</tabstop>
+  <tabstop>GT_box_2</tabstop>
+  <tabstop>GT_box_dB_2</tabstop>
+  <tabstop>k_box_3</tabstop>
+  <tabstop>y_s_opt_box_2</tabstop>
+  <tabstop>y_L_opt_box_2</tabstop>
+  <tabstop>Calculate_button_4</tabstop>
   <tabstop>s11_box</tabstop>
   <tabstop>s11_box_arg</tabstop>
   <tabstop>s12_box</tabstop>
@@ -3094,66 +3117,43 @@
   <tabstop>s21_box_arg</tabstop>
   <tabstop>s22_box</tabstop>
   <tabstop>s22_box_arg</tabstop>
+  <tabstop>NFmindb_box_2</tabstop>
+  <tabstop>rn_box_2</tabstop>
+  <tabstop>gamma_s_on_box</tabstop>
+  <tabstop>gamma_s_on_box_2</tabstop>
+  <tabstop>Z0_box</tabstop>
   <tabstop>ZS_box</tabstop>
   <tabstop>ZL_box</tabstop>
   <tabstop>ZS_box_2</tabstop>
   <tabstop>ZS_box_5</tabstop>
   <tabstop>ZS_box_4</tabstop>
   <tabstop>ZS_box_3</tabstop>
-  <tabstop>D_box_2</tabstop>
-  <tabstop>k_box_4</tabstop>
-  <tabstop>ZS_box2</tabstop>
-  <tabstop>gamma_S_box</tabstop>
-  <tabstop>ZL_box2</tabstop>
-  <tabstop>gamma_L_box</tabstop>
-  <tabstop>textBrowser_4</tabstop>
-  <tabstop>textBrowser_5</tabstop>
-  <tabstop>GAdb_box2_7</tabstop>
-  <tabstop>GAdb_box2_8</tabstop>
-  <tabstop>textBrowser_2</tabstop>
-  <tabstop>GPdb_box2_8</tabstop>
-  <tabstop>GPdb_box2_7</tabstop>
-  <tabstop>textBrowser</tabstop>
-  <tabstop>GTdb_box2_7</tabstop>
-  <tabstop>GTdb_box2_8</tabstop>
-  <tabstop>textBrowser_3</tabstop>
-  <tabstop>textBrowser_8</tabstop>
-  <tabstop>gamma_s_opt_box_5</tabstop>
-  <tabstop>textBrowser_7</tabstop>
-  <tabstop>gamma_L_opt_box_5</tabstop>
-  <tabstop>C_box_13</tabstop>
-  <tabstop>C_box_19</tabstop>
-  <tabstop>C_box_16</tabstop>
-  <tabstop>C_box_32</tabstop>
   <tabstop>NFdb_box_2</tabstop>
-  <tabstop>C_box_37</tabstop>
-  <tabstop>C_box_36</tabstop>
   <tabstop>GAdb_box_2</tabstop>
-  <tabstop>C_box_43</tabstop>
-  <tabstop>C_box_42</tabstop>
   <tabstop>GPdb_box_2</tabstop>
-  <tabstop>C_box_39</tabstop>
-  <tabstop>C_box_38</tabstop>
   <tabstop>GTdb_box_2</tabstop>
+  <tabstop>Calculate_button_5</tabstop>
+  <tabstop>C_box_38</tabstop>
+  <tabstop>C_box_42</tabstop>
   <tabstop>C_box_41</tabstop>
   <tabstop>C_box_40</tabstop>
-  <tabstop>Calculate_button_5</tabstop>
+  <tabstop>C_box_39</tabstop>
   <tabstop>radioButton1_MRF571</tabstop>
-  <tabstop>GT_box_2</tabstop>
-  <tabstop>y_f_box_2</tabstop>
-  <tabstop>y_L_box_2</tabstop>
+  <tabstop>gamma_S_box</tabstop>
+  <tabstop>GPdb_box2_8</tabstop>
+  <tabstop>GTdb_box2_8</tabstop>
   <tabstop>radioButton_input_as_Z</tabstop>
   <tabstop>radioButton_input_as_gamma</tabstop>
-  <tabstop>GA_box_2</tabstop>
+  <tabstop>C_box_36</tabstop>
   <tabstop>radioButton_CE</tabstop>
-  <tabstop>GT_box_dB_2</tabstop>
+  <tabstop>ZL_box2</tabstop>
   <tabstop>clean_S_button</tabstop>
-  <tabstop>y_r_box_2</tabstop>
-  <tabstop>f0_box_2</tabstop>
-  <tabstop>y_s_opt_box_2</tabstop>
-  <tabstop>GA_box_dB_2</tabstop>
-  <tabstop>y_L_opt_box_2</tabstop>
-  <tabstop>Z0_box</tabstop>
+  <tabstop>textBrowser</tabstop>
+  <tabstop>GAdb_box2_8</tabstop>
+  <tabstop>textBrowser_4</tabstop>
+  <tabstop>D_box_2</tabstop>
+  <tabstop>textBrowser_5</tabstop>
+  <tabstop>C_box_13</tabstop>
   <tabstop>Clean_all_button_4</tabstop>
   <tabstop>Gamma_S_int1_box</tabstop>
   <tabstop>Gamma_S_int2_box</tabstop>
@@ -3162,31 +3162,43 @@
   <tabstop>radioButton_CB</tabstop>
   <tabstop>open_datasheet_Y_button</tabstop>
   <tabstop>show_plots_button</tabstop>
-  <tabstop>GP_box_dB_2</tabstop>
-  <tabstop>vout_over_vs_box</tabstop>
-  <tabstop>beta_A_box_2</tabstop>
-  <tabstop>C_box_2</tabstop>
-  <tabstop>k_box_3</tabstop>
+  <tabstop>ZS_box2</tabstop>
+  <tabstop>C_box_37</tabstop>
+  <tabstop>C_box_19</tabstop>
+  <tabstop>textBrowser_3</tabstop>
+  <tabstop>gamma_L_box</tabstop>
   <tabstop>Clean_all_button_6</tabstop>
   <tabstop>vce_box_2</tabstop>
-  <tabstop>GP_box_2</tabstop>
+  <tabstop>k_box_4</tabstop>
   <tabstop>vce_box_3</tabstop>
-  <tabstop>y_in_box_2</tabstop>
-  <tabstop>y_out_box_2</tabstop>
-  <tabstop>A_V_box</tabstop>
-  <tabstop>y_i_box_2</tabstop>
-  <tabstop>y_s_box_2</tabstop>
-  <tabstop>Calculate_button_4</tabstop>
-  <tabstop>y_o_box_2</tabstop>
+  <tabstop>C_box_16</tabstop>
+  <tabstop>C_box_32</tabstop>
+  <tabstop>C_box_43</tabstop>
+  <tabstop>textBrowser_2</tabstop>
+  <tabstop>GTdb_box2_7</tabstop>
+  <tabstop>GAdb_box2_7</tabstop>
+  <tabstop>GPdb_box2_7</tabstop>
   <tabstop>comboBox_MRF_bias</tabstop>
   <tabstop>open_datasheet_button</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>textBrowser_7</tabstop>
+  <tabstop>textBrowser_8</tabstop>
+  <tabstop>gamma_s_opt_box_5</tabstop>
+  <tabstop>gamma_L_opt_box_5</tabstop>
+  <tabstop>manual_input_s_radioButton</tabstop>
+  <tabstop>gamma_in_box_2</tabstop>
+  <tabstop>gamma_out_box_2</tabstop>
+  <tabstop>z_in_box</tabstop>
+  <tabstop>z_out_box</tabstop>
+  <tabstop>radiobutton_2n4957</tabstop>
+  <tabstop>manual_input_y_radioButton</tabstop>
  </tabstops>
  <resources/>
  <connections/>
  <buttongroups>
   <buttongroup name="buttonGroup_3"/>
   <buttongroup name="buttonGroup_2"/>
-  <buttongroup name="buttonGroup_4"/>
   <buttongroup name="buttonGroup"/>
+  <buttongroup name="buttonGroup_4"/>
  </buttongroups>
 </ui>

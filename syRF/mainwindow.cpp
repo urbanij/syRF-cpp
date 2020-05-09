@@ -42,7 +42,17 @@
 #include <iostream>
 
 
-QString COMPLEX_REPR_RE_IM(complex_t c){
+std::string COMPLEX_REPR_RE_IM_console(complex_t c){
+    if (c.imag() >= 0){
+        return (std::to_string(c.real()) + "+" + std::to_string(c.imag()) + "j");
+    }
+    else {
+        return (std::to_string(c.real()) + "-" + std::to_string(-c.imag()) + "j");
+    }
+}
+
+QString 
+COMPLEX_REPR_RE_IM(complex_t c){
     if (c.imag() >= 0){
         return (QString::number(c.real()) + "+" + QString::number(c.imag()) + "j");
     }
@@ -51,7 +61,8 @@ QString COMPLEX_REPR_RE_IM(complex_t c){
     }
 }
 
-QString COMPLEX_REPR_MAG_ARG(complex_t c){
+QString 
+COMPLEX_REPR_MAG_ARG(complex_t c){
 #if USE_DEGREES
 //    return (std::to_string(MAG(c)) << "∠" << std::to_string(ARG_DEG(c)) << " deg");
     return (QString::number(MAG(c)) + "∠" + QString::number(ARG_DEG(c)) + " deg");
@@ -167,6 +178,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
         float f0 = ui->f0_box_2->text().toFloat();
         #if PRINT_TO_CONSOLE
             WATCH(f0);
+            std::cout << "\n";
         #endif
 
 
@@ -282,12 +294,13 @@ void MainWindow::on_Calculate_button_4_clicked(){
 
 
     #if PRINT_TO_CONSOLE
-        WATCH(y_i);
-        WATCH(y_f);
-        WATCH(y_r);
-        WATCH(y_o);
-        WATCH(y_s);
-        WATCH(y_l);
+        std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "y_i = " << COMPLEX_REPR_RE_IM_console(y_i) << "\t == " << MAG(y_i) << "∠" << ARG_DEG(y_i) << " deg" << "\n";
+        std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "y_f = " << COMPLEX_REPR_RE_IM_console(y_f) << "\t == " << MAG(y_f) << "∠" << ARG_DEG(y_f) << " deg" << "\n";
+        std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "y_r = " << COMPLEX_REPR_RE_IM_console(y_r) << "\t == " << MAG(y_r) << "∠" << ARG_DEG(y_r) << " deg" << "\n";
+        std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "y_o = " << COMPLEX_REPR_RE_IM_console(y_o) << "\t == " << MAG(y_o) << "∠" << ARG_DEG(y_o) << " deg" << "\n";
+        std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "y_s = " << COMPLEX_REPR_RE_IM_console(y_s) << "\t == " << MAG(y_s) << "∠" << ARG_DEG(y_s) << " deg" << "\n";
+        std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "y_l = " << COMPLEX_REPR_RE_IM_console(y_l) << "\t == " << MAG(y_l) << "∠" << ARG_DEG(y_l) << " deg" << "\n";
+        std::cout << "\n";
     #endif
 
 
@@ -299,28 +312,42 @@ void MainWindow::on_Calculate_button_4_clicked(){
     complex_t   y_out   = calculate_yout( y_i, y_f, y_o, y_r, y_s);
     complex_t   A_V     = calculate_A_V(y_f, y_o, y_l);
     complex_t   vout_over_vs = calculate_vout_over_vs(y_i, y_f, y_o, y_r, y_s, y_l);
+    
     float       G_A     = calculate_G_A(y_i, y_f, y_o, y_r, y_s);
     float       G_P     = calculate_G_P(y_i, y_f, y_o, y_r, y_l);
     float       G_T     = calculate_G_T(y_i, y_f, y_o, y_r, y_s, y_l);
+
     float       k       = calculate_k(y_i, y_f, y_o, y_r, y_s, y_l);
     complex_t   y_s_opt = calculate_y_s_opt(y_i, y_f, y_o, y_r );
     complex_t   y_l_opt = calculate_y_l_opt(y_i, y_f, y_o, y_r);
 
+    float       G_A_max = calculate_G_A(y_i, y_f, y_o, y_r, y_s_opt);
+    float       G_P_max = calculate_G_P(y_i, y_f, y_o, y_r, y_l_opt);
+    float       G_T_max = calculate_G_T(y_i, y_f, y_o, y_r, y_s_opt, y_l_opt);
+    
+
 
 
 #if PRINT_TO_CONSOLE
-        WATCH(C);
-        WATCH(betaA);
-        WATCH(y_in);
-        WATCH(y_out);
-        WATCH(A_V);
-        WATCH(vout_over_vs);
-        WATCH(G_A);
-        WATCH(G_P);
-        WATCH(G_T);
-        WATCH(k);
-        WATCH(y_s_opt);
-        WATCH(y_l_opt);
+    WATCH(C);
+    std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "betaA = " << COMPLEX_REPR_RE_IM_console(betaA) << "\t == " << MAG(betaA) << "∠" << ARG_DEG(betaA) << " deg" << "\n";
+    std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "y_in = " << COMPLEX_REPR_RE_IM_console(y_in) << "\t == " << MAG(y_in) << "∠" << ARG_DEG(y_in) << " deg" << "\n";
+    std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "A_V = " << COMPLEX_REPR_RE_IM_console(A_V) << "\t == " << MAG(A_V) << "∠" << ARG_DEG(A_V) << " deg" << "\n";
+    std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "vout_over_vs = " << COMPLEX_REPR_RE_IM_console(vout_over_vs) << "\t == " << MAG(vout_over_vs) << "∠" << ARG_DEG(vout_over_vs) << " deg" << "\n";
+    std::cout << "\n";
+
+    std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "G_A = " << G_A << "\t == " << linear_2_dB(G_A) << " dB\n";
+    std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "G_P = " << G_P << "\t == " << linear_2_dB(G_P) << " dB\n";
+    std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "G_T = " << G_T << "\t == " << linear_2_dB(G_T) << " dB\n";
+
+    std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "G_A_max = " << G_A_max << "\t == " << linear_2_dB(G_A_max) << " dB\n";
+    std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "G_P_max = " << G_P_max << "\t == " << linear_2_dB(G_P_max) << " dB\n";
+    std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "G_T_max = " << G_T_max << "\t == " << linear_2_dB(G_T_max) << " dB\n";
+    std::cout << "\n";
+
+    WATCH(k);
+    std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "y_s_opt = " << COMPLEX_REPR_RE_IM_console(y_s_opt) << "\t == " << MAG(y_s_opt) << "∠" << ARG_DEG(y_s_opt) << " deg" << "\n";
+    std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "y_l_opt = " << COMPLEX_REPR_RE_IM_console(y_l_opt) << "\t == " << MAG(y_l_opt) << "∠" << ARG_DEG(y_l_opt) << " deg" << "\n";
 #endif
 
 
