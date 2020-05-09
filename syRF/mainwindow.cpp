@@ -624,6 +624,7 @@ void MainWindow::on_Calculate_button_5_clicked(){
     float NFmin_db;
     float Rn;
     complex_t gamma_s_on;
+    complex_t z_s_on;
 
 
 
@@ -642,12 +643,7 @@ void MainWindow::on_Calculate_button_5_clicked(){
             int         f0;
             filter_S_transistor_bias_settings(combobox_entry, transistor_name, Vce, Ic, f0);
 
-#if 0
-            WATCH(transistor_name);
-            WATCH(Vce);
-            WATCH(Ic);
-            WATCH(f0);
-#endif
+
 
             s11_polar = std::make_pair(
                             MRF_transistor_S_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["s11"].first,    // mag
@@ -694,6 +690,7 @@ void MainWindow::on_Calculate_button_5_clicked(){
                             DEG_2_RAD(MRF_transistor_noise_parameters[std::make_tuple(transistor_name, Vce, Ic, f0)]["Gamma_S_on_arg"])
                         );
 
+                
 
                 // fill noise parameters
                 ui->NFmindb_box_2->setText(QString::number(NFmin_db));
@@ -737,8 +734,10 @@ void MainWindow::on_Calculate_button_5_clicked(){
                     gamma_s_on = polar_2_rect(ui->gamma_s_on_box->text().toFloat(),
                                               DEG_2_RAD(ui->gamma_s_on_box_2->text().toFloat())
                                               );
+                    
                 }else {
                     gamma_s_on = complex_t(NAN, NAN);
+
                 }
 
             }
@@ -846,8 +845,10 @@ void MainWindow::on_Calculate_button_5_clicked(){
             gamma_s_on = polar_2_rect(ui->gamma_s_on_box->text().toFloat(),
                                       DEG_2_RAD(ui->gamma_s_on_box_2->text().toFloat())
                                       );
+            
         }else {
             gamma_s_on = complex_t(NAN, NAN);
+
         }
 
 
@@ -1021,6 +1022,8 @@ void MainWindow::on_Calculate_button_5_clicked(){
     GP = calculate_GP(s11,s12,s21,s22,zl,z0);
     GT = calculate_GT(s11,s12,s21,s22,zs,zl,z0);
 
+
+    z_s_on = gamma2z(gamma_s_on, z0);
     NF = calculate_NF(NFmin_db,Rn,gamma_s_on,zs,z0);
 
 
@@ -1261,25 +1264,34 @@ void MainWindow::on_Calculate_button_5_clicked(){
    
 
 #if PRINT_TO_CONSOLE
-            WATCH(s11);
-            WATCH(s12);
-            WATCH(s21);
-            WATCH(s22);
+            std::cout << ANSI_BOLD << "S parameters " << ANSI_COLOR_RESET << '\n';
+                            /*ANSI_BOLD << transistor_name << " @ Vce = " << Vce << "V; Ic = " << Ic << "mA; f = " << f0 << "MHz " << ANSI_COLOR_RESET << '\n';*/
+
+            std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "s11 = " << COMPLEX_REPR_RE_IM_console(s11) << "\t == " << MAG(s11) << "∠" << ARG_DEG(s11) << " deg" << "\n";
+            std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "s12 = " << COMPLEX_REPR_RE_IM_console(s12) << "\t == " << MAG(s12) << "∠" << ARG_DEG(s12) << " deg" << "\n";
+            std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "s21 = " << COMPLEX_REPR_RE_IM_console(s21) << "\t == " << MAG(s21) << "∠" << ARG_DEG(s21) << " deg" << "\n";
+            std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "s22 = " << COMPLEX_REPR_RE_IM_console(s22) << "\t == " << MAG(s22) << "∠" << ARG_DEG(s22) << " deg" << "\n";
             std::cout << '\n';
 
+            std::cout << ANSI_BOLD << "Noise parameters:" << ANSI_COLOR_RESET <<'\n';
             WATCH(NFmin_db);
-            WATCH(Rn);
-            WATCH(gamma_s_on);
+            std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "Rn = " << Rn << "ohm  -- rn = " << Rn/z0 << '\n';
+            std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "gamma_s_on = " << COMPLEX_REPR_RE_IM_console(gamma_s_on) << "\t == " << MAG(gamma_s_on) << "∠" << ARG_DEG(gamma_s_on) << " deg" << "\n";
+            std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "z_s_on = " << COMPLEX_REPR_RE_IM_console(z_s_on) << "\t == " << MAG(z_s_on) << "∠" << ARG_DEG(z_s_on) << " deg" << "\n";
             std::cout << '\n';
                 
-            WATCH(determinant);
+
+
+            std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "determinant = " << COMPLEX_REPR_RE_IM_console(determinant) << "\t == " << MAG(determinant) << "∠" << ARG_DEG(determinant) << " deg" << "\n";
             WATCH(K);
 
-            WATCH(gamma_in);
-            WATCH(gamma_out);
-            WATCH(z_in);
-            WATCH(z_out);
+            std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "gamma_in = " << COMPLEX_REPR_RE_IM_console(gamma_in) << "\t == " << MAG(gamma_in) << "∠" << ARG_DEG(gamma_in) << " deg" << "\n";
+            std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "gamma_out = " << COMPLEX_REPR_RE_IM_console(gamma_out) << "\t == " << MAG(gamma_out) << "∠" << ARG_DEG(gamma_out) << " deg" << "\n";
+            std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "z_in = " << COMPLEX_REPR_RE_IM_console(z_in) << "\t == " << MAG(z_in) << "∠" << ARG_DEG(z_in) << " deg" << "\n";
+            std::cout << ANSI_COLOR_GREY << __FILE__ << " @ " << __LINE__ << ": " << ANSI_COLOR_RESET << "z_out = " << COMPLEX_REPR_RE_IM_console(z_out) << "\t == " << MAG(z_out) << "∠" << ARG_DEG(z_out) << " deg" << "\n";
             std::cout << '\n';
+
+
 
             WATCH(Cs);
             WATCH(rs);
@@ -1290,8 +1302,10 @@ void MainWindow::on_Calculate_button_5_clicked(){
             WATCH(GP);
             WATCH(GT);
             WATCH(GA);
+            
             WATCH(NF);
 
+            
             WATCH(Cnf);
             WATCH(rnf);
 
