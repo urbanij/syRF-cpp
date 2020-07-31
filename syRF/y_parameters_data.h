@@ -1,13 +1,17 @@
 /*****************************************************************
 **                                                              **
-**  syRF                                                        **
+**  syRF <https://urbanij.github.io/syRF/>                      **
 **  Copyright (C) 2019-2020 Francesco Urbani                    **
 **                                                              **
 ******************************************************************
 **  Author:    Francesco Urbani <https://urbanij.github.io/>    **
 **  Date:      Tue Apr 14 10:20:22 CEST 2020                    **
 **  File:           y_parameters_data.h                         **
-**  Description:                                                **
+**  Description:    Data retrieved using [WebPlotDigitizer](    **
+                    https://automeris.io/WebPlotDigitizer/)     **
+                    and some Python scripting.                  **
+                                                                **
+                    Frequency is in MHz and g|b values in mS.   **
 ******************************************************************/
 
 
@@ -17,7 +21,8 @@
 #include <map>
 
 std::map<float, float> 
-g_ie = {        { 44.90855075, 0.84404409 },
+g_ie = {        
+        { 44.90855075, 0.84404409 },
         { 45.69943453, 0.93925919 },
         { 46.62162259, 0.93391668 },
         { 47.56913784, 0.94102103 },
@@ -672,7 +677,8 @@ g_fe = {
         { 1411.87015604, -14.28837292 },
         { 1433.89416981, -15.05979079 },
         { 1456.2617401, -15.79419951 },
-        { 1479.86513179, -16.21431476 },};
+        { 1479.86513179, -16.21431476 },
+};
 
 std::map<float, float> 
 
@@ -3426,6 +3432,5 @@ b_rb = {
         { 1472.63600701,    -1.78201373 },
         { 1488.12404969,    -1.80322167 },
 };
-
 
 #endif

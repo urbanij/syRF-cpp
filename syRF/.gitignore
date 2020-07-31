@@ -75,3 +75,8 @@ tests_y_s_parameters
 tests_ccomplex
 tests_regex
 
+gist_2N4957_Y_params
+
+plot_smith.py
+icons/icns/icon1.icns
+icons/icns/icon4.icns

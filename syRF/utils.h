@@ -88,8 +88,7 @@ polar_2_rect(float mag,
              float phase);
 
 float
-get_value_from_dictionary(std::map<float, float>* m,
-                          float                   target_k);
+get_value_from_dictionary(std::map<float, float>&, float);
 
 void 
 filter_S_transistor_bias_settings(const std::string s,

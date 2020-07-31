@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.6">
+<dict>
+    <key>NSPrincipalClass</key>
+    <string>NSApplication</string>
+    <key>CFBundleIconFile</key>
+    <string>@ICON@</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleGetInfoString</key>
+    <string>2.0.0</string>
+    <key>CFBundleSignature</key>
+    <string>@TYPEINFO@</string>
+    <key>CFBundleExecutable</key>
+    <string>@EXECUTABLE@</string>
+    <key>CFBundleIdentifier</key>
+    <string>@BUNDLEIDENTIFIER@</string>
+    
+    <key>NSRequiresAquaSystemAppearance</key>
+    <string>true</string>
+    
+    <key>NSHumanReadableCopyright</key>
+    <string>Copyright © 2020 Francesco Urbani</string>
+    <key>CFBundleShortVersionString</key>
+    <string>//Bundle version. Usually the same thing as CFBundlePackageType//</string>
+    <key>CFBundleVersion</key>
+    <string>//same thing as above//</string>
+</dict>
+</plist>
+

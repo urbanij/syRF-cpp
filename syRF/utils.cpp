@@ -52,18 +52,18 @@ polar_2_rect(float mag,
 
 float
 get_value_from_dictionary(
-    std::map<float, float>* m,
+    std::map<float, float>& m,
     float                   target_k
 ){
     /* Use two iterators pointing the elements one next to the other and traverse the map.
     Once one becomes bigger than the target while the other is still smaller I do a
     linear interpolation and return the value.
     */
-    std::map<float, float>::iterator it_slow = m->begin();
-    std::map<float, float>::iterator it_fast = m->begin();
+    std::map<float, float>::iterator it_slow = m.begin();
+    std::map<float, float>::iterator it_fast = m.begin();
     ++it_fast; // initializing it_fast 1 step ahead of it_slow
 
-    while (it_fast != m->end()){
+    while (it_fast != m.end()){
         if (target_k - it_fast->first < 0 && target_k - it_slow->first > 0){
 
             // interpolate the target point and renaming the variables for convenience.

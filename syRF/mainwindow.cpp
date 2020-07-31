@@ -200,26 +200,26 @@ void MainWindow::on_Calculate_button_4_clicked(){
 
             if (ui->radioButton_CE->isChecked()){
 
-                y_i = complex_t(get_value_from_dictionary(&g_ie, f0),
-                                get_value_from_dictionary(&b_ie, f0));
-                y_f = complex_t(get_value_from_dictionary(&g_fe, f0),
-                                get_value_from_dictionary(&b_fe, f0));
-                y_r = complex_t(get_value_from_dictionary(&g_re, f0),
-                                get_value_from_dictionary(&b_re, f0));
-                y_o = complex_t(get_value_from_dictionary(&g_oe, f0),
-                                get_value_from_dictionary(&b_oe, f0));
+                y_i = complex_t(get_value_from_dictionary(g_ie, f0),
+                                get_value_from_dictionary(b_ie, f0));
+                y_f = complex_t(get_value_from_dictionary(g_fe, f0),
+                                get_value_from_dictionary(b_fe, f0));
+                y_r = complex_t(get_value_from_dictionary(g_re, f0),
+                                get_value_from_dictionary(b_re, f0));
+                y_o = complex_t(get_value_from_dictionary(g_oe, f0),
+                                get_value_from_dictionary(b_oe, f0));
             }
 
             else if (ui->radioButton_CB->isChecked()){
 
-                y_i = complex_t(get_value_from_dictionary(&g_ib, f0),
-                                get_value_from_dictionary(&b_ib, f0));
-                y_f = complex_t(get_value_from_dictionary(&g_fb, f0),
-                                get_value_from_dictionary(&b_fb, f0));
-                y_r = complex_t(get_value_from_dictionary(&g_rb, f0),
-                                get_value_from_dictionary(&b_rb, f0));
-                y_o = complex_t(get_value_from_dictionary(&g_ob, f0),
-                                get_value_from_dictionary(&b_ob, f0));
+                y_i = complex_t(get_value_from_dictionary(g_ib, f0),
+                                get_value_from_dictionary(b_ib, f0));
+                y_f = complex_t(get_value_from_dictionary(g_fb, f0),
+                                get_value_from_dictionary(b_fb, f0));
+                y_r = complex_t(get_value_from_dictionary(g_rb, f0),
+                                get_value_from_dictionary(b_rb, f0));
+                y_o = complex_t(get_value_from_dictionary(g_ob, f0),
+                                get_value_from_dictionary(b_ob, f0));
             }
 
             ui->y_i_box_2->setText(COMPLEX_REPR_RE_IM(y_i));
@@ -400,12 +400,12 @@ void MainWindow::on_Calculate_button_4_clicked(){
 
     std::string stability_status;
 
-    if (isnan(C)){
+    if (std::isnan(C)){
         ui->C_box_2->setStyleSheet(styleSheet());
         ui->k_box_3->setStyleSheet(styleSheet());
         stability_status = "";
     }
-    else if (isnan(k)){
+    else if (std::isnan(k)){
         if (C < 0.0 || C>1.0){
             stability_status = PUS_LABEL;
             ui->C_box_2->setStyleSheet("border: 0.1ex solid " ORANGE);
@@ -593,6 +593,46 @@ void MainWindow::on_manual_input_y_radioButton_clicked(){
 
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
+
+
+struct S_tab_data {
+    complex_t   Cs;
+    float       rs;
+    complex_t   Cl;
+    float       rl;
+    complex_t   gamma_in;
+    complex_t   gamma_out;
+    complex_t   gamma_L;
+    complex_t   gamma_S;
+    float       GA_dB;
+    complex_t   Ca;
+    float       ra;
+    float       NF_dB;
+    complex_t   Cnf;
+    float       rnf;
+    float       GT_dB;
+    complex_t   Ct;
+    float       rt;
+    float       GP_dB;
+    complex_t   Cp;
+    float       rp;
+    complex_t   constant_gamma_circle;
+    complex_t   ZS;
+    complex_t   ZL;
+    complex_t   Z0;
+    complex_t   gamma_S_visualized;
+    complex_t   gamma_L_visualized;
+
+    std::string label_gamma_inout;
+    float       vce;
+    float       ic;
+    float       f;
+    std::string bjt;
+};
+// gloabal 
+struct S_tab_data Sdata = {};
+
+
 
 
 void MainWindow::on_Calculate_button_5_clicked(){
@@ -1210,7 +1250,7 @@ void MainWindow::on_Calculate_button_5_clicked(){
 
     std::string stability_status;
 
-    if (isnan(abs(determinant)) || isnan(K)){
+    if (std::isnan(abs(determinant)) || std::isnan(K)){
         stability_status = "";
         ui->D_box_2->setStyleSheet(styleSheet()); // D
         ui->k_box_4->setStyleSheet(styleSheet()); // K
@@ -1228,12 +1268,12 @@ void MainWindow::on_Calculate_button_5_clicked(){
         }
     }
 
-    if (isnan(gamma_out.real()) && isnan(gamma_in.real())){
+    if (std::isnan(gamma_out.real()) && std::isnan(gamma_in.real())){
         ui->gamma_in_box_2->setStyleSheet(styleSheet()); // gamma in
         ui->gamma_out_box_2->setStyleSheet(styleSheet()); // gamma out
-    } else if (isnan(gamma_out.real())){
+    } else if (std::isnan(gamma_out.real())){
         ui->gamma_out_box_2->setStyleSheet(styleSheet()); // gamma out
-    } else if (isnan(gamma_in.real())){
+    } else if (std::isnan(gamma_in.real())){
         ui->gamma_in_box_2->setStyleSheet(styleSheet()); // gamma in
     }
     else {
@@ -1325,6 +1365,40 @@ void MainWindow::on_Calculate_button_5_clicked(){
             WATCH(zl_opt);
 
 #endif
+
+
+            Sdata.Cs =                      Cs;
+            Sdata.rs =                      rs;
+            Sdata.Cl =                      Cl;
+            Sdata.rl =                      rl;
+            Sdata.gamma_in =                gamma_in;
+            Sdata.gamma_out =               gamma_out;
+            Sdata.gamma_L =                 gamma_l;
+            Sdata.gamma_S =                 gamma_s;
+            Sdata.GA_dB =                   Ga_circle_dB;
+            Sdata.Ca =                      Ca;
+            Sdata.ra =                      ra;
+            Sdata.NF_dB =                   NF_circle_dB;
+            Sdata.Cnf =                     Cnf;
+            Sdata.rnf =                     rnf;
+            Sdata.GT_dB =                   Gt_circle_dB;
+            Sdata.Ct =                      Ct;
+            Sdata.rt =                      rt;
+            Sdata.GP_dB =                   Gp_circle_dB;
+            Sdata.Cp =                      Cp;
+            Sdata.rp =                      rp;
+            // Sdata.constant_gamma_circle =   constant_gamma_circle;
+            Sdata.ZS =                      zs;
+            Sdata.ZL =                      zl; 
+            Sdata.Z0 =                      z0; 
+            // Sdata.gamma_S_visualized =      gamma_S_visualized; 
+            // Sdata.gamma_L_visualized =      gamma_L_visualized; 
+            // Sdata.label_gamma_inout =       label_gamma_inout; 
+            // Sdata.vce =                     vce; 
+            // Sdata.ic =                      ic; 
+            // Sdata.f =                       f; 
+            // Sdata.bjt =                     bjt;
+
 
 
 
@@ -1599,8 +1673,94 @@ void MainWindow::on_GPdb_box_2_textChanged(){
 
 
 void MainWindow::on_plot_isc_button_2_clicked(){
-    std::cout << "Plot unimplemented" << "\n";
+    /* before running this make sure to alias smithplot in the right place:
+    
+        cd build-syRF-Desktop_x86_darwin_generic_mach_o_64bit-Debug
+        ln -s ../../../syRF/src/main/python/twoport/ .
+
+    */
+
+
+    std::string command = "python3.8 -c \"import twoport.smithplot; twoport.smithplot.plot_Smith(";
+    command += COMPLEX_REPR_RE_IM_console(Sdata.Cs);
+    command += ", ";
+    command += std::to_string(Sdata.rs);
+    command += ", ";
+    command += COMPLEX_REPR_RE_IM_console(Sdata.Cl);
+    command += ", "; 
+    command += std::to_string(Sdata.rl);
+    command += ", "; 
+    command += COMPLEX_REPR_RE_IM_console(Sdata.gamma_in);
+    command += ", "; 
+    command += COMPLEX_REPR_RE_IM_console(Sdata.gamma_out);
+    command += ", "; 
+    command += COMPLEX_REPR_RE_IM_console(Sdata.gamma_L);
+    command += ", "; 
+    command += COMPLEX_REPR_RE_IM_console(Sdata.gamma_S);
+    command += ", "; 
+    command += std::to_string(Sdata.GA_dB);
+    command += ", "; 
+    command += COMPLEX_REPR_RE_IM_console(Sdata.Ca);
+    command += ", "; 
+    command += std::to_string(Sdata.ra);
+    command += ", "; 
+    command += std::to_string(Sdata.NF_dB);
+    command += ", "; 
+    command += COMPLEX_REPR_RE_IM_console(Sdata.Cnf);
+    command += ", "; 
+    command += std::to_string(Sdata.rnf);
+    command += ", "; 
+    command += std::to_string(Sdata.GT_dB);
+    command += ", "; 
+    command += COMPLEX_REPR_RE_IM_console(Sdata.Ct);
+    command += ", "; 
+    command += std::to_string(Sdata.rt);
+    command += ", "; 
+    command += std::to_string(Sdata.GP_dB);
+    command += ", "; 
+    command += COMPLEX_REPR_RE_IM_console(Sdata.Cp);
+    command += ", "; 
+    command += std::to_string(Sdata.rp);
+    
+    // command += ", " + std::to_string(Sdata.constant_gamma_circle);
+    
+    command += ", "; 
+    command += COMPLEX_REPR_RE_IM_console(Sdata.ZS);
+    command += ", "; 
+    command += COMPLEX_REPR_RE_IM_console(Sdata.ZL);
+    command += ", "; 
+    command += COMPLEX_REPR_RE_IM_console(Sdata.Z0);
+    command += ", "; 
+    // command += std::to_string(Sdata.gamma_S_visualized);
+    // command += ", "; 
+    // command += std::to_string(Sdata.gamma_L_visualized);
+    // command += ", "; 
+    // command += std::to_string(Sdata.label_gamma_inout);
+    command += ", "; 
+    command += std::to_string(Sdata.vce);
+    command += ", "; 
+    command += std::to_string(Sdata.ic);
+    command += ", "; 
+    command += std::to_string(Sdata.f);
+    // command += ", "; 
+    // command += std::to_string(Sdata.bjt);
+
+    command += ")\"";
+
+
+#if PRINT_TO_CONSOLE
+    std::cout << "command: \n";
+    std::cout << command << '\n';
+#endif
+
+
+    //system("python3.8 -c \"import twoport.smithplot; twoport.smithplot.plot_Smith(Cs, rs, Cl, rl, gamma_in, gamma_out, gamma_L, gamma_S, GA_dB, Ca, ra, NF_dB, Cnf, rnf, GT_dB, Ct, rt, GP_dB, Cp, rp, constant_gamma_circle, ZS, ZL, Z0, gamma_S_visualized, gamma_L_visualized, label_gamma_inout, vce, ic, f, bjt)\" ");
+    system(command.c_str());
+
+
 }
+
+
 
 
 
