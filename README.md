@@ -1,14 +1,14 @@
-# syRF <sup>C++</sup>
+<div align="right" style="text-align:right"><i><a href="https://urbanij.github.io/">Francesco Urbani</a></i></div>
 
-![Alt](./intro.png)
+# syRF-cpp
+
 
 CAD tool for designing RF and microwave circuits. <br>
 
-Fork of [syRF](https://urbanij.github.io/syRF/) re-written from scratch in C++.
+Fork of [syRF](https://github.com/urbanij/syRF) re-written from scratch in C++.
 
-![Alt Text](./screen1.png)
-
+![Alt Text](./screen2.png)
 ---
 ##### Note:
-Although this compiles natively and is able to generate a stand-alone application, it does not implement <i>yet</i> every functionality that the original Python version of syRF does, such as plotting constant gain/noise circles.
+Although this compiles natively and is able to generate a stand-alone application, it does not implement all the functionalities that [the original Python version](https://github.com/urbanij/syRF) of syRF does, such as plotting constant gain/noise circles.
 
