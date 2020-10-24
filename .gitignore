@@ -1,6 +1,7 @@
 .DS_Store
 *.pro.user
 build*
+!build.md
 png/
 *.out
 aux-code/
