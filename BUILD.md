@@ -1,7 +1,7 @@
 #### Build instructions:
 Make sure you have Qt installed, then either do it yourself with the following commands:
 ```sh
-https://github.com/urbanij/syRF-cpp.git
+git clone https://github.com/urbanij/syRF-cpp.git
 cd syRF-cpp
 cd syRF
 mkdir build && cd build
