@@ -18,7 +18,6 @@
 #include <QtMath>
 
 #include <complex>
-//#include <iostream>
 
 #include "../syRF/ccomplex.h"
 
@@ -123,9 +122,9 @@ void MainWindow::on_Calculate_button_clicked() {
 
     /// Zstub is the impedance seen from the line, into the stub.
     if (ui->OC_radioButton->isChecked()) {
-        Zstub = - std::complex<double>(0, 1) * Z0_stub / qTan(2*M_PI*l);
+        Zstub = std::complex<double>(0.0, -1.0) * Z0_stub / qTan(2*M_PI*l);
     } else {
-        Zstub = std::complex<double>(0, 1) * Z0_stub * qTan(2*M_PI*l);
+        Zstub = std::complex<double>(0.0,  1.0) * Z0_stub * qTan(2*M_PI*l);
     }
 
     /// Zv2 is the composition between Zv1 and Zstub.
@@ -142,6 +141,9 @@ void MainWindow::on_Calculate_button_clicked() {
 
 
 
+
+    /// displaying stuff
+
     ui->distance_lineedit->setText(QString::number(d));
     ui->length_lineedit->setText(QString::number(l));
 
@@ -153,6 +155,7 @@ void MainWindow::on_Calculate_button_clicked() {
     ui->yv1_lineedit->setText(complex_to_QString( std::complex<double>(1.0, 0.0) / (Zv1/Z0)));
 
     /*-------------------------------------*/
+
     ui->Zv2_lineedit->setText(complex_to_QString(Zv2));
     ui->zv2_lineedit->setText(complex_to_QString(Zv2/Z0));
 

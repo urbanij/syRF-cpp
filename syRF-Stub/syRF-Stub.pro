@@ -6,6 +6,8 @@ CONFIG += c++11
 
 TARGET = "syRF Stub"
 
+QMAKE_INFO_PLIST = info.plist
+
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
