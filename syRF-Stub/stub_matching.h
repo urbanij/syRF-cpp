@@ -42,9 +42,9 @@ private slots:
 
     void on_SC_radioButton_clicked();
 
-    void on_distance_horizontalScrollBar_sliderMoved(int position);
+    void on_distance_horizontalScrollBar_valueChanged(int value);
 
-    void on_length_horizontalScrollBar_sliderMoved(int position);
+    void on_length_horizontalScrollBar_valueChanged(int value);
 
 private:
     Ui::MainWindow *ui;

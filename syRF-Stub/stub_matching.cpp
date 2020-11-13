@@ -18,7 +18,7 @@
 #include <QtMath>
 
 #include <complex>
-#include <iostream>
+//#include <iostream>
 
 #include "../syRF/ccomplex.h"
 
@@ -26,6 +26,13 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+
+    ui->ZL_lineedit->setFocus();
+
+    ui->parallel_stub_radioButton->setChecked(true);
+    this->setWindowTitle("Parallel Stub Matching");
+
 }
 
 MainWindow::~MainWindow() {
@@ -61,6 +68,23 @@ std::complex<double> parallel(const std::complex<double>& z1, const std::complex
 
 void MainWindow::on_Calculate_button_clicked() {
 
+    if (ui->parallel_stub_radioButton->isChecked()) {
+        ui->Plot_impendace_admittance_button->setText("Plot Y(z)");
+    }
+    else if (ui->series_stub_radioButton->isChecked()) {
+        ui->Plot_impendace_admittance_button->setText("Plot Z(z)");
+    }
+
+
+    if (ui->parallel_stub_radioButton->isChecked()) {
+        this->setWindowTitle("Parallel Stub Matching");
+    }
+    else if (ui->series_stub_radioButton->isChecked()) {
+        this->setWindowTitle("Series Stub Matching");
+    }
+
+
+
     std::complex<double> ZL;
     double Z0;
     double Z0_stub;
@@ -79,28 +103,63 @@ void MainWindow::on_Calculate_button_clicked() {
     Z0_stub = ui->Z0_stub_lineedit->text().toDouble();
 
 
+
     double d; // load-stub distance
     double l; // stup length
 
-    d = (double) (ui->distance_horizontalScrollBar->value() *RANGE_SCROLLBAR/MAX_SCROLLBAR);
-    l = (double) (ui->length_horizontalScrollBar->value() *RANGE_SCROLLBAR/MAX_SCROLLBAR);
+    d = (double) (ui->distance_horizontalScrollBar->value() * RANGE_SCROLLBAR / MAX_SCROLLBAR);
+    qInfo() << d ;
+    l = (double) (ui->length_horizontalScrollBar->value() * RANGE_SCROLLBAR / MAX_SCROLLBAR);
+
+
+    /// starts computing:
+
+    std::complex<double> Zv1,
+                         Zstub,
+                         Zv2;
+
+    /// ZV1 is the impedance seen from the TL at distance d from the load.
+    Zv1 = Z0 * (ZL - std::complex<double>(0, 1) * Z0 * qTan(2*M_PI*-d)) / (Z0 - std::complex<double>(0, 1) * ZL * qTan(2*M_PI*-d));
+
+    /// Zstub is the impedance seen from the line, into the stub.
+    if (ui->OC_radioButton->isChecked()) {
+        Zstub = - std::complex<double>(0, 1) * Z0_stub / qTan(2*M_PI*l);
+    } else {
+        Zstub = std::complex<double>(0, 1) * Z0_stub * qTan(2*M_PI*l);
+    }
+
+    /// Zv2 is the composition between Zv1 and Zstub.
+    if (ui->parallel_stub_radioButton->isChecked()) {
+        if (Zstub == qInf()) {
+            Zv2 = Zv1;
+        } else {
+            Zv2 = parallel(Zv1, Zstub);
+        }
+    }
+    else if (ui->series_stub_radioButton->isChecked()) {
+        Zv2 = Zv1 + Zstub;
+    }
+
+
 
     ui->distance_lineedit->setText(QString::number(d));
     ui->length_lineedit->setText(QString::number(l));
 
 
-
-    std::complex<double> Zv1;
-
-
-    Zv1 = Z0 * (ZL - std::complex<double>(0, 1) * Z0 * qTan(2*M_PI*-d)) / (Z0 - std::complex<double>(0, 1) * ZL * qTan(2*M_PI*-d));
-
-
-
-
-
-
     ui->Zv1_lineedit->setText(complex_to_QString(Zv1));
+    ui->zv1_lineedit->setText(complex_to_QString(Zv1/Z0));
+
+    ui->Yv1_lineedit->setText(complex_to_QString(std::complex<double>(1.0, 0.0) / Zv1));
+    ui->yv1_lineedit->setText(complex_to_QString( std::complex<double>(1.0, 0.0) / (Zv1/Z0)));
+
+    /*-------------------------------------*/
+    ui->Zv2_lineedit->setText(complex_to_QString(Zv2));
+    ui->zv2_lineedit->setText(complex_to_QString(Zv2/Z0));
+
+    ui->Yv2_lineedit->setText(complex_to_QString( std::complex<double>(1.0, 0.0) / Zv2));
+    ui->yv2_lineedit->setText(complex_to_QString( std::complex<double>(1.0, 0.0) / (Zv2/Z0)));
+
+
 }
 
 void MainWindow::on_parallel_stub_radioButton_clicked() {
@@ -127,10 +186,10 @@ void MainWindow::on_SC_radioButton_clicked() {
     on_Calculate_button_clicked();
 }
 
-void MainWindow::on_distance_horizontalScrollBar_sliderMoved(int position) {
+void MainWindow::on_distance_horizontalScrollBar_valueChanged(int value) {
     on_Calculate_button_clicked();
 }
 
-void MainWindow::on_length_horizontalScrollBar_sliderMoved(int position) {
+void MainWindow::on_length_horizontalScrollBar_valueChanged(int value) {
     on_Calculate_button_clicked();
 }

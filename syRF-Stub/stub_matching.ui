@@ -581,6 +581,9 @@
     </layout>
    </widget>
    <widget class="QPushButton" name="Plot_impendace_admittance_button">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>540</x>
@@ -591,6 +594,9 @@
     </property>
     <property name="text">
      <string>Plot Z(z)</string>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
     </property>
     <property name="autoDefault">
      <bool>false</bool>
