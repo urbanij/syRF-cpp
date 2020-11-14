@@ -29,23 +29,14 @@ public:
 
 private slots:
     void on_Calculate_button_clicked();
-
     void on_parallel_stub_radioButton_clicked();
-
     void on_series_stub_radioButton_clicked();
-
     void on_ZL_lineedit_returnPressed();
-
     void on_Z0_stub_lineedit_returnPressed();
-
     void on_OC_radioButton_clicked();
-
     void on_SC_radioButton_clicked();
-
     void on_distance_horizontalScrollBar_valueChanged(int value);
-
     void on_length_horizontalScrollBar_valueChanged(int value);
-
 private:
     Ui::MainWindow *ui;
 };

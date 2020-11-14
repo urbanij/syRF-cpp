@@ -58,10 +58,8 @@ std::complex<double> parallel(const std::complex<double>& z1, const std::complex
     return (z1*z2)/(z1+z2);
 }
 
-
-
-
 /******************************************************/
+
 
 
 
@@ -91,9 +89,9 @@ void MainWindow::on_Calculate_button_clicked() {
     /// reading inputs ZL, Z0 and Z0_stub
     if (! ui->ZL_lineedit->text().isEmpty()) {
         ZL = std::complex<double> (
-                    (float) ccomplex( ui->ZL_lineedit->text().toStdString()).Re(),
-                    (float) ccomplex( ui->ZL_lineedit->text().toStdString()).Im()
-                    );
+            (double) ccomplex(ui->ZL_lineedit->text().toStdString()).Re(),
+            (double) ccomplex(ui->ZL_lineedit->text().toStdString()).Im()
+        );
     } else {
         ZL = std::complex<double>(NAN, NAN);
     }
@@ -113,9 +111,9 @@ void MainWindow::on_Calculate_button_clicked() {
 
     /// starts computing:
 
-    std::complex<double> Zv1,
-                         Zstub,
-                         Zv2;
+    std::complex<double> Zv1;
+    std::complex<double> Zstub;
+    std::complex<double> Zv2;
 
     /// ZV1 is the impedance seen from the TL at distance d from the load.
     Zv1 = Z0 * (ZL - std::complex<double>(0, 1) * Z0 * qTan(2*M_PI*-d)) / (Z0 - std::complex<double>(0, 1) * ZL * qTan(2*M_PI*-d));
@@ -151,17 +149,16 @@ void MainWindow::on_Calculate_button_clicked() {
     ui->Zv1_lineedit->setText(complex_to_QString(Zv1));
     ui->zv1_lineedit->setText(complex_to_QString(Zv1/Z0));
 
-    ui->Yv1_lineedit->setText(complex_to_QString(std::complex<double>(1.0, 0.0) / Zv1));
-    ui->yv1_lineedit->setText(complex_to_QString( std::complex<double>(1.0, 0.0) / (Zv1/Z0)));
+    ui->Yv1_lineedit->setText(complex_to_QString( std::complex<double>(1.0, 0.0) / Zv1) );
+    ui->yv1_lineedit->setText(complex_to_QString( std::complex<double>(1.0, 0.0) / (Zv1/Z0)) );
 
     /*-------------------------------------*/
 
     ui->Zv2_lineedit->setText(complex_to_QString(Zv2));
     ui->zv2_lineedit->setText(complex_to_QString(Zv2/Z0));
 
-    ui->Yv2_lineedit->setText(complex_to_QString( std::complex<double>(1.0, 0.0) / Zv2));
-    ui->yv2_lineedit->setText(complex_to_QString( std::complex<double>(1.0, 0.0) / (Zv2/Z0)));
-
+    ui->Yv2_lineedit->setText(complex_to_QString( std::complex<double>(1.0, 0.0) / Zv2) );
+    ui->yv2_lineedit->setText(complex_to_QString( std::complex<double>(1.0, 0.0) / (Zv2/Z0)) );
 
 }
 
