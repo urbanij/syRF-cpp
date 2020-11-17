@@ -2,9 +2,14 @@
 *.pro.user
 build*
 !build.md
-png/
 *.out
+*.user*
+*__pycache__*
 aux-code/
 _add*
-
+tests_y_s_parameters
+tests_regex
+tests_ccomplex
+plot_smith.py
+gist_2N4957_Y_params
 TODO
