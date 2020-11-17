@@ -138,6 +138,14 @@ void MainWindow::on_Calculate_button_clicked() {
     }
 
 
+    std::complex<double> zv1 = Zv1/Z0;
+    std::complex<double> Yv1 = std::complex<double>(1.0, 0.0) / Zv1;
+    std::complex<double> yv1 = std::complex<double>(1.0, 0.0) / zv1;
+
+    std::complex<double> zv2 = Zv2/Z0;
+    std::complex<double> Yv2 = std::complex<double>(1.0, 0.0) / Zv2;
+    std::complex<double> yv2 = std::complex<double>(1.0, 0.0) / zv2;
+
 
 
     /// displaying stuff
@@ -146,19 +154,90 @@ void MainWindow::on_Calculate_button_clicked() {
     ui->length_lineedit->setText(QString::number(l));
 
 
+    /*-------------------------------------------------*/
+
     ui->Zv1_lineedit->setText(complex_to_QString(Zv1));
-    ui->zv1_lineedit->setText(complex_to_QString(Zv1/Z0));
+    ui->zv1_lineedit->setText(complex_to_QString(zv1));
 
-    ui->Yv1_lineedit->setText(complex_to_QString( std::complex<double>(1.0, 0.0) / Zv1) );
-    ui->yv1_lineedit->setText(complex_to_QString( std::complex<double>(1.0, 0.0) / (Zv1/Z0)) );
+    ui->Yv1_lineedit->setText(complex_to_QString(Yv1));
+    ui->yv1_lineedit->setText(complex_to_QString(yv1));
 
-    /*-------------------------------------*/
+    /*-------------------------------------------------*/
 
     ui->Zv2_lineedit->setText(complex_to_QString(Zv2));
-    ui->zv2_lineedit->setText(complex_to_QString(Zv2/Z0));
+    ui->zv2_lineedit->setText(complex_to_QString(zv2));
 
-    ui->Yv2_lineedit->setText(complex_to_QString( std::complex<double>(1.0, 0.0) / Zv2) );
-    ui->yv2_lineedit->setText(complex_to_QString( std::complex<double>(1.0, 0.0) / (Zv2/Z0)) );
+    ui->Yv2_lineedit->setText(complex_to_QString(Yv2));
+    ui->yv2_lineedit->setText(complex_to_QString(yv2));
+
+
+
+
+    /* color stuff -- not a big deal but let's do it anyway... */
+
+    const double THRESHOLD_OK_VAL = 0.05;
+    if (ui->series_stub_radioButton->isChecked()) {
+        if ( abs((zv1).real() - 1) < THRESHOLD_OK_VAL ) {
+            ui->zv1_lineedit->setStyleSheet("color: green");
+            ui->distance_lineedit->setStyleSheet("color: green");
+        }
+        else {
+            ui->zv1_lineedit->setStyleSheet("color: red");
+            ui->distance_lineedit->setStyleSheet("color: black");
+        }
+    }
+    else if (ui->parallel_stub_radioButton->isChecked()) {
+        ui->zv1_lineedit->setStyleSheet("color: black");
+    }
+
+
+    if (ui->parallel_stub_radioButton->isChecked()) {
+        if ( abs(yv1.real() - 1) < THRESHOLD_OK_VAL ) {
+            ui->yv1_lineedit->setStyleSheet("color: green");
+            ui->distance_lineedit->setStyleSheet("color: green");
+        }
+        else {
+            ui->yv1_lineedit->setStyleSheet("color: red");
+            ui->distance_lineedit->setStyleSheet("color: black");
+        }
+    }
+    else if (ui->series_stub_radioButton->isChecked()) {
+        ui->yv1_lineedit->setStyleSheet("color: black");
+    }
+
+
+    if (ui->series_stub_radioButton->isChecked()) {
+        if (abs(zv2.real() - 1) <= THRESHOLD_OK_VAL && abs(zv2.imag()) <= THRESHOLD_OK_VAL) {
+            ui->zv2_lineedit->setStyleSheet("color: green");
+            ui->length_lineedit->setStyleSheet("color: green");
+        }
+        else {
+            ui->zv2_lineedit->setStyleSheet("color: red");
+            ui->length_lineedit->setStyleSheet("color: black");
+        }
+    }
+    else if (ui->parallel_stub_radioButton->isChecked()) {
+        ui->zv2_lineedit->setStyleSheet("color: black");
+    }
+
+
+    if (ui->parallel_stub_radioButton->isChecked()) {
+        if (abs(yv2.real() - 1) <= THRESHOLD_OK_VAL && abs(yv2.imag()) <= THRESHOLD_OK_VAL) {
+            ui->yv2_lineedit->setStyleSheet("color: green");
+            ui->length_lineedit->setStyleSheet("color: green");
+        } 
+        else {
+            ui->yv2_lineedit->setStyleSheet("color: red");
+            ui->length_lineedit->setStyleSheet("color: black");
+        }
+    }
+    else if (ui->series_stub_radioButton->isChecked()) {
+        ui->yv2_lineedit->setStyleSheet("color: black");
+    }
+
+
+
+
 
 }
 
