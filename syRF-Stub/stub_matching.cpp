@@ -105,7 +105,7 @@ void MainWindow::on_Calculate_button_clicked() {
     double l; // stup length
 
     d = (double) (ui->distance_horizontalScrollBar->value() * RANGE_SCROLLBAR / MAX_SCROLLBAR);
-    qInfo() << d ;
+    // qInfo() << d ;
     l = (double) (ui->length_horizontalScrollBar->value() * RANGE_SCROLLBAR / MAX_SCROLLBAR);
 
 
