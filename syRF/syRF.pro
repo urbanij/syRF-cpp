@@ -28,7 +28,8 @@ TARGET = syRF
 TEMPLATE = app
 
 QMAKE_INFO_PLIST = info.plist
-ICON = icons/icns/icon3.icns
+RC_ICONS = icons/icns/icon3.ico # windows icon
+ICON = icons/icns/icon3.icns # mac icon
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
