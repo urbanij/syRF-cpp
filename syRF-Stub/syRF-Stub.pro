@@ -6,8 +6,8 @@ CONFIG += c++11
 
 TARGET = "syRF Stub"
 
-ICON = icons/icns/stub_512.icns
-RC_ICONS = icons/icns/stub_512.ico
+ICON = icons/icns/stub2_512.icns
+RC_ICONS = icons/icns/stub2_512.ico
 QMAKE_INFO_PLIST = info.plist
 
 
