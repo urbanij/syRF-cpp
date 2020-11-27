@@ -170,6 +170,8 @@ private slots:
 
     void on_open_datasheet_button_clicked();
 
+    void on_actionStub_triggered();
+
 private:
     Ui::MainWindow *ui;
 

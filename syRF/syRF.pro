@@ -56,7 +56,8 @@ SOURCES += \
     ccomplex.cpp \
     s_parameters.cpp \
     y_parameters.cpp \
-    utils.cpp
+    utils.cpp \
+    ../syRF-Stub/stub_matching.cpp 
 
 HEADERS += \
     config.h \
@@ -66,12 +67,14 @@ HEADERS += \
     ccomplex.h \
     s_parameters.h \
     utils.h \
-    y_parameters.h
+    y_parameters.h \
+    ../syRF-Stub/stub_matching.h 
 
 FORMS += \
     ui/lumpedmatching.ui \
     ui/mainwindow.ui \
-    ui/about.ui
+    ui/about.ui \
+    ../syRF-Stub/stub_matching.ui 
 
 
 RESOURCES += \

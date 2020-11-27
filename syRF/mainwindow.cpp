@@ -24,6 +24,7 @@
 ///////// other windows
 #include "about.h"
 #include "lumpedmatching.h"
+#include "../syRF-Stub/stub_matching.h"
 /////////
 
 
@@ -1764,11 +1765,18 @@ void MainWindow::on_plot_isc_button_2_clicked(){
 
 
 
-
-void MainWindow::on_action_LumpedMatching_triggered(){
+void MainWindow::on_action_LumpedMatching_triggered() {
     LumpedMatching* lumpedmatching = new LumpedMatching();
     lumpedmatching->show();
 }
+
+void MainWindow::on_actionStub_triggered() {
+    //StubMatching* stubmatching = new StubMatching();
+    //stubmatching->show();
+}
+
+
+
 
 
 
