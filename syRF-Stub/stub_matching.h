@@ -16,16 +16,16 @@
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui { class StubMatching; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow {
+class StubMatching : public QMainWindow {
     
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    StubMatching(QWidget *parent = nullptr);
+    ~StubMatching();
 
 private slots:
     void on_Calculate_button_clicked();
@@ -38,7 +38,7 @@ private slots:
     void on_distance_horizontalScrollBar_valueChanged(int value);
     void on_length_horizontalScrollBar_valueChanged(int value);
 private:
-    Ui::MainWindow *ui;
+    Ui::StubMatching *ui;
 };
 
 #endif // MAINWINDOW_H

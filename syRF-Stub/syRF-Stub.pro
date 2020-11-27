@@ -34,6 +34,10 @@ HEADERS += \
 FORMS += \
     stub_matching.ui
 
+RESOURCES += \
+    icons/icons.qrc
+
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

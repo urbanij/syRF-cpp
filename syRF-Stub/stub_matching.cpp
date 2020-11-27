@@ -21,8 +21,8 @@
 
 #include "../syRF/ccomplex.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow)
+StubMatching::StubMatching(QWidget *parent)
+    : QMainWindow(parent), ui(new Ui::StubMatching)
 {
     ui->setupUi(this);
 
@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 }
 
-MainWindow::~MainWindow() {
+StubMatching::~StubMatching() {
     delete ui;
 }
 
@@ -63,7 +63,7 @@ std::complex<double> parallel(const std::complex<double>& z1, const std::complex
 
 
 
-void MainWindow::on_Calculate_button_clicked() {
+void StubMatching::on_Calculate_button_clicked() {
 
     if (ui->parallel_stub_radioButton->isChecked()) {
         ui->Plot_impendace_admittance_button->setText("Plot Y(z)");
@@ -241,34 +241,34 @@ void MainWindow::on_Calculate_button_clicked() {
 
 }
 
-void MainWindow::on_parallel_stub_radioButton_clicked() {
+void StubMatching::on_parallel_stub_radioButton_clicked() {
     on_Calculate_button_clicked();
 }
 
-void MainWindow::on_series_stub_radioButton_clicked() {
+void StubMatching::on_series_stub_radioButton_clicked() {
     on_Calculate_button_clicked();
 }
 
-void MainWindow::on_ZL_lineedit_returnPressed() {
+void StubMatching::on_ZL_lineedit_returnPressed() {
     on_Calculate_button_clicked();
 }
 
-void MainWindow::on_Z0_stub_lineedit_returnPressed() {
+void StubMatching::on_Z0_stub_lineedit_returnPressed() {
     on_Calculate_button_clicked();
 }
 
-void MainWindow::on_OC_radioButton_clicked() {
+void StubMatching::on_OC_radioButton_clicked() {
     on_Calculate_button_clicked();
 }
 
-void MainWindow::on_SC_radioButton_clicked() {
+void StubMatching::on_SC_radioButton_clicked() {
     on_Calculate_button_clicked();
 }
 
-void MainWindow::on_distance_horizontalScrollBar_valueChanged(int value) {
+void StubMatching::on_distance_horizontalScrollBar_valueChanged(int value) {
     on_Calculate_button_clicked();
 }
 
-void MainWindow::on_length_horizontalScrollBar_valueChanged(int value) {
+void StubMatching::on_length_horizontalScrollBar_valueChanged(int value) {
     on_Calculate_button_clicked();
 }

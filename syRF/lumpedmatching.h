@@ -40,7 +40,6 @@ public:
 
 private slots:
     void on_Calculate_button_3_clicked();
-
     void closeEvent (QCloseEvent *event);
 
 

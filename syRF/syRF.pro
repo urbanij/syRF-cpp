@@ -76,4 +76,5 @@ FORMS += \
 
 RESOURCES += \
     resources.qrc \
-    breeze.qrc
+    breeze.qrc \
+    icons/icons.qrc
