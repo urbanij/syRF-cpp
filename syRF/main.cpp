@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
     
-    #if THEME_1_LIGHT // https://github.com/Alexhuszagh/BreezeStyleSheets
+#if THEME_1_LIGHT // https://github.com/Alexhuszagh/BreezeStyleSheets
     {
         // applying dark theme
         QFile file(":/light.qss");
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
         QTextStream stream(&file);
         a.setStyleSheet(stream.readAll());    // by just commenting this line out you go back to default theme
     }
-    #elif THEME_1_DARK // https://github.com/Alexhuszagh/BreezeStyleSheets
+#elif THEME_1_DARK // https://github.com/Alexhuszagh/BreezeStyleSheets
     {
         QFile file(":/dark.qss");
         file.open(QFile::ReadOnly | QFile::Text);
@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
         a.setStyleSheet(stream.readAll());    // by just commenting this line out you go back to default theme
     }
 
-    #elif THEME_2_DARK
+#elif THEME_2_DARK
     {
         a.setStyle(QStyleFactory::create("Fusion"));
         QPalette darkPalette;
@@ -64,10 +64,14 @@ int main(int argc, char *argv[])
         a.setPalette(darkPalette);
         a.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }");
     }
-    #else
+#else
         // Default classic theme
-    #endif
+#endif
 
+
+#if !defined(Q_OS_WIN) && !defined(Q_OS_MAC)
+    a.setWindowIcon(QIcon(QStringLiteral(":/icons/syRF.svg")));
+#endif
 
 
 
