@@ -37,7 +37,7 @@ void LumpedMatching::on_Calculate_button_3_clicked(){
 #endif
 
     complex_t Yl, Y0, Zl, Z0;
-    float f0;
+    double f0;
 
 
 
@@ -46,8 +46,8 @@ void LumpedMatching::on_Calculate_button_3_clicked(){
 
         if (! ui->input_box->text().isEmpty()){
             Yl = complex_t (
-                    (float) ccomplex( ui->input_box->text().toStdString()).Re(),
-                    (float) ccomplex( ui->input_box->text().toStdString()).Im()
+                    (double) ccomplex( ui->input_box->text().toStdString()).Re(),
+                    (double) ccomplex( ui->input_box->text().toStdString()).Im()
                 );
             Yl *= 0.001; // to mS
         } else {
@@ -61,8 +61,8 @@ void LumpedMatching::on_Calculate_button_3_clicked(){
 
         if (! ui->input_box->text().isEmpty()){
             Zl = complex_t (
-                    (float) ccomplex( ui->input_box->text().toStdString()).Re(),
-                    (float) ccomplex( ui->input_box->text().toStdString()).Im()
+                    (double) ccomplex( ui->input_box->text().toStdString()).Re(),
+                    (double) ccomplex( ui->input_box->text().toStdString()).Im()
                 );
         } else {
             Zl = complex_t(NAN, NAN);
@@ -77,8 +77,8 @@ void LumpedMatching::on_Calculate_button_3_clicked(){
     
         if (! ui->output_box->text().isEmpty()){
             Y0 = complex_t (
-                    (float) ccomplex( ui->output_box->text().toStdString()).Re(),
-                    (float) ccomplex( ui->output_box->text().toStdString()).Im()
+                    (double) ccomplex( ui->output_box->text().toStdString()).Re(),
+                    (double) ccomplex( ui->output_box->text().toStdString()).Im()
                 );
             Y0 *= 0.001; // to mS
         } else {
@@ -92,8 +92,8 @@ void LumpedMatching::on_Calculate_button_3_clicked(){
 
         if (! ui->output_box->text().isEmpty()){
             Z0 = complex_t (
-                    (float) ccomplex( ui->output_box->text().toStdString()).Re(),
-                    (float) ccomplex( ui->output_box->text().toStdString()).Im()
+                    (double) ccomplex( ui->output_box->text().toStdString()).Re(),
+                    (double) ccomplex( ui->output_box->text().toStdString()).Im()
                 );
         } else {
             Z0 = complex_t(NAN, NAN);

@@ -43,7 +43,7 @@
 #include <iostream>
 
 
-std::string COMPLEX_REPR_RE_IM_console(complex_t c){
+std::string COMPLEX_REPR_RE_IM_console(complex_t c) {
     if (c.imag() >= 0){
         return (std::to_string(c.real()) + "+" + std::to_string(c.imag()) + "j");
     }
@@ -52,8 +52,7 @@ std::string COMPLEX_REPR_RE_IM_console(complex_t c){
     }
 }
 
-QString 
-COMPLEX_REPR_RE_IM(complex_t c){
+QString COMPLEX_REPR_RE_IM(complex_t c) {
     if (c.imag() >= 0){
         return (QString::number(c.real()) + "+" + QString::number(c.imag()) + "j");
     }
@@ -62,8 +61,7 @@ COMPLEX_REPR_RE_IM(complex_t c){
     }
 }
 
-QString 
-COMPLEX_REPR_MAG_ARG(complex_t c){
+QString COMPLEX_REPR_MAG_ARG(complex_t c) {
 #if USE_DEGREES
 //    return (std::to_string(MAG(c)) << "∠" << std::to_string(ARG_DEG(c)) << " deg");
     return (QString::number(MAG(c)) + "∠" + QString::number(ARG_DEG(c)) + " deg");
@@ -74,9 +72,9 @@ COMPLEX_REPR_MAG_ARG(complex_t c){
 
 
 
-MainWindow::MainWindow( QWidget *parent) :
-                        QMainWindow(parent),
-                        ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
@@ -129,14 +127,14 @@ MainWindow::MainWindow( QWidget *parent) :
 
 }
 
-MainWindow::~MainWindow(){
+MainWindow::~MainWindow() {
     delete ui;
 }
 
 
 
 
-void MainWindow::on_open_datasheet_Y_button_clicked(){
+void MainWindow::on_open_datasheet_Y_button_clicked() {
 #if 0
     std::cout << "trying to open the 2n4957 datasheet" << '\n';
 #endif
@@ -157,7 +155,7 @@ void MainWindow::on_open_datasheet_Y_button_clicked(){
 
 
 
-void MainWindow::on_Calculate_button_4_clicked(){
+void MainWindow::on_Calculate_button_4_clicked() {
     #if PRINT_TO_CONSOLE
         PRINT("===================================");
         system("clear");
@@ -176,7 +174,7 @@ void MainWindow::on_Calculate_button_4_clicked(){
     if (ui->radiobutton_2n4957->isChecked()){
         // fetch data from y_parameters_data.h and auto-fill the y parameters input values
 
-        float f0 = ui->f0_box_2->text().toFloat();
+        double f0 = ui->f0_box_2->text().toFloat();
         #if PRINT_TO_CONSOLE
             WATCH(f0);
             std::cout << "\n";
@@ -237,17 +235,17 @@ void MainWindow::on_Calculate_button_4_clicked(){
 
         if (! ui->y_i_box_2->text().isEmpty()){
             y_i= complex_t (
-                        (float) ccomplex( ui->y_i_box_2->text().toStdString()).Re(),
-                        (float) ccomplex( ui->y_i_box_2->text().toStdString()).Im()
+                        (double) ccomplex( ui->y_i_box_2->text().toStdString()).Re(),
+                        (double) ccomplex( ui->y_i_box_2->text().toStdString()).Im()
                         );
         } else {
-            y_i = complex_t(NAN, NAN); // complex_t (0,0);  // INFINITY is the max value a float can hold
+            y_i = complex_t(NAN, NAN); // complex_t (0,0);  // INFINITY is the max value a double can hold
         }
 
         if (! ui->y_f_box_2->text().isEmpty()){
             y_f = complex_t (
-                        (float) ccomplex( ui->y_f_box_2->text().toStdString()).Re(),
-                        (float) ccomplex( ui->y_f_box_2->text().toStdString()).Im()
+                        (double) ccomplex( ui->y_f_box_2->text().toStdString()).Re(),
+                        (double) ccomplex( ui->y_f_box_2->text().toStdString()).Im()
                         );
         } else {
             y_f = complex_t(NAN, NAN); // complex_t (0,0);
@@ -255,8 +253,8 @@ void MainWindow::on_Calculate_button_4_clicked(){
 
         if (! ui->y_r_box_2->text().isEmpty()){
             y_r = complex_t (
-                        (float) ccomplex( ui->y_r_box_2->text().toStdString()).Re(),
-                        (float) ccomplex( ui->y_r_box_2->text().toStdString()).Im()
+                        (double) ccomplex( ui->y_r_box_2->text().toStdString()).Re(),
+                        (double) ccomplex( ui->y_r_box_2->text().toStdString()).Im()
                         );
         } else {
             y_r = complex_t(NAN, NAN); // complex_t (0,0);
@@ -264,8 +262,8 @@ void MainWindow::on_Calculate_button_4_clicked(){
 
         if (! ui->y_o_box_2->text().isEmpty()){
             y_o = complex_t (
-                        (float) ccomplex( ui->y_o_box_2->text().toStdString()).Re(),
-                        (float) ccomplex( ui->y_o_box_2->text().toStdString()).Im()
+                        (double) ccomplex( ui->y_o_box_2->text().toStdString()).Re(),
+                        (double) ccomplex( ui->y_o_box_2->text().toStdString()).Im()
                         );
         } else {
             y_o = complex_t(NAN, NAN); // complex_t (0,0);
@@ -307,24 +305,24 @@ void MainWindow::on_Calculate_button_4_clicked(){
 
     // compute actual stuff
 
-    float       C       = compute_C(y_i,y_f,y_o,y_r);
+    double       C       = compute_C(y_i,y_f,y_o,y_r);
     complex_t   betaA   = calculate_betaA(y_i,y_f,y_o,y_r, y_s, y_l);
     complex_t   y_in    = calculate_yin( y_i, y_f, y_o, y_r, y_l );
     complex_t   y_out   = calculate_yout( y_i, y_f, y_o, y_r, y_s);
     complex_t   A_V     = calculate_A_V(y_f, y_o, y_l);
     complex_t   vout_over_vs = calculate_vout_over_vs(y_i, y_f, y_o, y_r, y_s, y_l);
     
-    float       G_A     = calculate_G_A(y_i, y_f, y_o, y_r, y_s);
-    float       G_P     = calculate_G_P(y_i, y_f, y_o, y_r, y_l);
-    float       G_T     = calculate_G_T(y_i, y_f, y_o, y_r, y_s, y_l);
+    double       G_A     = calculate_G_A(y_i, y_f, y_o, y_r, y_s);
+    double       G_P     = calculate_G_P(y_i, y_f, y_o, y_r, y_l);
+    double       G_T     = calculate_G_T(y_i, y_f, y_o, y_r, y_s, y_l);
 
-    float       k       = calculate_k(y_i, y_f, y_o, y_r, y_s, y_l);
+    double       k       = calculate_k(y_i, y_f, y_o, y_r, y_s, y_l);
     complex_t   y_s_opt = calculate_y_s_opt(y_i, y_f, y_o, y_r );
     complex_t   y_l_opt = calculate_y_l_opt(y_i, y_f, y_o, y_r);
 
-    float       G_A_max = calculate_G_A(y_i, y_f, y_o, y_r, y_s_opt);
-    float       G_P_max = calculate_G_P(y_i, y_f, y_o, y_r, y_l_opt);
-    float       G_T_max = calculate_G_T(y_i, y_f, y_o, y_r, y_s_opt, y_l_opt);
+    double       G_A_max = calculate_G_A(y_i, y_f, y_o, y_r, y_s_opt);
+    double       G_P_max = calculate_G_P(y_i, y_f, y_o, y_r, y_l_opt);
+    double       G_T_max = calculate_G_T(y_i, y_f, y_o, y_r, y_s_opt, y_l_opt);
     
 
 
@@ -598,25 +596,25 @@ void MainWindow::on_manual_input_y_radioButton_clicked(){
 
 struct S_tab_data {
     complex_t   Cs;
-    float       rs;
+    double       rs;
     complex_t   Cl;
-    float       rl;
+    double       rl;
     complex_t   gamma_in;
     complex_t   gamma_out;
     complex_t   gamma_L;
     complex_t   gamma_S;
-    float       GA_dB;
+    double       GA_dB;
     complex_t   Ca;
-    float       ra;
-    float       NF_dB;
+    double       ra;
+    double       NF_dB;
     complex_t   Cnf;
-    float       rnf;
-    float       GT_dB;
+    double       rnf;
+    double       GT_dB;
     complex_t   Ct;
-    float       rt;
-    float       GP_dB;
+    double       rt;
+    double       GP_dB;
     complex_t   Cp;
-    float       rp;
+    double       rp;
     complex_t   constant_gamma_circle;
     complex_t   ZS;
     complex_t   ZL;
@@ -625,9 +623,9 @@ struct S_tab_data {
     complex_t   gamma_L_visualized;
 
     std::string label_gamma_inout;
-    float       vce;
-    float       ic;
-    float       f;
+    double       vce;
+    double       ic;
+    double       f;
     std::string bjt;
 };
 // gloabal 
@@ -644,12 +642,12 @@ void MainWindow::on_Calculate_button_5_clicked(){
 #endif
 
     // these variables will hold the value of the s parameters
-    std::complex<float>     s11,        // complex_t is an alias for std::complex<float>        
+    std::complex<double>    s11,        // complex_t is an alias for std::complex<double>        
                             s12,
                             s21,
                             s22;
     
-    std::pair<float,float>  s11_polar,  // could have used its alias S_parameter_t
+    std::pair<double,double>  s11_polar,  // could have used its alias S_parameter_t
                             s12_polar,
                             s21_polar,
                             s22_polar;
@@ -659,11 +657,11 @@ void MainWindow::on_Calculate_button_5_clicked(){
     complex_t gamma_s;
     complex_t gamma_l;
 
-    float z0;
+    double z0;
 
 
-    float NFmin_db;
-    float Rn;
+    double NFmin_db;
+    double Rn;
     complex_t gamma_s_on;
     complex_t z_s_on;
 
@@ -894,7 +892,7 @@ void MainWindow::on_Calculate_button_5_clicked(){
 
 
 
-        // convert S parameters in polar form to std::complex<float> in order
+        // convert S parameters in polar form to std::complex<double> in order
         // for them to be easily processed by the functions.
         s11 = polar_2_rect(s11_polar.first, DEG_2_RAD(s11_polar.second));
         s12 = polar_2_rect(s12_polar.first, DEG_2_RAD(s12_polar.second));
@@ -976,8 +974,8 @@ void MainWindow::on_Calculate_button_5_clicked(){
 
     // read values for computing constant circumferences:
 
-    float NF_circle_dB;
-    float Ga_circle_dB, Gp_circle_dB, Gt_circle_dB;
+    double NF_circle_dB;
+    double Ga_circle_dB, Gp_circle_dB, Gt_circle_dB;
 
 
     if (!ui->NFdb_box_2->text().isEmpty()){
@@ -1006,7 +1004,7 @@ void MainWindow::on_Calculate_button_5_clicked(){
 
     //////////////////////////       variables declaration       /////////////
     complex_t determinant;
-    float K;
+    double K;
 
     complex_t gamma_in;
     complex_t gamma_out;
@@ -1016,27 +1014,27 @@ void MainWindow::on_Calculate_button_5_clicked(){
         
 
     complex_t Cs;
-    float rs;
+    double rs;
 
     complex_t Cl;
-    float rl;
+    double rl;
 
-    float GA,     GP,     GT;
-    float GA_max, GP_max, GT_max;
+    double GA,     GP,     GT;
+    double GA_max, GP_max, GT_max;
 
-    float NF;
+    double NF;
 
     complex_t Cnf;
-    float rnf;
+    double rnf;
 
     complex_t Ca;
-    float ra;
+    double ra;
 
     complex_t Cp;
-    float rp;
+    double rp;
 
     complex_t Ct;
-    float rt;
+    double rt;
 
     complex_t gamma_s_opt;
     complex_t gamma_l_opt;
@@ -1487,6 +1485,10 @@ void MainWindow::on_radioButton_input_as_gamma_clicked(){
 }
 
 
+void MainWindow::on_comboBox_MRF_bias_currentTextChanged(const QString &arg1) {
+    this->setWindowTitle("syRF[*]");
+    this->setWindowModified(true);
+}
 
 void MainWindow::on_s11_box_returnPressed(){
     on_Calculate_button_5_clicked();

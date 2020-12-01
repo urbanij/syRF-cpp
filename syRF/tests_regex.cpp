@@ -17,7 +17,7 @@
 
 
 
-TEST(regex_param, Test1){
+TEST(regex_param, Test1) {
     const std::string s = "MRF571, Vce=6 V, Ic=5 mA, f=200 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -27,7 +27,8 @@ TEST(regex_param, Test1){
     EXPECT_EQ(Ic,               5);
     EXPECT_EQ(f0,               200);
 }
-TEST(regex_param, Test2){
+
+TEST(regex_param, Test2) {
     const std::string s = "MRF571, Vce=6 V, Ic=5 mA, f=500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -37,7 +38,8 @@ TEST(regex_param, Test2){
     EXPECT_EQ(Ic,               5);
     EXPECT_EQ(f0,               500);
 }
-TEST(regex_param, Test3){
+
+TEST(regex_param, Test3) {
     const std::string s = "MRF571, Vce=6 V, Ic=5 mA, f=1000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -47,7 +49,8 @@ TEST(regex_param, Test3){
     EXPECT_EQ(Ic,               5);
     EXPECT_EQ(f0,               1000);
 }
-TEST(regex_param, Test4){
+
+TEST(regex_param, Test4) {
     const std::string s = "MRF571, Vce=6 V, Ic=5 mA, f=1500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -57,7 +60,8 @@ TEST(regex_param, Test4){
     EXPECT_EQ(Ic,               5);
     EXPECT_EQ(f0,               1500);
 }
-TEST(regex_param, Test5){
+
+TEST(regex_param, Test5) {
     const std::string s = "MRF571, Vce=6 V, Ic=5 mA, f=2000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -67,7 +71,8 @@ TEST(regex_param, Test5){
     EXPECT_EQ(Ic,               5);
     EXPECT_EQ(f0,               2000);
 }
-TEST(regex_param, Test6){
+
+TEST(regex_param, Test6) {
     const std::string s = "MRF571, Vce=6 V, Ic=10 mA, f=200 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -77,7 +82,8 @@ TEST(regex_param, Test6){
     EXPECT_EQ(Ic,               10);
     EXPECT_EQ(f0,               200);
 }
-TEST(regex_param, Test7){
+
+TEST(regex_param, Test7) {
     const std::string s = "MRF571, Vce=6 V, Ic=10 mA, f=500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -87,7 +93,8 @@ TEST(regex_param, Test7){
     EXPECT_EQ(Ic,               10);
     EXPECT_EQ(f0,               500);
 }
-TEST(regex_param, Test8){
+
+TEST(regex_param, Test8) {
     const std::string s = "MRF571, Vce=6 V, Ic=10 mA, f=1000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -97,7 +104,8 @@ TEST(regex_param, Test8){
     EXPECT_EQ(Ic,               10);
     EXPECT_EQ(f0,               1000);
 }
-TEST(regex_param, Test9){
+
+TEST(regex_param, Test9) {
     const std::string s = "MRF571, Vce=6 V, Ic=10 mA, f=1500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -107,7 +115,8 @@ TEST(regex_param, Test9){
     EXPECT_EQ(Ic,               10);
     EXPECT_EQ(f0,               1500);
 }
-TEST(regex_param, Test10){
+
+TEST(regex_param, Test10) {
     const std::string s = "MRF571, Vce=6 V, Ic=10 mA, f=2000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -117,7 +126,8 @@ TEST(regex_param, Test10){
     EXPECT_EQ(Ic,               10);
     EXPECT_EQ(f0,               2000);
 }
-TEST(regex_param, Test11){
+
+TEST(regex_param, Test11) {
     const std::string s = "MRF571, Vce=6 V, Ic=50 mA, f=200 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -127,7 +137,8 @@ TEST(regex_param, Test11){
     EXPECT_EQ(Ic,               50);
     EXPECT_EQ(f0,               200);
 }
-TEST(regex_param, Test12){
+
+TEST(regex_param, Test12) {
     const std::string s = "MRF571, Vce=6 V, Ic=50 mA, f=500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -137,7 +148,8 @@ TEST(regex_param, Test12){
     EXPECT_EQ(Ic,               50);
     EXPECT_EQ(f0,               500);
 }
-TEST(regex_param, Test13){
+
+TEST(regex_param, Test13) {
     const std::string s = "MRF571, Vce=6 V, Ic=50 mA, f=1000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -147,7 +159,8 @@ TEST(regex_param, Test13){
     EXPECT_EQ(Ic,               50);
     EXPECT_EQ(f0,               1000);
 }
-TEST(regex_param, Test14){
+
+TEST(regex_param, Test14) {
     const std::string s = "MRF571, Vce=6 V, Ic=50 mA, f=1500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -157,7 +170,8 @@ TEST(regex_param, Test14){
     EXPECT_EQ(Ic,               50);
     EXPECT_EQ(f0,               1500);
 }
-TEST(regex_param, Test15){
+
+TEST(regex_param, Test15) {
     const std::string s = "MRF571, Vce=6 V, Ic=50 mA, f=2000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -167,7 +181,8 @@ TEST(regex_param, Test15){
     EXPECT_EQ(Ic,               50);
     EXPECT_EQ(f0,               2000);
 }
-TEST(regex_param, Test16){
+
+TEST(regex_param, Test16) {
     const std::string s = "MRF571, Vce=8 V, Ic=5 mA, f=200 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -177,7 +192,8 @@ TEST(regex_param, Test16){
     EXPECT_EQ(Ic,               5);
     EXPECT_EQ(f0,               200);
 }
-TEST(regex_param, Test17){
+
+TEST(regex_param, Test17) {
     const std::string s = "MRF571, Vce=8 V, Ic=5 mA, f=500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -187,7 +203,8 @@ TEST(regex_param, Test17){
     EXPECT_EQ(Ic,               5);
     EXPECT_EQ(f0,               500);
 }
-TEST(regex_param, Test18){
+
+TEST(regex_param, Test18) {
     const std::string s = "MRF571, Vce=8 V, Ic=5 mA, f=1000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -197,7 +214,8 @@ TEST(regex_param, Test18){
     EXPECT_EQ(Ic,               5);
     EXPECT_EQ(f0,               1000);
 }
-TEST(regex_param, Test19){
+
+TEST(regex_param, Test19) {
     const std::string s = "MRF571, Vce=8 V, Ic=5 mA, f=1500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -207,7 +225,8 @@ TEST(regex_param, Test19){
     EXPECT_EQ(Ic,               5);
     EXPECT_EQ(f0,               1500);
 }
-TEST(regex_param, Test20){
+
+TEST(regex_param, Test20) {
     const std::string s = "MRF571, Vce=8 V, Ic=5 mA, f=2000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -217,7 +236,8 @@ TEST(regex_param, Test20){
     EXPECT_EQ(Ic,               5);
     EXPECT_EQ(f0,               2000);
 }
-TEST(regex_param, Test21){
+
+TEST(regex_param, Test21) {
     const std::string s = "MRF571, Vce=8 V, Ic=10 mA, f=200 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -227,7 +247,8 @@ TEST(regex_param, Test21){
     EXPECT_EQ(Ic,               10);
     EXPECT_EQ(f0,               200);
 }
-TEST(regex_param, Test22){
+
+TEST(regex_param, Test22) {
     const std::string s = "MRF571, Vce=8 V, Ic=10 mA, f=500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -237,7 +258,8 @@ TEST(regex_param, Test22){
     EXPECT_EQ(Ic,               10);
     EXPECT_EQ(f0,               500);
 }
-TEST(regex_param, Test23){
+
+TEST(regex_param, Test23) {
     const std::string s = "MRF571, Vce=8 V, Ic=10 mA, f=1000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -247,7 +269,8 @@ TEST(regex_param, Test23){
     EXPECT_EQ(Ic,               10);
     EXPECT_EQ(f0,               1000);
 }
-TEST(regex_param, Test24){
+
+TEST(regex_param, Test24) {
     const std::string s = "MRF571, Vce=8 V, Ic=10 mA, f=1500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -257,7 +280,8 @@ TEST(regex_param, Test24){
     EXPECT_EQ(Ic,               10);
     EXPECT_EQ(f0,               1500);
 }
-TEST(regex_param, Test25){
+
+TEST(regex_param, Test25) {
     const std::string s = "MRF571, Vce=8 V, Ic=10 mA, f=2000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -267,7 +291,8 @@ TEST(regex_param, Test25){
     EXPECT_EQ(Ic,               10);
     EXPECT_EQ(f0,               2000);
 }
-TEST(regex_param, Test26){
+
+TEST(regex_param, Test26) {
     const std::string s = "MRF571, Vce=8 V, Ic=50 mA, f=200 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -277,7 +302,8 @@ TEST(regex_param, Test26){
     EXPECT_EQ(Ic,               50);
     EXPECT_EQ(f0,               200);
 }
-TEST(regex_param, Test27){
+
+TEST(regex_param, Test27) {
     const std::string s = "MRF571, Vce=8 V, Ic=50 mA, f=500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -287,7 +313,8 @@ TEST(regex_param, Test27){
     EXPECT_EQ(Ic,               50);
     EXPECT_EQ(f0,               500);
 }
-TEST(regex_param, Test28){
+
+TEST(regex_param, Test28) {
     const std::string s = "MRF571, Vce=8 V, Ic=50 mA, f=1000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -297,7 +324,8 @@ TEST(regex_param, Test28){
     EXPECT_EQ(Ic,               50);
     EXPECT_EQ(f0,               1000);
 }
-TEST(regex_param, Test29){
+
+TEST(regex_param, Test29) {
     const std::string s = "MRF571, Vce=8 V, Ic=50 mA, f=1500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -307,7 +335,8 @@ TEST(regex_param, Test29){
     EXPECT_EQ(Ic,               50);
     EXPECT_EQ(f0,               1500);
 }
-TEST(regex_param, Test30){
+
+TEST(regex_param, Test30) {
     const std::string s = "MRF571, Vce=8 V, Ic=50 mA, f=2000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -317,7 +346,8 @@ TEST(regex_param, Test30){
     EXPECT_EQ(Ic,               50);
     EXPECT_EQ(f0,               2000);
 }
-TEST(regex_param, Test31){
+
+TEST(regex_param, Test31) {
     const std::string s = "MRF572, Vce=6 V, Ic=5 mA, f=200 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -327,7 +357,8 @@ TEST(regex_param, Test31){
     EXPECT_EQ(Ic,               5);
     EXPECT_EQ(f0,               200);
 }
-TEST(regex_param, Test32){
+
+TEST(regex_param, Test32) {
     const std::string s = "MRF572, Vce=6 V, Ic=5 mA, f=500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -337,7 +368,8 @@ TEST(regex_param, Test32){
     EXPECT_EQ(Ic,               5);
     EXPECT_EQ(f0,               500);
 }
-TEST(regex_param, Test33){
+
+TEST(regex_param, Test33) {
     const std::string s = "MRF572, Vce=6 V, Ic=5 mA, f=1000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -347,7 +379,8 @@ TEST(regex_param, Test33){
     EXPECT_EQ(Ic,               5);
     EXPECT_EQ(f0,               1000);
 }
-TEST(regex_param, Test34){
+
+TEST(regex_param, Test34) {
     const std::string s = "MRF572, Vce=6 V, Ic=5 mA, f=1500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -357,7 +390,8 @@ TEST(regex_param, Test34){
     EXPECT_EQ(Ic,               5);
     EXPECT_EQ(f0,               1500);
 }
-TEST(regex_param, Test35){
+
+TEST(regex_param, Test35) {
     const std::string s = "MRF572, Vce=6 V, Ic=5 mA, f=2000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -367,7 +401,8 @@ TEST(regex_param, Test35){
     EXPECT_EQ(Ic,               5);
     EXPECT_EQ(f0,               2000);
 }
-TEST(regex_param, Test36){
+
+TEST(regex_param, Test36) {
     const std::string s = "MRF572, Vce=6 V, Ic=10 mA, f=200 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -377,7 +412,8 @@ TEST(regex_param, Test36){
     EXPECT_EQ(Ic,               10);
     EXPECT_EQ(f0,               200);
 }
-TEST(regex_param, Test37){
+
+TEST(regex_param, Test37) {
     const std::string s = "MRF572, Vce=6 V, Ic=10 mA, f=500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -387,7 +423,8 @@ TEST(regex_param, Test37){
     EXPECT_EQ(Ic,               10);
     EXPECT_EQ(f0,               500);
 }
-TEST(regex_param, Test38){
+
+TEST(regex_param, Test38) {
     const std::string s = "MRF572, Vce=6 V, Ic=10 mA, f=1000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -397,7 +434,8 @@ TEST(regex_param, Test38){
     EXPECT_EQ(Ic,               10);
     EXPECT_EQ(f0,               1000);
 }
-TEST(regex_param, Test39){
+
+TEST(regex_param, Test39) {
     const std::string s = "MRF572, Vce=6 V, Ic=10 mA, f=1500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -407,7 +445,8 @@ TEST(regex_param, Test39){
     EXPECT_EQ(Ic,               10);
     EXPECT_EQ(f0,               1500);
 }
-TEST(regex_param, Test40){
+
+TEST(regex_param, Test40) {
     const std::string s = "MRF572, Vce=6 V, Ic=10 mA, f=2000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -417,7 +456,8 @@ TEST(regex_param, Test40){
     EXPECT_EQ(Ic,               10);
     EXPECT_EQ(f0,               2000);
 }
-TEST(regex_param, Test41){
+
+TEST(regex_param, Test41) {
     const std::string s = "MRF572, Vce=6 V, Ic=50 mA, f=200 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -427,7 +467,8 @@ TEST(regex_param, Test41){
     EXPECT_EQ(Ic,               50);
     EXPECT_EQ(f0,               200);
 }
-TEST(regex_param, Test42){
+
+TEST(regex_param, Test42) {
     const std::string s = "MRF572, Vce=6 V, Ic=50 mA, f=500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -437,7 +478,8 @@ TEST(regex_param, Test42){
     EXPECT_EQ(Ic,               50);
     EXPECT_EQ(f0,               500);
 }
-TEST(regex_param, Test43){
+
+TEST(regex_param, Test43) {
     const std::string s = "MRF572, Vce=6 V, Ic=50 mA, f=1000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -447,7 +489,8 @@ TEST(regex_param, Test43){
     EXPECT_EQ(Ic,               50);
     EXPECT_EQ(f0,               1000);
 }
-TEST(regex_param, Test44){
+
+TEST(regex_param, Test44) {
     const std::string s = "MRF572, Vce=6 V, Ic=50 mA, f=1500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -457,7 +500,8 @@ TEST(regex_param, Test44){
     EXPECT_EQ(Ic,               50);
     EXPECT_EQ(f0,               1500);
 }
-TEST(regex_param, Test45){
+
+TEST(regex_param, Test45) {
     const std::string s = "MRF572, Vce=6 V, Ic=50 mA, f=2000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -467,7 +511,8 @@ TEST(regex_param, Test45){
     EXPECT_EQ(Ic,               50);
     EXPECT_EQ(f0,               2000);
 }
-TEST(regex_param, Test46){
+
+TEST(regex_param, Test46) {
     const std::string s = "MRF572, Vce=8 V, Ic=5 mA, f=200 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -477,7 +522,8 @@ TEST(regex_param, Test46){
     EXPECT_EQ(Ic,               5);
     EXPECT_EQ(f0,               200);
 }
-TEST(regex_param, Test47){
+
+TEST(regex_param, Test47) {
     const std::string s = "MRF572, Vce=8 V, Ic=5 mA, f=500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -487,7 +533,8 @@ TEST(regex_param, Test47){
     EXPECT_EQ(Ic,               5);
     EXPECT_EQ(f0,               500);
 }
-TEST(regex_param, Test48){
+
+TEST(regex_param, Test48) {
     const std::string s = "MRF572, Vce=8 V, Ic=5 mA, f=1000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -497,7 +544,8 @@ TEST(regex_param, Test48){
     EXPECT_EQ(Ic,               5);
     EXPECT_EQ(f0,               1000);
 }
-TEST(regex_param, Test49){
+
+TEST(regex_param, Test49) {
     const std::string s = "MRF572, Vce=8 V, Ic=5 mA, f=1500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -507,7 +555,8 @@ TEST(regex_param, Test49){
     EXPECT_EQ(Ic,               5);
     EXPECT_EQ(f0,               1500);
 }
-TEST(regex_param, Test50){
+
+TEST(regex_param, Test50) {
     const std::string s = "MRF572, Vce=8 V, Ic=5 mA, f=2000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -517,7 +566,8 @@ TEST(regex_param, Test50){
     EXPECT_EQ(Ic,               5);
     EXPECT_EQ(f0,               2000);
 }
-TEST(regex_param, Test51){
+
+TEST(regex_param, Test51) {
     const std::string s = "MRF572, Vce=8 V, Ic=10 mA, f=200 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -527,7 +577,8 @@ TEST(regex_param, Test51){
     EXPECT_EQ(Ic,               10);
     EXPECT_EQ(f0,               200);
 }
-TEST(regex_param, Test52){
+
+TEST(regex_param, Test52) {
     const std::string s = "MRF572, Vce=8 V, Ic=10 mA, f=500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -537,7 +588,8 @@ TEST(regex_param, Test52){
     EXPECT_EQ(Ic,               10);
     EXPECT_EQ(f0,               500);
 }
-TEST(regex_param, Test53){
+
+TEST(regex_param, Test53) {
     const std::string s = "MRF572, Vce=8 V, Ic=10 mA, f=1000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -547,7 +599,8 @@ TEST(regex_param, Test53){
     EXPECT_EQ(Ic,               10);
     EXPECT_EQ(f0,               1000);
 }
-TEST(regex_param, Tes54){
+
+TEST(regex_param, Tes54) {
     const std::string s = "MRF572, Vce=8 V, Ic=10 mA, f=1500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -557,7 +610,8 @@ TEST(regex_param, Tes54){
     EXPECT_EQ(Ic,               10);
     EXPECT_EQ(f0,               1500);
 }
-TEST(regex_param, Test55){
+
+TEST(regex_param, Test55) {
     const std::string s = "MRF572, Vce=8 V, Ic=10 mA, f=2000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -567,7 +621,8 @@ TEST(regex_param, Test55){
     EXPECT_EQ(Ic,               10);
     EXPECT_EQ(f0,               2000);
 }
-TEST(regex_param, Test56){
+
+TEST(regex_param, Test56) {
     const std::string s = "MRF572, Vce=8 V, Ic=50 mA, f=200 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -577,7 +632,8 @@ TEST(regex_param, Test56){
     EXPECT_EQ(Ic,               50);
     EXPECT_EQ(f0,               200);
 }
-TEST(regex_param, Test57){
+
+TEST(regex_param, Test57) {
     const std::string s = "MRF572, Vce=8 V, Ic=50 mA, f=500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -587,7 +643,8 @@ TEST(regex_param, Test57){
     EXPECT_EQ(Ic,               50);
     EXPECT_EQ(f0,               500);
 }
-TEST(regex_param, Test58){
+
+TEST(regex_param, Test58) {
     const std::string s = "MRF572, Vce=8 V, Ic=50 mA, f=1000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -597,7 +654,8 @@ TEST(regex_param, Test58){
     EXPECT_EQ(Ic,               50);
     EXPECT_EQ(f0,               1000);
 }
-TEST(regex_param, Test59){
+
+TEST(regex_param, Test59) {
     const std::string s = "MRF572, Vce=8 V, Ic=50 mA, f=1500 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;
@@ -607,7 +665,8 @@ TEST(regex_param, Test59){
     EXPECT_EQ(Ic,               50);
     EXPECT_EQ(f0,               1500);
 }
-TEST(regex_param, Test60){
+
+TEST(regex_param, Test60) {
     const std::string s = "MRF572, Vce=8 V, Ic=50 mA, f=2000 MHz";
     std::string transistor_name;
     int Vce, Ic, f0;

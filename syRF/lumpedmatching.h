@@ -24,17 +24,15 @@
 
 
 namespace Ui {
-class LumpedMatching;
+    class LumpedMatching;
 }
 
-class LumpedMatching : public QDialog
-{
+class LumpedMatching : public QDialog {
     Q_OBJECT
 
 public:
     explicit LumpedMatching(QWidget *parent = nullptr);
     ~LumpedMatching();
-
 
 
 

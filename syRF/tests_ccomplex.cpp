@@ -28,7 +28,7 @@ TEST(y_parameters, Test0){
 
     EXPECT_EQ(typeid(double), typeid(12.2));
     
-    EXPECT_EQ(typeid(float), typeid((float) 12.2));
+    EXPECT_EQ(typeid(double), typeid((double) 12.2));
 }
 
 
@@ -36,17 +36,17 @@ TEST(y_parameters, Test1){
     
     const std::string y_i_from_lineedit = "12.423+94.1j";
 
-    std::complex<float> y_i = std::complex<float>(
-                                (float) ccomplex( y_i_from_lineedit ).Re(),
-                                (float) ccomplex( y_i_from_lineedit ).Im()
+    std::complex<double> y_i = std::complex<double>(
+                                (double) ccomplex( y_i_from_lineedit ).Re(),
+                                (double) ccomplex( y_i_from_lineedit ).Im()
                             );
 
 
     EXPECT_EQ(typeid(double), typeid( ccomplex( y_i_from_lineedit ).Re()) );
     EXPECT_EQ(typeid(double), typeid( ccomplex( y_i_from_lineedit ).Im()) );
 
-    EXPECT_EQ(y_i.real(), (float) 12.423);
-    EXPECT_EQ(y_i.imag(), (float) 94.1);
+    EXPECT_EQ(y_i.real(), (double) 12.423);
+    EXPECT_EQ(y_i.imag(), (double) 94.1);
     
 }
 
@@ -54,13 +54,13 @@ TEST(y_parameters, Test2){
     
     const std::string y_i_from_lineedit = "64.53423-1.5465454j";
 
-    std::complex<float> y_i = std::complex<float>(
-                                (float) ccomplex( y_i_from_lineedit ).Re(),
-                                (float) ccomplex( y_i_from_lineedit ).Im()
+    std::complex<double> y_i = std::complex<double>(
+                                (double) ccomplex( y_i_from_lineedit ).Re(),
+                                (double) ccomplex( y_i_from_lineedit ).Im()
                             );
 
-    EXPECT_EQ(y_i.real(), (float) 64.53423);
-    EXPECT_EQ(y_i.imag(), (float) -1.5465454);
+    EXPECT_EQ(y_i.real(), (double) 64.53423);
+    EXPECT_EQ(y_i.imag(), (double) -1.5465454);
     
 }
 

@@ -23,44 +23,37 @@
 
 
 /* type definitions */
-// #define complex_t               std::complex<float>
-typedef std::complex<float>     complex_t;
+// #define complex_t               std::complex<double>
+typedef std::complex<double>    complex_t;
 #define ONE_COMPLEX             complex_t(1.0, 0.0)
 
 
 
 
-
-
-float 
-linear_2_dB(float x){
+double linear_2_dB(double x) {
     return 10*log10(abs(x));
 }
 
-float 
-dB_2_linear(float x){
+double dB_2_linear(double x) {
     return pow(10, (x/10));
 }
 
-complex_t 
-polar_2_rect(float mag,
-             float phase) // phase in radians!
+complex_t polar_2_rect(double mag,
+                       double phase) // phase in radians!
 {
     return complex_t(mag*cos(phase), mag*sin(phase));
 }
 
 
-float
-get_value_from_dictionary(
-    std::map<float, float>& m,
-    float                   target_k
-){
+double get_value_from_dictionary(std::map<double, double>& m,
+                                double                   target_k)
+{
     /* Use two iterators pointing the elements one next to the other and traverse the map.
     Once one becomes bigger than the target while the other is still smaller I do a
     linear interpolation and return the value.
     */
-    std::map<float, float>::iterator it_slow = m.begin();
-    std::map<float, float>::iterator it_fast = m.begin();
+    std::map<double, double>::iterator it_slow = m.begin();
+    std::map<double, double>::iterator it_fast = m.begin();
     ++it_fast; // initializing it_fast 1 step ahead of it_slow
 
     while (it_fast != m.end()){
@@ -68,11 +61,11 @@ get_value_from_dictionary(
 
             // interpolate the target point and renaming the variables for convenience.
 
-            float a  = it_slow->first;
-            float fa = it_slow->second;
-            float b  = it_fast->first;
-            float fb = it_fast->second;
-            float c  = target_k;
+            double a  = it_slow->first;
+            double fa = it_slow->second;
+            double b  = it_fast->first;
+            double fb = it_fast->second;
+            double c  = target_k;
 
             return fa + ((fb-fa)/(b-a) * (c-a));
 
@@ -88,12 +81,11 @@ get_value_from_dictionary(
 
 
 
-void 
-filter_S_transistor_bias_settings(const std::string s,
-                                  std::string&      transistor_name, 
-                                  int&              Vce, 
-                                  int&              Ic, 
-                                  int&              f0)
+void filter_S_transistor_bias_settings(const std::string s,
+                                      std::string&      transistor_name, 
+                                      int&              Vce, 
+                                      int&              Ic, 
+                                      int&              f0)
 {
 
 #define REGEX_MATCHING_PATTERN      "(^MRF57[1-2]), Vce=(\\d+) V, Ic=(\\d+) mA, f=(\\d+) MHz"
@@ -138,9 +130,4 @@ filter_S_transistor_bias_settings(const std::string s,
 #endif
     return;
 }
-
-
-
-
-
 

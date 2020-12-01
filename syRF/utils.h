@@ -26,7 +26,7 @@
 #endif
 #include <string>
 
-typedef std::complex<float>     complex_t;
+typedef std::complex<double>    complex_t;
 #define ONE_COMPLEX             complex_t(1.0, 0.0)
 
 
@@ -76,19 +76,19 @@ typedef std::complex<float>     complex_t;
 
 
 
-float
-linear_2_dB(float x);
+double
+linear_2_dB(double x);
 
-float
-dB_2_linear(float x);
+double
+dB_2_linear(double x);
 
 
 complex_t 
-polar_2_rect(float mag,
-             float phase);
+polar_2_rect(double mag,
+             double phase);
 
-float
-get_value_from_dictionary(std::map<float, float>&, float);
+double
+get_value_from_dictionary(std::map<double, double>&, double);
 
 void 
 filter_S_transistor_bias_settings(const std::string s,
@@ -96,10 +96,6 @@ filter_S_transistor_bias_settings(const std::string s,
                                   int&              Vce, 
                                   int&              Ic, 
                                   int&              f0);
-
-
-
-
 
 
 

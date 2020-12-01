@@ -21,7 +21,7 @@
 
 
 namespace Ui {
-class MainWindow;
+    class MainWindow;
 }
 
 class MainWindow : public QMainWindow
@@ -158,7 +158,7 @@ private slots:
 
 
 
-    void on_action_About_2_triggered();;
+    void on_action_About_2_triggered();
 
     void on_action_LumpedMatching_triggered();
 
@@ -171,6 +171,8 @@ private slots:
     void on_open_datasheet_button_clicked();
 
     void on_actionStub_triggered();
+
+    void on_comboBox_MRF_bias_currentTextChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;

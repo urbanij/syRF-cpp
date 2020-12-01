@@ -13,3 +13,7 @@ tests_ccomplex
 plot_smith.py
 gist_2N4957_Y_params
 TODO
+
+# doxygen outputs
+html/
+latex/

@@ -18,17 +18,15 @@
 #include "utils.h"
 
 
-complex_t
-compute_D(complex_t s11,
-        complex_t s12,
-        complex_t s21,
-        complex_t s22);
+complex_t compute_D(complex_t s11,
+                    complex_t s12,
+                    complex_t s21,
+                    complex_t s22);
 
-float
-calculate_K(complex_t s11,
-            complex_t s12,
-            complex_t s21,
-            complex_t s22);
+double calculate_K(complex_t s11,
+                    complex_t s12,
+                    complex_t s21,
+                    complex_t s22);
 
 
 /////// GAMMAS ///////
@@ -61,20 +59,20 @@ calculate_gamma_out(complex_t s11,
 
 
 
-std::pair<complex_t, float>
+std::pair<complex_t, double>
 calculate_ISC(complex_t s11,
                 complex_t s12,
                 complex_t s21,
                 complex_t s22);
 
-std::pair<complex_t, float>
+std::pair<complex_t, double>
 calculate_OSC(complex_t s11,
                 complex_t s12,
                 complex_t s21,
                 complex_t s22);
 
 /////// GAINS ///////
-float
+double
 calculate_GP(complex_t s11,
                 complex_t s12,
                 complex_t s21,
@@ -82,7 +80,7 @@ calculate_GP(complex_t s11,
                 complex_t zl,
                 complex_t z0);
                 
-float
+double
 calculate_GT(complex_t s11,
                 complex_t s12,
                 complex_t s21,
@@ -91,7 +89,7 @@ calculate_GT(complex_t s11,
                 complex_t zl,
                 complex_t z0);
 
-float
+double
 calculate_GA(complex_t s11,
                 complex_t s12,
                 complex_t s21,
@@ -100,51 +98,51 @@ calculate_GA(complex_t s11,
                 complex_t z0);
 
 
-float
-calculate_NF(float      NFmin_db,
-            float       Rn,
+double
+calculate_NF(double      NFmin_db,
+            double       Rn,
             complex_t   gamma_s_on,
             complex_t   zs,
-            float       z0);
+            double       z0);
 
 
-std::pair<complex_t, float>
+std::pair<complex_t, double>
 calculate_NF_circle(complex_t s11,
                     complex_t s12,
                     complex_t s21,
                     complex_t s22,
-                    float   z0,
-                    float   NF_circle_dB,
+                    double   z0,
+                    double   NF_circle_dB,
                     complex_t gamma_s_on,
-                    float NF_opt_dB,
-                    float Rn);
+                    double NF_opt_dB,
+                    double Rn);
 
-std::pair<complex_t, float>
+std::pair<complex_t, double>
 calculate_GA_circle(complex_t s11,
                     complex_t s12,
                     complex_t s21,
                     complex_t s22,
-                    float     Ga_circle_dB);
+                    double     Ga_circle_dB);
 
 
-std::pair<complex_t, float>
+std::pair<complex_t, double>
 calculate_GP_circle(complex_t s11,
                     complex_t s12,
                     complex_t s21,
                     complex_t s22,
-                    float     Gp_circle_dB);
+                    double     Gp_circle_dB);
 
 
 
-std::pair<complex_t, float>
+std::pair<complex_t, double>
 calculate_GT_circle(complex_t s11,
                     complex_t s12,
                     complex_t s21,
                     complex_t s22,
                     complex_t zs,
                     complex_t zl,
-                    float z0,
-                    float Gt_circle_dB);
+                    double z0,
+                    double Gt_circle_dB);
 
 complex_t
 calculate_gamma_S_opt(complex_t s11,

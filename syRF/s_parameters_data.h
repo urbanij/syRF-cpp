@@ -20,16 +20,16 @@
 #include <complex>
 
 
-typedef std::complex<float>                     complex_t;
+typedef std::complex<double>                    complex_t;
 typedef std::tuple<std::string, int, int, int>  S_param_polarization_t;
 
 
-typedef std::pair<float, float>                 S_parameter_t;
-typedef std::vector<float>                      S_noise_vector_t;
+typedef std::pair<double, double>               S_parameter_t;
+typedef std::vector<double>                     S_noise_vector_t;
 
 
 typedef std::map<std::string, S_parameter_t>    S_parameters_map_t;
-typedef std::map<std::string, float>            S_noise_map_t;
+typedef std::map<std::string, double>           S_noise_map_t;
 
 
 std::map<S_param_polarization_t, S_parameters_map_t> 

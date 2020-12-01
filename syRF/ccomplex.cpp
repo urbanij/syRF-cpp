@@ -65,7 +65,7 @@ double ccomplex::Im() const {
 
 // Pretty prints ccomplex
 
-std::ostream& operator<<( std::ostream &out, const ccomplex& b ) {
+std::ostream& operator<<( std::ostream &out, const ccomplex& b) {
 
     bool realPrinted = false;
 
@@ -99,7 +99,7 @@ std::ostream& operator<<( std::ostream &out, const ccomplex& b ) {
 
 // natural extraction operator for ccomplexs
 
-std::istream& operator>> ( std::istream& in, ccomplex& z ) {
+std::istream& operator>> (std::istream& in, ccomplex& z) {
 
     std::string complexText;
     int plusPos, minusPos, i_Pos;

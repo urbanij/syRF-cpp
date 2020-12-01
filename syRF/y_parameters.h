@@ -16,11 +16,11 @@
 #include <complex>
 #include "utils.h"
 
-float
-linear_2_dB(float x);
+double
+linear_2_dB(double x);
 
 
-float
+double
 compute_C(
      complex_t y_i,
      complex_t y_f,
@@ -81,7 +81,7 @@ calculate_vout_over_vs(
      complex_t y_l
 );
 
-float
+double
 calculate_G_A(
      complex_t y_i,
      complex_t y_f,
@@ -91,7 +91,7 @@ calculate_G_A(
      complex_t y_s
 );
 
-float
+double
 calculate_G_P(
      complex_t y_i,
      complex_t y_f,
@@ -101,7 +101,7 @@ calculate_G_P(
      complex_t y_l
 );
 
-float
+double
 calculate_G_T(
      complex_t y_i,
      complex_t y_f,
@@ -113,7 +113,7 @@ calculate_G_T(
 );
 
 
-float
+double
 calculate_k(
      complex_t y_i,
      complex_t y_f,
@@ -124,7 +124,7 @@ calculate_k(
      complex_t y_l
 );
 
-float
+double
 calculate_g_s_opt(
      complex_t y_i,
      complex_t y_f,
